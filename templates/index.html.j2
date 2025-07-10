@@ -4,11 +4,47 @@
 {% endblock %}
 {% block content %}
 <h1>🎉 Days2Event</h1>
+<nav>
+  <ul id="main-menu" class="menu">
+    <li data-filter="all" class="active">All Festivals</li>
+    {% for genre in genres %}
+      <li data-filter="genre" data-value="{{ genre }}" class="has-submenu">
+        {{ genre }}
+        {% if genre in genre_artists %}
+          <ul class="submenu">
+            {% for artist in genre_artists[genre] %}
+              <li data-filter="artist" data-value="{{ artist }}">{{ artist }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+    <li data-filter="region" class="has-submenu">By Region
+      <ul class="submenu">
+        {% for continent, regions in continent_regions.items() %}
+          <li data-filter="continent" data-value="{{ continent }}" class="has-submenu">
+            {{ continent }}
+            <ul class="submenu">
+              {% for region in regions %}
+                <li data-filter="region" data-value="{{ region }}">{{ region }}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+</nav>
+
 <main class="events" id="events">
   {% for event in events %}
-  <div class="event-card" data-date="{{ event['Start Date'] }}">
+  <div class="event-card"
+       data-genre="{{ event['Genre'] }}"
+       data-region="{{ event['Region'] }}"
+       data-continent="{{ event['Continent'] }}"
+       data-artist="{{ event['Artist'] }}"
+       data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Festival Name'] }}</h2>
-    <h3>Artist: {{ event['Aritist'] }}</h3>
     <p>{{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}</p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">📆 Click to check</button>
@@ -18,30 +54,72 @@
   </div>
   {% endfor %}
 </main>
+
 <script>
-  const container = document.getElementById("events");
-  const cards = Array.from(container.querySelectorAll('.event-card'));
-  cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-  container.innerHTML = '';
-  cards.forEach(card => container.appendChild(card));
+const cards = [...document.querySelectorAll('.event-card')];
+const menu = document.getElementById('main-menu');
+
+function setActiveMenu(activeLi) {
+  menu.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+  activeLi.classList.add('active');
+}
+
+// 필터링 함수
+function filterCards(filterType, filterValue) {
+  if (filterType === 'all') {
+    cards.forEach(c => c.style.display = 'block');
+    return;
+  }
   cards.forEach(card => {
-    const btn = card.querySelector('.reveal-btn');
-    const countdown = card.querySelector('.countdown');
-    const dateStr = card.getAttribute('data-date');
-    const targetDate = new Date(dateStr);
-    const today = new Date();
-    const oneDay = 1000 * 60 * 60 * 24;
-    const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
-    btn.addEventListener('click', () => {
-      countdown.querySelector('strong').textContent = daysLeft > 0
-        ? `${daysLeft} days left`
-        : daysLeft === 0
-          ? `Today! 🎉`
-          : `Passed 💤`;
-      countdown.classList.remove('hidden');
-      countdown.classList.add('reveal-animation');
-      btn.style.display = 'none';
-    });
+    let show = false;
+    switch(filterType) {
+      case 'genre':
+        show = card.dataset.genre === filterValue;
+        break;
+      case 'artist':
+        show = card.dataset.artist === filterValue;
+        break;
+      case 'continent':
+        show = card.dataset.continent === filterValue;
+        break;
+      case 'region':
+        show = card.dataset.region === filterValue;
+        break;
+    }
+    card.style.display = show ? 'block' : 'none';
   });
+}
+
+menu.addEventListener('click', (e) => {
+  const li = e.target.closest('li');
+  if (!li) return;
+
+  const filterType = li.dataset.filter || 'all';
+  const filterValue = li.dataset.value || null;
+
+  filterCards(filterType, filterValue);
+  setActiveMenu(li);
+});
+
+// countdown buttons
+cards.forEach(card => {
+  const btn = card.querySelector('.reveal-btn');
+  const countdown = card.querySelector('.countdown');
+  const dateStr = card.getAttribute('data-date');
+  const targetDate = new Date(dateStr);
+  const today = new Date();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
+  btn.addEventListener('click', () => {
+    countdown.querySelector('strong').textContent = daysLeft > 0
+      ? `${daysLeft} days left`
+      : daysLeft === 0
+        ? `Today! 🎉`
+        : `Passed 💤`;
+    countdown.classList.remove('hidden');
+    countdown.classList.add('reveal-animation');
+    btn.style.display = 'none';
+  });
+});
 </script>
 {% endblock %}

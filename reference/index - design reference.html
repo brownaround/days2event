@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Days2Event - Global Festival Countdown</title>
+  <meta name="google-site-verification" content="xIaVGzggqpsGZRNtM762u1ctJKTV7aZN-nlicl8ucX8" />
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Track upcoming global music festivals like Coachella, Tomorrowland, and EDC. See how many days left until the next big rave or concert!" />
+  <meta name="keywords" content="music festival countdown, Coachella, Tomorrowland, EDC, KPOP, EDM, POP, Pride, festival calendar" />
+  <meta name="author" content="Days2Event Team" />
+  <meta property="og:title" content="Days2Event - Global Festival Countdown" />
+  <meta property="og:description" content="How many days until your favorite festival? Find out now!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://days2event.com/" />
+  <meta property="og:image" content="https://days2event.com/og-cover.jpg" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">🎉 Days2Event</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#">✨ Multi-Genre</a></li>
+      <li><a href="#">🪩 EDM</a></li>
+      <li><a href="#">🎶 POP</a></li>
+      <li><a href="#">🇰🇷🎵 K-POP</a></li>
+      <li><a href="#">🏳️‍🌈 PRIDE</a></li>
+      <li><a href="#">📍 By Region</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <header class="hero">
+    <h1>🌟 Your Festival Countdown Starts Here!</h1>
+    <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
+    <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
+  </header>
+
+  <main class="events" id="events">
+    <div class="event-card" data-date="2025-07-18">
+      <h2>🎠 Tomorrowland 2025 (Weekend 1)</h2>
+      <p>July 18–20, 2025 · Boom, Belgium</p>
+      <div class="countdown-wrapper">
+        <button class="reveal-btn">📆 Click to check</button>
+        <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+      </div>
+      <a href="https://www.tomorrowland.com" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    </div>
+
+    <div class="event-card" data-date="2025-07-25">
+      <h2>🎠 Tomorrowland 2025 (Weekend 2)</h2>
+      <p>July 25–27, 2025 · Boom, Belgium</p>
+      <div class="countdown-wrapper">
+        <button class="reveal-btn">📆 Click to check</button>
+        <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+      </div>
+      <a href="https://www.tomorrowland.com" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    </div>
+
+    <div class="event-card" data-date="2026-03-27">
+      <h2>🎶 Ultra Music Festival 2026</h2>
+      <p>March 27–29, 2026 · Miami, NV </p>
+      <div class="countdown-wrapper">
+        <button class="reveal-btn">📆 Click to check</button>
+        <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+      </div>
+      <a href="https://ultramusicfestival.com" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    </div>
+
+    <div class="event-card" data-date="2026-05-15">
+      <h2>🎡 EDC Las Vegas 2026</h2>
+      <p>May 15–17, 2026 · Las Vegas, NV</p>
+      <div class="countdown-wrapper">
+        <button class="reveal-btn">📆 Click to check</button>
+        <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+      </div>
+      <a href="https://lasvegas.electricdaisycarnival.com/" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Days2Event · All rights reserved</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("navMenu");
+      nav.classList.toggle("show");
+    }
+
+    const container = document.getElementById("events");
+    const cards = Array.from(container.querySelectorAll('.event-card'));
+
+    cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+    container.innerHTML = '';
+    cards.forEach(card => container.appendChild(card));
+
+    cards.forEach(card => {
+      const btn = card.querySelector('.reveal-btn');
+      const countdown = card.querySelector('.countdown');
+      const dateStr = card.getAttribute('data-date');
+      const targetDate = new Date(dateStr);
+      const today = new Date();
+      const oneDay = 1000 * 60 * 60 * 24;
+      const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
+
+      btn.addEventListener('click', () => {
+        countdown.querySelector('strong').textContent = daysLeft > 0
+          ? `${daysLeft} days left`
+          : daysLeft === 0
+            ? `Today! 🎉`
+            : `Passed 💤`;
+        countdown.classList.remove('hidden');
+        countdown.classList.add('reveal-animation');
+        btn.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
