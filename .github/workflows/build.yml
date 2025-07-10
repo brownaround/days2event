@@ -27,7 +27,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git pull --rebase
           git add site
-          git commit -m "Auto-generated site" || echo "Nothing to commit"
-          git push || echo "Push failed but build is OK"
+          git commit -m "Auto-generated site" || echo "No changes to commit"
+          git pull --rebase --autostash
+          git push || echo "Push failed, but build completed"
