@@ -40,3 +40,6 @@ with open("site/index.html", "w", encoding="utf-8") as f:
 shutil.copy("templates/style.css", "site/style.css")
 
 print("✅ HTML and CSS generated successfully")
+print("📁 Files in site/:", os.listdir("site"))
+print("📦 site/index.html exists:", os.path.exists("site/index.html"))
+print("📦 site/style.css exists:", os.path.exists("site/style.css"))
