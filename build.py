@@ -42,3 +42,9 @@ print("📁 Files in site/:", os.listdir("site"))
 print("📦 site/index.html exists:", os.path.exists("site/index.html"))
 print("📦 site/style.css exists:", os.path.exists("site/style.css"))
 print("✅ HTML and CSS generated successfully")
+print("🎯 렌더링 결과:")
+rendered = template.render(events=df.to_dict(orient="records"))
+print(rendered[:500])  # 앞 500자 미리보기
+
+with open("site/index.html", "w", encoding="utf-8") as f:
+    f.write(rendered)
