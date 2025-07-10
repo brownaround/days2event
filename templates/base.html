@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page_title or "Days2Event" }}</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header><h1>🎉 Days2Event</h1></header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer><p>© {{ current_year }} Days2Event</p></footer>
+</body>
+</html>
