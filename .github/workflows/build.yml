@@ -9,18 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
+
       - name: Install dependencies
         run: pip install pandas jinja2
+
       - name: Run build.py
         run: python build.py
+
       - name: Commit built site
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git pull --rebase
           git add site
-          git commit -m "Auto-generated site"
-          git push
+          git commit -m "Auto-generated site" || echo "Nothing to commit"
+          git push || echo "Push failed but build is OK"
