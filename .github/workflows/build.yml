@@ -1,29 +1,35 @@
-name: Build Days2Event
+name: Build and Deploy Days2Event
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.x'
+
       - name: Install dependencies
-        run: pip install pandas jinja2
-      - name: Run build.py
-        run: python build.py
-      - name: Commit built site
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add site/index.html site/style.css
-          git commit -m "Auto-generated site" || echo "No changes to commit"
-          git pull --rebase --autostash
-          git push || echo "Push failed, but build completed"
+          python -m pip install --upgrade pip
+          pip install pandas jinja2
+
+      - name: Run build script
+        run: python build.py
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_PROJECT_NAME: ${{ secrets.CF_PROJECT_NAME }}
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/${CF_PROJECT_NAME}/deployments"             -H "Authorization: Bearer ${CF_API_TOKEN}"             -H "Content-Type: application/json"             -d '{"deployment_trigger": "github"}'

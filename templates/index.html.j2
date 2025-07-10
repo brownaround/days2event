@@ -1,62 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Days2Event - Global Festival Countdown</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-  <h1>🎉 Days2Event</h1>
-  <main class="events" id="events">
-    {% for event in events %}
-    <div class="event-card" data-date="{{ event['Start Date'] }}">
-      <h2>{{ event['Festival Name'] }}</h2>
-      <h3>Artist: {{ event['Aritist'] }}</h3>
-      <p>{{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}</p>
-      <div class="countdown-wrapper">
-        <button class="reveal-btn">📆 Click to check</button>
-        <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
-      </div>
-      <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="style.css" />
+{% endblock %}
+{% block content %}
+<h1>🎉 Days2Event</h1>
+<main class="events" id="events">
+  {% for event in events %}
+  <div class="event-card" data-date="{{ event['Start Date'] }}">
+    <h2>{{ event['Festival Name'] }}</h2>
+    <h3>Artist: {{ event['Aritist'] }}</h3>
+    <p>{{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}</p>
+    <div class="countdown-wrapper">
+      <button class="reveal-btn">📆 Click to check</button>
+      <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
     </div>
-    {% endfor %}
-  </main>
-
-  <script>
-    function toggleMenu() {
-      const nav = document.getElementById("navMenu");
-      nav.classList.toggle("show");
-    }
-
-    const container = document.getElementById("events");
-    const cards = Array.from(container.querySelectorAll('.event-card'));
-
-    cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-    container.innerHTML = '';
-    cards.forEach(card => container.appendChild(card));
-
-    cards.forEach(card => {
-      const btn = card.querySelector('.reveal-btn');
-      const countdown = card.querySelector('.countdown');
-      const dateStr = card.getAttribute('data-date');
-      const targetDate = new Date(dateStr);
-      const today = new Date();
-      const oneDay = 1000 * 60 * 60 * 24;
-      const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
-
-      btn.addEventListener('click', () => {
-        countdown.querySelector('strong').textContent = daysLeft > 0
-          ? `${daysLeft} days left`
-          : daysLeft === 0
-            ? `Today! 🎉`
-            : `Passed 💤`;
-        countdown.classList.remove('hidden');
-        countdown.classList.add('reveal-animation');
-        btn.style.display = 'none';
-      });
+    <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+  </div>
+  {% endfor %}
+</main>
+<script>
+  const container = document.getElementById("events");
+  const cards = Array.from(container.querySelectorAll('.event-card'));
+  cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+  container.innerHTML = '';
+  cards.forEach(card => container.appendChild(card));
+  cards.forEach(card => {
+    const btn = card.querySelector('.reveal-btn');
+    const countdown = card.querySelector('.countdown');
+    const dateStr = card.getAttribute('data-date');
+    const targetDate = new Date(dateStr);
+    const today = new Date();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
+    btn.addEventListener('click', () => {
+      countdown.querySelector('strong').textContent = daysLeft > 0
+        ? `${daysLeft} days left`
+        : daysLeft === 0
+          ? `Today! 🎉`
+          : `Passed 💤`;
+      countdown.classList.remove('hidden');
+      countdown.classList.add('reveal-animation');
+      btn.style.display = 'none';
     });
-  </script>
-</body>
-</html>
+  });
+</script>
+{% endblock %}
