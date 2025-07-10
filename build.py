@@ -4,7 +4,8 @@ import os
 import shutil
 import sys
 
-def main():
+def main()
+    generate_detail_pages(os.path.join(base_dir, 'festivals.json'), 'festival_template.html', output_dir):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     template_dir = os.path.join(base_dir, "templates")
     output_dir = os.path.join(base_dir, "site")
@@ -58,5 +59,35 @@ def main():
         print(f"Failed to copy CSS: {e}", file=sys.stderr)
         sys.exit(1)
 
+
+def generate_detail_pages(json_path, template_name, output_dir):
+    import json
+    from jinja2 import Environment, FileSystemLoader
+
+    try:
+        with open(json_path, "r", encoding="utf-8") as f:
+            festivals = json.load(f)
+    except Exception as e:
+        print(f"Failed to load festivals JSON: {e}", file=sys.stderr)
+        return
+
+    try:
+        env = Environment(loader=FileSystemLoader(template_dir))
+        template = env.get_template(template_name)
+    except Exception as e:
+        print(f"Failed to load detail page template: {e}", file=sys.stderr)
+        return
+
+    for fest in festivals:
+        try:
+            rendered = template.render(**fest)
+            output_path = os.path.join(output_dir, f"{fest['slug']}.html")
+            with open(output_path, "w", encoding="utf-8") as f:
+                f.write(rendered)
+        except Exception as e:
+            print(f"Failed to render/write page for {fest.get('title', 'unknown')}: {e}", file=sys.stderr)
+
+
 if __name__ == "__main__":
     main()
+    generate_detail_pages(os.path.join(base_dir, 'festivals.json'), 'festival_template.html', output_dir)
