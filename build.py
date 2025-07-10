@@ -5,21 +5,29 @@ import shutil
 
 print("🚀 build.py started")
 
-# CSV 로딩 (이미 정리된 상태)
-df = pd.read_csv("events_fixed.csv")
-print("✅ events_fixed.csv loaded")
+try:
+    df = pd.read_csv("events_fixed.csv")
+    print("✅ events_fixed.csv loaded")
+except Exception as e:
+    print("❌ CSV loading failed:", e)
 
-env = Environment(loader=FileSystemLoader("templates"))
-template = env.get_template("index.html.j2")
-print("🧩 Template loaded")
+try:
+    env = Environment(loader=FileSystemLoader("templates"))
+    template = env.get_template("index.html.j2")
+    print("🧩 Template loaded")
+except Exception as e:
+    print("❌ Template loading failed:", e)
 
-os.makedirs("site", exist_ok=True)
+try:
+    os.makedirs("site", exist_ok=True)
+    with open("site/index.html", "w", encoding="utf-8") as f:
+        f.write(template.render(events=df.to_dict(orient="records")))
+    print("✅ index.html generated")
+except Exception as e:
+    print("❌ HTML generation failed:", e)
 
-# HTML 렌더링
-with open("site/index.html", "w", encoding="utf-8") as f:
-    f.write(template.render(events=df.to_dict(orient="records")))
-
-# CSS 복사
-shutil.copy("templates/style.css", "site/style.css")
-
-print("✅ HTML and CSS generated successfully")
+try:
+    shutil.copy("templates/style.css", "site/style.css")
+    print("✅ style.css copied")
+except Exception as e:
+    print("❌ CSS copy failed:", e)
