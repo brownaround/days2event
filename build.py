@@ -3,6 +3,7 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 import os
+import shutil
 
 print("🚀 build.py started")
 
@@ -35,4 +36,7 @@ os.makedirs("site", exist_ok=True)
 with open("site/index.html", "w", encoding="utf-8") as f:
     f.write(template.render(events=df.to_dict(orient="records"), current_year=datetime.now().year))
 
-print("✅ HTML generated successfully")
+# Copy style.css
+shutil.copy("templates/style.css", "site/style.css")
+
+print("✅ HTML and CSS generated successfully")

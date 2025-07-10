@@ -1,10 +1,29 @@
 {% extends "base.html" %}
+{% block head %}
+  <link rel="stylesheet" href="style.css" />
+{% endblock %}
 {% block content %}
-  {% for event in events %}
-    <div>
-      <h2>{{ event.name }}</h2>
-      <p>{{ event.dates }} · {{ event.location }}</p>
-      <a href="{{ event.link }}" target="_blank">Official Site</a>
-    </div>
-  {% endfor %}
+  <div class="festival-list">
+    {% for event in events %}
+      <div class="event-card">
+        <h2>{{ event.name }}</h2>
+        <p>{{ event.dates }} · {{ event.location }}</p>
+        <a href="{{ event.link }}" target="_blank">Official Site</a>
+        <button class="countdown-btn" onclick="showCountdown(this, '{{ event.start_date }}')">⏳ How many days left?</button>
+        <p class="countdown-result" style="display: none;"></p>
+      </div>
+    {% endfor %}
+  </div>
+  <script>
+    function showCountdown(button, startDate) {
+      const target = new Date(startDate);
+      const today = new Date();
+      const diffTime = target - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const result = button.nextElementSibling;
+      result.innerText = diffDays > 0 ? `${diffDays} days left!` : 'Started or Passed!';
+      result.style.display = 'block';
+      button.style.display = 'none';
+    }
+  </script>
 {% endblock %}
