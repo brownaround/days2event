@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>{{ page_title or "Days2Event" }}</title>
+  {% block head %}{% endblock %}
 </head>
 <body>
-  <h1>🎉 Days2Event</h1>
   {% block content %}{% endblock %}
 </body>
 </html>

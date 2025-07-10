@@ -33,13 +33,12 @@ template = env.get_template("index.html.j2")
 print("🧩 Template loaded")
 
 os.makedirs("site", exist_ok=True)
-with open("site/index.html", "w", encoding="utf-8") as f:
+index_path = "site/index.html"
+with open(index_path, "w", encoding="utf-8") as f:
     f.write(template.render(events=df.to_dict(orient="records"), current_year=datetime.now().year))
 
-# Copy style.css
 shutil.copy("templates/style.css", "site/style.css")
-
-print("✅ HTML and CSS generated successfully")
 print("📁 Files in site/:", os.listdir("site"))
 print("📦 site/index.html exists:", os.path.exists("site/index.html"))
 print("📦 site/style.css exists:", os.path.exists("site/style.css"))
+print("✅ HTML and CSS generated successfully")

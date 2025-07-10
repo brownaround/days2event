@@ -23,7 +23,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add site
+          git add site/index.html site/style.css
           git commit -m "Auto-generated site" || echo "No changes to commit"
           git pull --rebase --autostash
           git push || echo "Push failed, but build completed"
