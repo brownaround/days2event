@@ -3,38 +3,54 @@
 <link rel="stylesheet" href="style.css" />
 {% endblock %}
 {% block content %}
-<h1>🎉 Days2Event</h1>
-<nav>
-  <ul id="main-menu" class="menu">
-    <li data-filter="all" class="active">All Festivals</li>
-    {% for genre in genres %}
-      <li data-filter="genre" data-value="{{ genre }}" class="has-submenu">
-        {{ genre }}
-        {% if genre in genre_artists %}
-          <ul class="submenu">
-            {% for artist in genre_artists[genre] %}
-              <li data-filter="artist" data-value="{{ artist }}">{{ artist }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">🎉 Days2Event</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#" data-filter="all">✨ Multi-Genre</a></li>
+      <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
+      <li class="has-submenu">
+        <a href="#" data-filter="genre" data-value="POP">🎶 POP</a>
+        <ul class="submenu">
+          {% for artist in genre_artists.get('POP', []) %}
+          <li><a href="#" data-filter="artist" data-value="{{ artist }}">{{ artist }}</a></li>
+          {% endfor %}
+        </ul>
       </li>
-    {% endfor %}
-    <li data-filter="region" class="has-submenu">By Region
-      <ul class="submenu">
-        {% for continent, regions in continent_regions.items() %}
-          <li data-filter="continent" data-value="{{ continent }}" class="has-submenu">
-            {{ continent }}
+      <li class="has-submenu">
+        <a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a>
+        <ul class="submenu">
+          {% for artist in genre_artists.get('K-POP', []) %}
+          <li><a href="#" data-filter="artist" data-value="{{ artist }}">{{ artist }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li><a href="#" data-filter="genre" data-value="PRIDE">🏳️‍🌈 PRIDE</a></li>
+      <li class="has-submenu">
+        <a href="#" data-filter="region">📍 By Region</a>
+        <ul class="submenu">
+          {% for continent, regions in continent_regions.items() %}
+          <li class="has-submenu">
+            <a href="#" data-filter="continent" data-value="{{ continent }}">{{ continent }}</a>
             <ul class="submenu">
               {% for region in regions %}
-                <li data-filter="region" data-value="{{ region }}">{{ region }}</li>
+              <li><a href="#" data-filter="region" data-value="{{ region }}">{{ region }}</a></li>
               {% endfor %}
             </ul>
           </li>
-        {% endfor %}
-      </ul>
-    </li>
-  </ul>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+  </div>
 </nav>
+
+<header class="hero">
+  <h1>🌟 Your Festival Countdown Starts Here!</h1>
+  <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
+  <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
+</header>
 
 <main class="events" id="events">
   {% for event in events %}
@@ -55,70 +71,77 @@
   {% endfor %}
 </main>
 
-<script>
-const cards = [...document.querySelectorAll('.event-card')];
-const menu = document.getElementById('main-menu');
+<footer>
+  <p>© 2025 Days2Event · All rights reserved</p>
+</footer>
 
-function setActiveMenu(activeLi) {
-  menu.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-  activeLi.classList.add('active');
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("navMenu");
+  nav.classList.toggle("show");
 }
 
-// 필터링 함수
+const navLinks = document.querySelectorAll("#navMenu a");
+const cards = [...document.querySelectorAll(".event-card")];
+
+function setActiveLink(activeLink) {
+  navLinks.forEach(link => link.classList.remove("active"));
+  if (activeLink) activeLink.classList.add("active");
+}
+
 function filterCards(filterType, filterValue) {
-  if (filterType === 'all') {
-    cards.forEach(c => c.style.display = 'block');
+  if (!filterType || filterType === "all") {
+    cards.forEach(card => card.style.display = "block");
     return;
   }
   cards.forEach(card => {
     let show = false;
     switch(filterType) {
-      case 'genre':
+      case "genre":
         show = card.dataset.genre === filterValue;
         break;
-      case 'artist':
+      case "artist":
         show = card.dataset.artist === filterValue;
         break;
-      case 'continent':
+      case "continent":
         show = card.dataset.continent === filterValue;
         break;
-      case 'region':
+      case "region":
         show = card.dataset.region === filterValue;
         break;
     }
-    card.style.display = show ? 'block' : 'none';
+    card.style.display = show ? "block" : "none";
   });
 }
 
-menu.addEventListener('click', (e) => {
-  const li = e.target.closest('li');
-  if (!li) return;
-
-  const filterType = li.dataset.filter || 'all';
-  const filterValue = li.dataset.value || null;
-
-  filterCards(filterType, filterValue);
-  setActiveMenu(li);
+navLinks.forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const filterType = e.target.dataset.filter;
+    const filterValue = e.target.dataset.value;
+    filterCards(filterType, filterValue);
+    setActiveLink(e.target);
+  });
 });
 
 // countdown buttons
 cards.forEach(card => {
-  const btn = card.querySelector('.reveal-btn');
-  const countdown = card.querySelector('.countdown');
-  const dateStr = card.getAttribute('data-date');
+  const btn = card.querySelector(".reveal-btn");
+  const countdown = card.querySelector(".countdown");
+  const dateStr = card.getAttribute("data-date");
   const targetDate = new Date(dateStr);
   const today = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
   const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
-  btn.addEventListener('click', () => {
-    countdown.querySelector('strong').textContent = daysLeft > 0
+  btn.addEventListener("click", () => {
+    countdown.querySelector("strong").textContent = daysLeft > 0
       ? `${daysLeft} days left`
       : daysLeft === 0
         ? `Today! 🎉`
         : `Passed 💤`;
-    countdown.classList.remove('hidden');
-    countdown.classList.add('reveal-animation');
-    btn.style.display = 'none';
+    countdown.classList.remove("hidden");
+    countdown.classList.add("reveal-animation");
+    btn.style.display = "none";
   });
 });
 </script>

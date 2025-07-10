@@ -16,7 +16,6 @@ def main():
         print(f"Failed to load CSV: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # 전처리: 장르, 아티스트, 대륙, 지역 데이터 추출 및 그룹핑
     df.fillna('', inplace=True)
 
     genres = sorted(df['Genre'].unique())
