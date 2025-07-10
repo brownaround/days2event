@@ -60,13 +60,14 @@
        data-continent="{{ event['Continent'] }}"
        data-artist="{{ event['Artist'] }}"
        data-date="{{ event['Start Date'] }}">
-    <h2><a href="{{ event['Slug'] }}.html">{{ event['Festival Name'] }}</a></h2>
+    <h2>{{ event['Festival Name'] }}</h2>
     <p>{{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}</p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">📆 Click to check</button>
       <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
     </div>
     <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
   </div>
   {% endfor %}
 </main>
