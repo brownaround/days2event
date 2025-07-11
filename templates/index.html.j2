@@ -5,10 +5,10 @@
 {% block content %}
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo">🎉 Days2Event</div>
+    <div class="logo" onclick="showHome()">🎉 Days2Event</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <ul class="nav-links" id="navMenu">
-      <li><a href="#" data-filter="all" class="active">✨ Multi-Genre</a></li>
+      <li><a href="#" data-filter="multi-genre" class="active">✨ Multi-Genre</a></li>
       <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
       <li><a href="#" data-filter="genre" data-value="POP">🎶 POP</a></li>
       <li><a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a></li>
@@ -58,11 +58,14 @@
        data-genre="{{ event['Genre'] }}"
        data-region="{{ event['Region'] }}"
        data-artist="{{ event['Artist'] }}"
-       data-date="{{ event['Start Date'] }}">
+       data-date="{{ event['Start Date'] }}"
+       data-multi-genre="{{ 'yes' if ',' in event['Genre'] else 'no' }}">
     <h2>{{ event['Festival Name'] }}</h2>
-    <p>{{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}</p>
+    <p>
+      {{ countryToEmoji(event['Country']) }} {{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}
+    </p>
     <div class="countdown-wrapper">
-      <button class="reveal-btn">📆 Click to check</button>
+      <button class="reveal-btn">⏳ How many days left?</button>
       <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
     </div>
     <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
@@ -80,6 +83,42 @@ function toggleMenu() {
   nav.classList.toggle("show");
 }
 
+// 홈(로고) 클릭시 전체 이벤트 보이도록 필터링 해제
+function showHome() {
+  filterCards('all');
+  setActiveLink(null);
+}
+
+// 국가명 → 이모지 변환 함수
+function countryToEmoji(country) {
+  const countryMap = {
+    "USA": "🇺🇸",
+    "United States": "🇺🇸",
+    "South Korea": "🇰🇷",
+    "Korea": "🇰🇷",
+    "Belgium": "🇧🇪",
+    "France": "🇫🇷",
+    // 필요한 국가 추가...
+  };
+  return countryMap[country] || country;
+}
+
+// 이벤트 카드 국가명 이모지 치환 (템플릿 렌더링 중 사용할 수도 있음)
+document.querySelectorAll('.event-card p').forEach(p => {
+  let text = p.textContent;
+  for (const [key, emoji] of Object.entries({
+    "USA": "🇺🇸",
+    "United States": "🇺🇸",
+    "South Korea": "🇰🇷",
+    "Korea": "🇰🇷",
+    "Belgium": "🇧🇪",
+    "France": "🇫🇷"
+  })) {
+    text = text.replace(new RegExp(key, 'g'), emoji);
+  }
+  p.textContent = text;
+});
+
 const navLinks = document.querySelectorAll("#navMenu a");
 const cards = [...document.querySelectorAll(".event-card")];
 
@@ -89,27 +128,26 @@ function setActiveLink(activeLink) {
 }
 
 function filterCards(filterType, filterValue) {
-  if (!filterType || filterType === "all") {
-    cards.forEach(card => card.style.display = "none");
-    cards.slice(0,4).forEach(card => card.style.display = "block");
-    return;
-  }
   let visibleCards = [];
-  cards.forEach(card => {
-    let show = false;
-    switch(filterType) {
-      case "genre":
-        show = card.dataset.genre === filterValue;
-        break;
-      case "artist":
-        show = card.dataset.artist === filterValue;
-        break;
-      case "region":
-        show = card.dataset.region === filterValue;
-        break;
-    }
-    if(show) visibleCards.push(card);
-  });
+  switch(filterType) {
+    case 'all':
+      visibleCards = cards;
+      break;
+    case 'multi-genre':
+      visibleCards = cards.filter(card => card.dataset.multiGenre === 'yes');
+      break;
+    case 'genre':
+      visibleCards = cards.filter(card => card.dataset.genre === filterValue);
+      break;
+    case 'artist':
+      visibleCards = cards.filter(card => card.dataset.artist === filterValue);
+      break;
+    case 'region':
+      visibleCards = cards.filter(card => card.dataset.region === filterValue);
+      break;
+    default:
+      visibleCards = cards;
+  }
   cards.forEach(card => card.style.display = "none");
   visibleCards.slice(0,4).forEach(card => card.style.display = "block");
 }
@@ -129,7 +167,7 @@ navLinks.forEach(link => {
   });
 });
 
-// Tab menu logic
+// 탭 메뉴 로직
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.tab-content');
 
@@ -143,7 +181,7 @@ tabs.forEach(tab => {
   });
 });
 
-// countdown buttons and hide past events
+// 카운트다운 버튼 및 지난 이벤트 숨기기
 cards.forEach(card => {
   const btn = card.querySelector(".reveal-btn");
   const countdown = card.querySelector(".countdown");
@@ -153,7 +191,6 @@ cards.forEach(card => {
   const oneDay = 1000 * 60 * 60 * 24;
   const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
 
-  // Hide past events by default
   if (daysLeft < 0) {
     card.style.display = "none";
   }
@@ -167,7 +204,7 @@ cards.forEach(card => {
     countdown.classList.remove("hidden");
     countdown.classList.add("reveal-animation");
     btn.style.display = "none";
-    card.style.display = "block";  // Show card even if past when clicked
+    card.style.display = "block";
   });
 });
 </script>

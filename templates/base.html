@@ -22,30 +22,35 @@
   <meta name="twitter:description" content="How many days until your favorite festival? Find out now!" />
   <meta name="twitter:image" content="https://days2event.com/og-cover.jpg" />
 
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-PS7Q2ZMR');</script>
+  <!-- Google Tag Manager (GTM) - Replace 'GTM-PS7Q2ZMR' below with your own GTM ID -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PS7Q2ZMR');
+  </script>
   <!-- End Google Tag Manager -->
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78R520RQ1E"></script>  <!-- 여기에 GA4 ID 교체 -->
+  <!-- Google Analytics 4 (GA4) - Replace 'G-78R520RQ1E' below with your own GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78R520RQ1E"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-78R520RQ1E');  // 여기에 GA4 ID 교체
+    gtag('config', 'G-78R520RQ1E');
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473"
-     crossorigin="anonymous"></script>  <!-- 여기에 AdSense 퍼블리셔 ID 교체 -->
+  <!-- Google AdSense - Replace 'ca-pub-8888557569927473' below with your own AdSense Publisher ID -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473" crossorigin="anonymous"></script>
 
   {% block head %}{% endblock %}
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) - Replace 'GTM-PS7Q2ZMR' below with your own GTM ID -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PS7Q2ZMR"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->

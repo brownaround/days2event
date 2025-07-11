@@ -18,8 +18,10 @@ def main():
 
     df.fillna('', inplace=True)
 
-    # Region 컬럼 통합 (Continent 없음)
-    df['Region'] = df['Region'].fillna('')
+    # 복수 장르 필터링 (Multi-Genre 정의: 장르가 콤마(,) 포함된 경우)
+    df['GenreList'] = df['Genre'].str.split(',')
+    multi_genre_events = df[df['GenreList'].apply(lambda x: len(x) > 1 if isinstance(x, list) else False)]
+
     regions = sorted(df['Region'].unique())
     genre_artists = {}
     for genre in ['POP', 'K-POP']:
@@ -42,6 +44,7 @@ def main():
     try:
         rendered_html = template.render(
             events=df.to_dict(orient="records"),
+            multi_genre_events=multi_genre_events.to_dict(orient="records"),
             genre_artists=genre_artists,
             region_groups=region_groups
         )
