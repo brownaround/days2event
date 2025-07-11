@@ -7,6 +7,12 @@
   <div class="nav-container">
     <div class="logo">🎉 Days2Event</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="button-group">
+      <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+      {% if event.Slug %}
+       <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
+      {% endif %}
+    </div>
     <ul class="nav-links" id="navMenu">
       <li><a href="#" data-filter="all">✨ Multi-Genre</a></li>
       <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
@@ -46,9 +52,20 @@
   </div>
 </nav>
 
-<header class="hero">
-  <h1>🌟 Your Festival Countdown Starts Here!</h1>
-  <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
+<header class="hero" id="hero-section">
+  {% if selected_genre == 'POP' %}
+    <h1>🎶 Dive into the World of POP Festivals!</h1>
+    <p>Discover the hottest pop music events near you.</p>
+  {% elif selected_genre == 'K-POP' %}
+    <h1>🇰🇷🎵 K-POP Mania Starts Here!</h1>
+    <p>Stay updated with the biggest K-POP festivals worldwide.</p>
+  {% elif selected_genre == 'PRIDE' %}
+    <h1>🏳️‍🌈 Celebrate Love & Music at PRIDE Festivals!</h1>
+    <p>Join vibrant pride events full of music and unity.</p>
+  {% else %}
+    <h1>🌟 Your Festival Countdown Starts Here!</h1>
+    <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
+  {% endif %}
   <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
 </header>
 
