@@ -1,6 +1,8 @@
-Festival Name,Start Date,End Date,City,Country,Genre,Artist,Region,Continent,Link,Slug
-Tomorrowland 2025,2025-07-18,2025-07-20,Boom,Belgium,EDM,,Europe,Europe,https://www.tomorrowland.com,tomorrowland-2025
-Ultra Music Festival 2026,2026-03-27,2026-03-29,Miami,USA,EDM,,North America,North America,https://ultramusicfestival.com,ultra-music-festival-2026
-Coachella 2025,2025-04-10,2025-04-20,Indio,USA,POP,Artist A,North America,North America,https://coachella.com,coachella-2025
-KCON LA 2025,2025-08-10,2025-08-12,Los Angeles,USA,K-POP,Artist X,North America,North America,https://kconusa.com,kcon-la-2025
-Pride Festival 2025,2025-06-01,2025-06-10,San Francisco,USA,PRIDE,,North America,North America,https://pride.com,pride-festival-2025
+Festival Name,Start Date,End Date,City,Country,Genre,Artist,Region,Link,Slug
+Tomorrowland 2025 - Week 1,2025-07-18,2025-07-20,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,tomorrowland-2025
+Tomorrowland 2025 - Week 2,2025-07-25,2025-07-27,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,tomorrowland-2025
+Ultra Music Festival 2026,2026-03-27,2026-03-29,"Miami, FL",USA,EDM,,North America,https://ultramusicfestival.com,ultra-music-festival-2026
+Coachella 2026 - Week 1,2026-04-10,2026-04-12,"Indio, CA",USA,Multi-Genre,,North America,https://coachella.com,coachella-2026
+Coachella 2025 - Week 2,2026-04-17,2026-04-19,"Indio, CA",USA,Multi-Genre,,North America,https://coachella.com,coachella-2026
+KCON LA 2025,2025-08-01,2025-08-03,"Los Angeles, CA",USA,K-POP,,North America,https://kconusa.com,kcon-la-2025
+White Party Bangkok 2025,2025-12-27,2025-12-31,Bangkok,USA,PRIDE,,North America,https://whitepartybangkok.com/,white-party-bkk-2026

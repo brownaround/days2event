@@ -40,9 +40,10 @@ body {
   white-space: nowrap;
   display: inline-block;
   transition: color 0.3s, text-shadow 0.3s;
+  cursor: pointer;
 }
 
-.nav-links li a:hover {
+.nav-links li a:hover, .nav-links li a.active {
   color: #0ff;
   text-shadow: 0 0 8px #0ff;
 }
@@ -81,6 +82,38 @@ body {
   }
 }
 
+/* Tab menu styles */
+.tab-menu {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0 2rem 0;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.tab-btn.active {
+  border-color: #0ff;
+  color: #0ff;
+  outline: none;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
 .hero {
   text-align: center;
   padding: 5rem 1rem;
@@ -101,9 +134,10 @@ body {
 
 .events {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 2rem;
+  justify-items: center;
 }
 
 .event-card {
@@ -120,36 +154,20 @@ body {
   box-shadow: 0 0 15px #0ff;
 }
 
-.event-card[data-genre="PRIDE"]:hover {
-  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-  color: black;
-}
-
-.event-card[data-genre="PRIDE"] .details-btn {
-  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+.details-btn {
+  background-color: #0ff;
   color: black;
   font-weight: bold;
-}
-
-.details-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  background: #0ff;
-  padding: .5rem 1rem;
-  border-radius: .5rem;
-  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   text-decoration: none;
-  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
-.button-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.details-btn {
-  flex: 1;
-  text-align: center;
+.details-btn:hover {
+  background-color: #00cccc;
+  color: white;
 }
 
 .countdown-wrapper {
@@ -174,6 +192,19 @@ body {
 
 .hidden {
   display: none;
+}
+
+/* PRIDE 은은한 무지개 */
+.event-card[data-genre="PRIDE"]:hover {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(147, 112, 219, 0.3), rgba(0, 206, 209, 0.3));
+  color: white;
+}
+
+.event-card[data-genre="PRIDE"] .details-btn {
+  background: linear-gradient(135deg, #FF69B4, #9370DB, #00CED1);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
 }
 
 .reveal-animation {
