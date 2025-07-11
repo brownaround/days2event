@@ -7,14 +7,8 @@
   <div class="nav-container">
     <div class="logo">🎉 Days2Event</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
-  <div class="button-group">
-    <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
-    {% if event.Slug %}
-      <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
-    {% endif %}
-  </div>
     <ul class="nav-links" id="navMenu">
-      <li><a href="#" data-filter="all">✨ Multi-Genre</a></li>
+      <li><a href="#" data-filter="all" class="active">✨ Multi-Genre</a></li>
       <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
       <li class="has-submenu">
         <a href="#" data-filter="genre" data-value="POP">🎶 POP</a>
@@ -53,19 +47,8 @@
 </nav>
 
 <header class="hero" id="hero-section">
-  {% if selected_genre == 'POP' %}
-    <h1>🎶 Dive into the World of POP Festivals!</h1>
-    <p>Discover the hottest pop music events near you.</p>
-  {% elif selected_genre == 'K-POP' %}
-    <h1>🇰🇷🎵 K-POP Mania Starts Here!</h1>
-    <p>Stay updated with the biggest K-POP festivals worldwide.</p>
-  {% elif selected_genre == 'PRIDE' %}
-    <h1>🏳️‍🌈 Celebrate Love & Music at PRIDE Festivals!</h1>
-    <p>Join vibrant pride events full of music and unity.</p>
-  {% else %}
-    <h1>🌟 Your Festival Countdown Starts Here!</h1>
-    <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
-  {% endif %}
+  <h1>🌟 Your Festival Countdown Starts Here!</h1>
+  <p>From Coachella to Tomorrowland – track how many days are left until the music starts!</p>
   <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
 </header>
 
@@ -84,7 +67,6 @@
       <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
     </div>
     <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
-    <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
   </div>
   {% endfor %}
 </main>
@@ -139,41 +121,12 @@ navLinks.forEach(link => {
     const filterValue = e.target.dataset.value;
     filterCards(filterType, filterValue);
     setActiveLink(e.target);
-  });
-});
 
-const navLinks = document.querySelectorAll("#navMenu a");
-const hero = document.getElementById("hero-section");
-
-function updateHero(genre) {
-  const heroData = {
-    "POP": {
-      title: "🎶 Dive into the World of POP Festivals!",
-      desc: "Discover the hottest pop music events near you."
-    },
-    "K-POP": {
-      title: "🇰🇷🎵 K-POP Mania Starts Here!",
-      desc: "Stay updated with the biggest K-POP festivals worldwide."
-    },
-    "PRIDE": {
-      title: "🏳️‍🌈 Celebrate Love & Music at PRIDE Festivals!",
-      desc: "Join vibrant pride events full of music and unity."
-    },
-    "default": {
-      title: "🌟 Your Festival Countdown Starts Here!",
-      desc: "From Coachella to Tomorrowland – track how many days are left until the music starts!"
+    // 모바일 메뉴 클릭 시 메뉴 닫기
+    const nav = document.getElementById("navMenu");
+    if(nav.classList.contains("show")){
+      nav.classList.remove("show");
     }
-  };
-
-  const data = heroData[genre] || heroData["default"];
-  hero.querySelector("h1").textContent = data.title;
-  hero.querySelector("p").textContent = data.desc;
-}
-
-navLinks.forEach(link => {
-  link.addEventListener("click", e => {
-    const genre = e.target.dataset.value;
-    if (genre) updateHero(genre);
   });
 });
 
