@@ -7,12 +7,12 @@
   <div class="nav-container">
     <div class="logo">🎉 Days2Event</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <div class="button-group">
-      <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
-      {% if event.Slug %}
-       <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
-      {% endif %}
-    </div>
+  <div class="button-group">
+    <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+    {% if event.Slug %}
+      <a href="{{ event.Slug }}.html" class="details-btn">🎟 View Details</a>
+    {% endif %}
+  </div>
     <ul class="nav-links" id="navMenu">
       <li><a href="#" data-filter="all">✨ Multi-Genre</a></li>
       <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
