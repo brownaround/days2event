@@ -142,6 +142,41 @@ navLinks.forEach(link => {
   });
 });
 
+const navLinks = document.querySelectorAll("#navMenu a");
+const hero = document.getElementById("hero-section");
+
+function updateHero(genre) {
+  const heroData = {
+    "POP": {
+      title: "🎶 Dive into the World of POP Festivals!",
+      desc: "Discover the hottest pop music events near you."
+    },
+    "K-POP": {
+      title: "🇰🇷🎵 K-POP Mania Starts Here!",
+      desc: "Stay updated with the biggest K-POP festivals worldwide."
+    },
+    "PRIDE": {
+      title: "🏳️‍🌈 Celebrate Love & Music at PRIDE Festivals!",
+      desc: "Join vibrant pride events full of music and unity."
+    },
+    "default": {
+      title: "🌟 Your Festival Countdown Starts Here!",
+      desc: "From Coachella to Tomorrowland – track how many days are left until the music starts!"
+    }
+  };
+
+  const data = heroData[genre] || heroData["default"];
+  hero.querySelector("h1").textContent = data.title;
+  hero.querySelector("p").textContent = data.desc;
+}
+
+navLinks.forEach(link => {
+  link.addEventListener("click", e => {
+    const genre = e.target.dataset.value;
+    if (genre) updateHero(genre);
+  });
+});
+
 // countdown buttons
 cards.forEach(card => {
   const btn = card.querySelector(".reveal-btn");
