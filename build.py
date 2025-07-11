@@ -4,6 +4,17 @@ import os
 import shutil
 import sys
 
+def countryToEmoji(country):
+    mapping = {
+        "USA": "🇺🇸",
+        "South Korea": "🇰🇷",
+        "Thailand": "🇹🇭",
+        "Belgium": "🇧🇪",
+        "France": "🇫🇷",
+        # 필요한 국가 추가
+    }
+    return mapping.get(country, country)
+
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     template_dir = os.path.join(base_dir, "templates")
@@ -18,7 +29,6 @@ def main():
 
     df.fillna('', inplace=True)
 
-    # 복수 장르 필터링 (Multi-Genre 정의: 장르가 콤마(,) 포함된 경우)
     df['GenreList'] = df['Genre'].str.split(',')
     multi_genre_events = df[df['GenreList'].apply(lambda x: len(x) > 1 if isinstance(x, list) else False)]
 
@@ -33,6 +43,8 @@ def main():
         region_groups[reg] = [reg]
 
     env = Environment(loader=FileSystemLoader(template_dir))
+    env.globals['countryToEmoji'] = countryToEmoji  # 함수 등록
+
     try:
         template = env.get_template("index.html.j2")
     except Exception as e:
