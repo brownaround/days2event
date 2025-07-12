@@ -1,17 +1,16 @@
-{# templates/by-region.html #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Festivals in {{ selected_region }}</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <header class="page-header">
-    <h1>🎉 Festivals by Region</h1>
+    <h1>🎉 Festivals in {{ selected_region }}</h1>
   </header>
 
-  {# — 네비 탭 — #}
+  <!-- 지역 탭 -->
   <nav class="nav-tabs">
     {% for region in continents %}
       <div class="nav-item{% if region == selected_region %} active{% endif %}"
@@ -21,22 +20,23 @@
     {% endfor %}
   </nav>
 
-  {# — 이벤트 리스트 혹은 안내문 — #}
-  {% set events = events_by_region.get(selected_region, []) %}
+  <!-- 이벤트 목록 -->
   {% if events %}
     <ul class="event-list">
       {% for event in events %}
         <li class="event-card">
-          <h2>{{ event.name }} {{ event.emoji }}</h2>
-          <p>{{ event.date }}</p>
+          <h2>{{ event.name }}</h2>
+          <p>{{ event.city }}, {{ event.country }}</p>
+          <p>{{ event.date_display }}</p>
+          <p>{{ event.venue }}</p>
           <div class="countdown" data-datetime="{{ event.iso_date }}"></div>
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p class="no-events">No upcoming events in {{ selected_region }}.</p>
+    <p class="no-events">No events found in {{ selected_region }}.</p>
   {% endif %}
 
-  <script src="timer.js"></script>
+  <script src="../timer.js"></script>
 </body>
 </html>
