@@ -62,16 +62,34 @@
       <div class="hamburger">☰</div>
       <ul class="nav-links">
         <li><a href="/" class="active">Home</a></li>
-        <li><a href="/multi-genre">Multi-Genre</a></li>
-        <li><a href="/edm">EDM</a></li>
-        <li><a href="/pop">POP</a></li>
-        <li><a href="/k-pop">K-POP</a></li>
-        <li><a href="/pride">PRIDE</a></li>
-        <li><a href="/by-region">By Region</a></li>
+        <li><a href="/multi-genre">✨ Multi-Genre</a></li>
+        <li><a href="/edm">🪩 EDM</a></li>
+        <li><a href="/pop">🎶 POP</a></li>
+        <li><a href="/k-pop">🇰🇷🎵 K-POP</a></li>
+        <li><a href="/pride">🏳️‍🌈 PRIDE</a></li>
+        <li><a href="/by-region">📍 By Region</a></li>
       </ul>
     </div>
   </nav>
   <!-- 네비게이션 메뉴 끝 -->
+
+
+  <nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" onclick="showHome()">🎉 Days2Event</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#" data-filter="all" class="active">🏠 Home</a></li>
+      <li><a href="#" data-filter="genre" data-value="Multi-Genre">✨ Multi-Genre</a></li>
+      <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
+      <li><a href="#" data-filter="genre" data-value="POP">🎶 POP</a></li>
+      <li><a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a></li>
+      <li><a href="#" data-filter="genre" data-value="PRIDE">🏳️‍🌈 PRIDE</a></li>
+      <li><a href="#" data-filter="region">📍 By Region</a></li>
+    </ul>
+  </div>
+</nav>
+
 
   <script>
     const hamburger = document.querySelector('.hamburger');

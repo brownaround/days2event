@@ -3,22 +3,6 @@
 <link rel="stylesheet" href="style.css" />
 {% endblock %}
 {% block content %}
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo" onclick="showHome()">🎉 Days2Event</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <ul class="nav-links" id="navMenu">
-      <li><a href="#" data-filter="all" class="active">🏠 Home</a></li>
-      <li><a href="#" data-filter="genre" data-value="Multi-Genre">✨ Multi-Genre</a></li>
-      <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
-      <li><a href="#" data-filter="genre" data-value="POP">🎶 POP</a></li>
-      <li><a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a></li>
-      <li><a href="#" data-filter="genre" data-value="PRIDE">🏳️‍🌈 PRIDE</a></li>
-      <li><a href="#" data-filter="region">📍 By Region</a></li>
-    </ul>
-  </div>
-</nav>
-
 <header class="hero" id="hero-section" style="background: linear-gradient(135deg, #0ff, #80f); color: white; text-align: center; padding: 5rem 1rem;">
   <h1>{{ hero_title }}</h1>
   <p>{{ hero_subtitle }}</p>
