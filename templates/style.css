@@ -58,40 +58,44 @@ body {
 
 @media (max-width: 1024px) {
   .events {
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: calc(280px * 2 + 1rem); /* 최대 2장 + 간격 */
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 600px) {
   .events {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background: #111;
-    position: absolute;
-    top: 64px;
-    right: 1.5rem;
+    grid-template-columns: 1fr;
+    max-width: 320px;
     padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #0ff3;
+    margin: 0 auto;
   }
+}
 
-  .nav-links.show {
-    display: flex;
+@media (min-width: 1025px) {
+  .events {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    max-width: calc(320px * 4 + 1rem * 3); /* 최대 4장 + 간격 */
+    margin: 0 auto;
   }
+}
 
-  .nav-links li a {
-    padding: 0.5rem 0;
-    font-size: 1rem;
-  }
+.nav-links.show {
+  display: flex;
+  flex-direction: column;
+  background: #111;
+  position: absolute;
+  top: 64px;
+  right: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #0ff3;
+}
+
+.nav-links li a {
+  padding: 0.5rem 0;
+  font-size: 1rem;
 }
 
 /* Tab menu styles */
@@ -148,8 +152,7 @@ body {
 
 .events {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.625rem 0.625rem; /* 가로/세로 동일, 간격 반으로 감소 */
+  gap: 1rem; /* 가로/세로 동일 */
   padding: 2rem;
   justify-items: center;
   grid-auto-rows: 262.5px;
@@ -168,7 +171,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .event-card:hover {
