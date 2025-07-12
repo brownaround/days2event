@@ -167,6 +167,7 @@ body {
   text-decoration: none;
   display: inline-block;
   transition: background-color 0.3s ease;
+  margin-left: 1rem;
 }
 
 .details-btn:hover {
@@ -176,6 +177,9 @@ body {
 
 .countdown-wrapper {
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .reveal-btn {
@@ -213,6 +217,24 @@ body {
   color: white;
   font-weight: 600;
   box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+}
+
+/* EDM 몽환적인 느낌 배경 */
+.event-card[data-genre="EDM"]:hover {
+  background: linear-gradient(135deg, #0ff, #005f99);
+  color: white;
+}
+
+/* K-POP 한국적인 느낌 배경 */
+.event-card[data-genre="K-POP"]:hover {
+  background: linear-gradient(135deg, #003478, #c60c30, #ffffff);
+  color: white;
+}
+
+/* POP 상큼하고 팡팡 터지는 느낌 배경 */
+.event-card[data-genre="POP"]:hover {
+  background: linear-gradient(135deg, #ff4081, #ffea00);
+  color: white;
 }
 
 .reveal-animation {

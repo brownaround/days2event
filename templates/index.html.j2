@@ -62,7 +62,7 @@
        data-multi-genre="{{ 'yes' if ',' in event['Genre'] else 'no' }}">
     <h2>{{ event['Festival Name'] }}</h2>
     <p>
-      {{ countryToEmoji(event['Country']) }} {{ event['Start Date'] }} - {{ event['End Date'] }} · {{ event['City'] }}, {{ event['Country'] }}
+      {{ countryToEmoji(event['Country']) }} {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>
@@ -83,41 +83,10 @@ function toggleMenu() {
   nav.classList.toggle("show");
 }
 
-// 홈(로고) 클릭시 전체 이벤트 보이도록 필터링 해제
 function showHome() {
   filterCards('all');
   setActiveLink(null);
 }
-
-// 국가명 → 이모지 변환 함수
-function countryToEmoji(country) {
-  const countryMap = {
-    "USA": "🇺🇸",
-    "United States": "🇺🇸",
-    "South Korea": "🇰🇷",
-    "Korea": "🇰🇷",
-    "Belgium": "🇧🇪",
-    "France": "🇫🇷",
-    // 필요한 국가 추가...
-  };
-  return countryMap[country] || country;
-}
-
-// 이벤트 카드 국가명 이모지 치환 (템플릿 렌더링 중 사용할 수도 있음)
-document.querySelectorAll('.event-card p').forEach(p => {
-  let text = p.textContent;
-  for (const [key, emoji] of Object.entries({
-    "USA": "🇺🇸",
-    "United States": "🇺🇸",
-    "South Korea": "🇰🇷",
-    "Korea": "🇰🇷",
-    "Belgium": "🇧🇪",
-    "France": "🇫🇷"
-  })) {
-    text = text.replace(new RegExp(key, 'g'), emoji);
-  }
-  p.textContent = text;
-});
 
 const navLinks = document.querySelectorAll("#navMenu a");
 const cards = [...document.querySelectorAll(".event-card")];
