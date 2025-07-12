@@ -1,111 +1,295 @@
+/* Reset & 기본 스타일 */
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* 네비게이션 바 */
+.navbar {
+  background-color: #222;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: #555;
+}
+
+/* 모바일 메뉴 표시 */
+.nav-links.show {
+  display: block;
+  background-color: #222;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+  }
+  .nav-links li {
+    border-bottom: 1px solid #444;
+  }
+  .nav-links li a {
+    padding: 1rem;
+  }
+}
+
+/* Hero section */
+.hero {
+  padding: 4rem 1rem;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #0ff, #80f);
+}
+
+.hero.multi-genre {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+}
+
+.hero.edm {
+  background: linear-gradient(135deg, #009688, #004d40);
+}
+
+.hero.pride {
+  background: linear-gradient(135deg, #e91e63, #673ab7);
+}
+
+.hero.pop {
+  background: linear-gradient(135deg, #ff5722, #ff9800);
+}
+
+.hero.kpop {
+  background: linear-gradient(135deg, #3f51b5, #2196f3);
+}
+
+.hero.region {
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+}
+
+.hero h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+}
+
+.hero p {
+  margin: 0 0 2rem 0;
+  font-size: 1.25rem;
+}
+
+.cta-btn {
+  background-color: #fff;
+  color: #333;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #ddd;
+}
+
+/* 탭 메뉴 */
+.tab-menu {
+  margin: 2rem auto 1rem auto;
+  max-width: 1200px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tab-btn {
+  background-color: #eee;
+  border: none;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* 이벤트 카드 그리드 및 간격 조절 */
+.events {
+  max-width: 1200px;
+  margin: 0 auto 4rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem; /* 가로세로 모두 2rem 간격 */
+  padding: 0 1rem;
+}
+
+/* 카드 스타일 */
+.event-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+  transition: background 0.3s ease;
+}
+
+/* 카드 호버 효과 - 페이지별 색상 통일 */
+.event-card:hover {
+  filter: brightness(0.9);
+}
+
+.hero.multi-genre .event-card:hover {
+  background: linear-gradient(180deg, #ffc107a0, #ff9800a0);
+  color: white;
+}
+
+.hero.edm .event-card:hover {
+  background: linear-gradient(180deg, #00695ca0, #004d40a0);
+  color: white;
+}
+
+.hero.pride .event-card:hover {
+  background: linear-gradient(180deg, #f48fb1a0, #7e57c2a0);
+  color: white;
+}
+
+.hero.pop .event-card:hover {
+  background: linear-gradient(180deg, #ff7043a0, #f4511ea0);
+  color: white;
+}
+
+.hero.kpop .event-card:hover {
+  background: linear-gradient(180deg, #3f51b5a0, #2196f3a0);
+  color: white;
+}
+
+.hero.region .event-card:hover {
+  background: linear-gradient(180deg, #388e3ca0, #689f38a0);
+  color: white;
+}
+
+/* 버튼 스타일 통일 */
+.details-btn,
+.reveal-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #00ffff;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  box-shadow: none !important; /* 무지개 효과 제거 */
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.details-btn:hover,
+.reveal-btn:hover {
+  background-color: #00cccc;
+  box-shadow: none !important;
+}
+
+/* 숨김 클래스 */
+.hidden {
+  display: none;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  .events {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .events {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Festival gradient and white card background override */
 :root {
-  --bg-color: #ffe6f2; /* cotton candy light pink */
-  --text-color: #333333;
-  --primary-color: #ffb3d9; /* pastel pink */
-  --secondary-color: #c1f7ff; /* pastel blue */
-  --button-days-bg: #ffd1a9; /* pastel orange */
-  --button-official-bg: #fff7ae; /* pastel yellow */
   --card-bg-color: #ffffff;
-  --card-shadow: rgba(0,0,0,0.1);
+  --festival-start: #ff6f00;
+  --festival-end:   #ffd600;
 }
-
-/* Reset */
-* { box-sizing: border-box; margin:0; padding:0; }
-body { padding: 0 2rem; font-family: 'Segoe UI', sans-serif; background: var(--bg-color); color: var(--text-color); overflow-x:hidden; }
-
-/* Navbar */
-.navbar { background: var(--bg-color); position: sticky; top:0; z-index:999; width:100%; }
-.nav-container { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1rem; }
-.logo { font-size:1.75rem; font-weight:bold; color: var(--primary-color); }
-.nav-links { display:flex; gap:1.5rem; list-style:none; }
-.nav-links li a { color: var(--text-color); text-decoration:none; font-weight:500; transition: color 0.3s; }
-.nav-links li a:hover { color: var(--primary-color); }
-.hamburger { display:none; font-size:1.5rem; color: var(--text-color); cursor:pointer; }
-@media(max-width:768px){
-  .hamburger{ display:block; }
-  .nav-links{ display:none; flex-direction:column; background:var(--bg-color); position:absolute; top:60px; right:1rem; padding:1rem 2rem; /* added horizontal padding */ border-radius:8px; box-shadow:0 0 10px var(--primary-color); }
-  .nav-links.show{ display:flex; }
-  .nav-links li{ margin:0.5rem 0; }
+body {
+  background: var(--bg-color, #ffffff) !important;
 }
-
-/* Hero */
-.hero { text-align:center; padding:4.8rem 1rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
-
-/* Content */
-.content-wrapper { max-width:1200px; margin:0 auto; padding:1rem 2rem; /* added horizontal padding */ }
-
-/* Search */
-.hero-search { text-align:right; margin:1.5rem 0; }
-.hero-search input { width:100%; max-width:360px; padding:0.75rem 1rem; font-size:1rem; border:2px solid var(--primary-color); border-radius:999px; background:#fff; color:var(--text-color); transition:box-shadow 0.3s; }
-.hero-search input:focus { box-shadow:0 0 10px var(--primary-color); border-color:var(--primary-color); }
-.search-btn { margin-left:0.5rem; padding:0.75rem 1rem; font-size:0.875rem; border:none; border-radius:0.5rem; background: var(--secondary-color); color: var(--text-color); cursor: pointer; transition: background 0.3s; }
-.search-btn:hover { background: var(--primary-color); color: #fff; }
-
-/* Browse Festivals */
-.browse-btn { display:inline-block; padding:0.75rem 1.5rem; font-size:1rem; border-radius:0.5rem; background: var(--secondary-color); color: var(--text-color); text-decoration:none; transition: background 0.3s; }
-.browse-btn:hover { background: var(--primary-color); color: #fff; }
-
-/* Events Grid */
-.events { display:grid; grid-template-columns: repeat(4,1fr); gap:2.25rem; margin-top:1rem; }
-@media(max-width:992px){ .events { grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); } }
-
-/* Event Card */
-.event-card { background: var(--card-bg-color); padding:1.25rem; border-radius:0.75rem; box-shadow:0 2px 8px var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; }
-.event-card:hover { transform: translateY(-4px); box-shadow:0 4px 12px var(--card-shadow); }
-.event-card h2 { margin-bottom:0.5rem; font-size:1.375rem; /* slightly larger */ }
-.event-card p { font-size:0.9rem; margin-bottom:1rem; }
-
-/* Buttons unified size and pastel colors */
-.reveal-btn { font-size:0.875rem; background: var(--button-days-bg); color:#333; border:none; border-radius:0.5rem; padding:0.5rem 1rem; cursor:pointer; transition: background 0.3s; }
-.reveal-btn:hover { background: darken(var(--button-days-bg), 10%); }
-.details-btn { font-size:0.875rem; background: var(--button-official-bg); color:#333; border:none; border-radius:0.5rem; padding:0.5rem 1rem; cursor:pointer; transition: background 0.3s; }
-.details-btn:hover { background: darken(var(--button-official-bg), 10%); }
-
-/* Footer */
-footer { text-align:center; padding:2rem 1rem; background:#ffe6f2; color:#666; }
-.footer-links { margin-top:1rem; list-style:none; display:flex; gap:1rem; justify-content:center; }
-.footer-links a { font-size:0.875rem; color:var(--text-color); text-decoration:none; }
-.footer-links a:hover { text-decoration:underline; }
-
-/* Region Buttons */
-.region-buttons {
-    text-align: center;
-    margin: 2rem 0;
+.navbar {
+  background: var(--festival-start) !important;
 }
-.region-btn {
-    display: inline-block;
-    font-size: 1.25rem;
-    margin: 0 1rem;
-    padding-bottom: 0.25rem;
-    text-decoration: none;
-    color: var(--text-color);
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s, color 0.3s;
+.hero {
+  background: linear-gradient(135deg, var(--festival-start), var(--festival-end)) !important;
 }
-.region-btn:hover,
-.region-btn.active {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-/* Subnav Buttons */
-.subnav-buttons {
-    text-align: center;
-    margin: 1.5rem 0;
-}
-.subnav-btn {
-    display: inline-block;
-    font-size: 1.15rem;
-    margin: 0 0.75rem;
-    padding-bottom: 0.25rem;
-    color: var(--text-color);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: color 0.3s, border-color 0.3s;
-}
-.subnav-btn:hover,
-.subnav-btn.active {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+.event-card {
+  background: var(--card-bg-color) !important;
 }
