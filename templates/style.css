@@ -159,61 +159,118 @@ body {
   padding: 1rem 1.25rem !important;
 }
 
-/* Swap How Many Days left and Official Site button styles */
+
+:root {
+  --bg-color: #ffffff;
+  --festival-start: #ffa726;
+  --festival-end:   #ffeb3b;
+  --button-days-bg: #ffb74d;
+  --button-official-bg: #fff176;
+  --btn-text-color: #333333;
+}
+
+body {
+  background: var(--bg-color);
+  overflow-x: hidden;
+}
+
+.navbar .nav-links {
+  list-style: none !important;
+  margin: 0; padding: 0;
+  display: flex !important; gap: 1rem;
+}
+.navbar .nav-links li {
+  margin: 0;
+}
+.navbar .nav-links li a,
+.navbar .nav-links li a.active {
+  background: transparent !important;
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  text-decoration: none !important;
+}
+.navbar .nav-links li a:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-radius: 0.25rem;
+}
+
+.events {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 2rem !important;
+  justify-content: center !important;
+  margin: 2rem auto !important;
+  max-width: 1200px;
+}
+
+.event-card {
+  background: #fff !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: none !important;
+}
+
+.event-card h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.event-card p {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.reveal-btn, .details-btn, .browse-btn, .search-btn, .region-btn, .subnav-btn {
+  border: none; cursor: pointer; text-decoration: none;
+  display: inline-block; font-size:0.875rem; border-radius:0.5rem;
+  padding:0.5rem 1rem; margin:0 0.5rem 0.75rem 0;
+}
+
 .reveal-btn {
+  background: var(--button-days-bg) !important;
+  color: var(--btn-text-color) !important;
+  animation: flipIn 0.6s ease forwards;
+}
+.details-btn {
   background: var(--button-official-bg) !important;
   color: var(--btn-text-color) !important;
 }
-.details-btn {
+.reveal-btn:hover, .details-btn:hover {
+  opacity: 0.8;
+}
+
+@keyframes flipIn {
+  0% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(0); opacity: 1; }
+}
+
+.browse-btn {
   background: var(--button-days-bg) !important;
-  color: var(--btn-text-color) !important;
+  color: #fff !important;
 }
 
-/* EDM cards pastel horizontal gradient */
-  background: linear-gradient(90deg, #d1c4e9, #f8bbd0) !important;
-}
-
-/* Pride cards lighter pastel gradient */
-  background: linear-gradient(90deg, #ffebee, #f3e5f5) !important;
-}
-
-/* EDM cards: green to purple horizontal rave gradient */
-.event-card[data-genre="EDM"] {
-  background: linear-gradient(90deg, #39ff14, #b533ff) !important;
-}
-
-/* PRIDE cards: maintain original style but apply transparency 0.7 */
-.event-card[data-genre="PRIDE"] {
-  opacity: 0.7 !important;
-}
-
-
-/* Hero backgrounds matching card colors */
-.edm-page .hero {
-  background: linear-gradient(90deg, #39ff14, #b533ff) !important;
-}
-.pride-page .hero {
-  background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.7)) !important;
-}
-/* You can add more page-specific hero backgrounds here */
-
-/* Subnav Buttons for K-POP Artists */
-.subnav-buttons {
+.hero {
+  padding: 5rem 1rem !important;
   text-align: center;
-  margin: 1.5rem 0;
+  background: linear-gradient(135deg, var(--festival-start), var(--festival-end)) !important;
 }
-.subnav-btn {
-  display: inline-block;
-  font-size: 1.15rem;
-  margin: 0 0.75rem;
-  padding-bottom: 0.25rem;
-  color: #333;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color 0.3s, border-color 0.3s;
+.hero h1, .hero h2 {
+  margin-bottom: 1rem; color:#fff;
 }
-.subnav-btn:hover,
-.subnav-btn.active {
-  color: var(--festival-start);
-  border-color: var(--festival-start);
+.hero-search {
+  max-width: 1200px; margin:1.5rem auto; text-align:right;
 }
+.hero-search input {
+  width:100%; max-width:360px;
+  padding:0.75rem 1rem; border:2px solid #fff; border-radius:999px;
+  background:rgba(255,255,255,0.2); color:#fff;
+}
+.hero-search .search-btn {
+  background:rgba(255,255,255,0.3); color:#fff;
+  margin-left:0.5rem;
+}
+
+.loading, .loading-text, span.loading {
+  display: none !important;
+}
+
