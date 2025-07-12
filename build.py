@@ -1,9 +1,9 @@
 import pandas as pd
+from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 import os
-import shutil
 import sys
-from datetime import datetime
+import shutil
 
 def countryToEmoji(country):
     mapping = {
@@ -48,17 +48,10 @@ def main():
     output_dir = os.path.join(base_dir, "site")
     csv_path = os.path.join(base_dir, "events.csv")
 
-    try:
-        df = pd.read_csv(csv_path)
-    except Exception as e:
-        print(f"Failed to load CSV: {e}", file=sys.stderr)
-        sys.exit(1)
-
+    df = pd.read_csv(csv_path)
     df.fillna('', inplace=True)
     df['Start Date Parsed'] = pd.to_datetime(df['Start Date'], errors='coerce')
     df = df.sort_values(by='Start Date Parsed')
-
-    multi_genre_events = df[df['Genre'] == "Multi-Genre"]
 
     genre_artists = {}
     for genre in ['POP', 'K-POP']:
@@ -71,21 +64,15 @@ def main():
     env.globals['countryToEmoji'] = countryToEmoji
     env.filters['formatDateRange'] = formatDateRange
 
-    try:
-        template = env.get_template("index.html.j2")
-    except Exception as e:
-        print(f"Failed to load template: {e}", file=sys.stderr)
-        sys.exit(1)
-
-    os.makedirs(output_dir, exist_ok=True)
+    template = env.get_template("index.html.j2")
 
     pages = [
         {'filename': 'index.html', 'current_page': 'home',
          'hero_title': "🌟 Your Festival Countdown Starts Here!",
          'hero_subtitle': "From Coachella to Tomorrowland – track how many days are left until the music starts!"},
-        {'filename': 'by-region.html', 'current_page': 'region',
-         'hero_title': "📍 Explore Festivals by Region",
-         'hero_subtitle': "Select your continent or region to find upcoming events nearby."},
+        {'filename': 'multi-genre.html', 'current_page': 'multi-genre',
+         'hero_title': "✨ Multi-Genre Festivals",
+         'hero_subtitle': "Explore diverse music festivals worldwide."},
         {'filename': 'pop.html', 'current_page': 'pop',
          'hero_title': "🎶 POP Festival Highlights",
          'hero_subtitle': "Discover POP events and artists."},
@@ -97,47 +84,45 @@ def main():
          'hero_subtitle': "Feel the beat at top EDM events."},
         {'filename': 'pride.html', 'current_page': 'pride',
          'hero_title': "🏳️‍🌈 PRIDE Festival Highlights",
-         'hero_subtitle': "Celebrate diversity and love with PRIDE events."}
+         'hero_subtitle': "Celebrate diversity and love with PRIDE events."},
+        {'filename': 'by-region.html', 'current_page': 'region',
+         'hero_title': "📍 Explore Festivals by Region",
+         'hero_subtitle': "Select your continent or region to find upcoming events nearby."}
     ]
 
+    os.makedirs(output_dir, exist_ok=True)
+
     for page in pages:
-        try:
-            # 페이지별 이벤트 필터링
-            if page['current_page'] == 'home':
-                events_filtered = df.to_dict(orient="records")
-            elif page['current_page'] == 'region':
-                events_filtered = df.to_dict(orient="records")
-            elif page['current_page'] == 'pop':
-                events_filtered = df[df['Genre'] == 'POP'].to_dict(orient="records")
-            elif page['current_page'] == 'kpop':
-                events_filtered = df[df['Genre'] == 'K-POP'].to_dict(orient="records")
-            elif page['current_page'] == 'edm':
-                events_filtered = df[df['Genre'] == 'EDM'].to_dict(orient="records")
-            elif page['current_page'] == 'pride':
-                events_filtered = df[df['Genre'] == 'PRIDE'].to_dict(orient="records")
-            else:
-                events_filtered = df.to_dict(orient="records")
+        if page['current_page'] == 'home':
+            events_filtered = df.to_dict(orient="records")
+        elif page['current_page'] == 'multi-genre':
+            events_filtered = df[df['Genre'] == 'Multi-Genre'].to_dict(orient="records")
+        elif page['current_page'] == 'pop':
+            events_filtered = df[df['Genre'] == 'POP'].to_dict(orient="records")
+        elif page['current_page'] == 'kpop':
+            events_filtered = df[df['Genre'] == 'K-POP'].to_dict(orient="records")
+        elif page['current_page'] == 'edm':
+            events_filtered = df[df['Genre'] == 'EDM'].to_dict(orient="records")
+        elif page['current_page'] == 'pride':
+            events_filtered = df[df['Genre'] == 'PRIDE'].to_dict(orient="records")
+        elif page['current_page'] == 'region':
+            events_filtered = df.to_dict(orient="records")
+        else:
+            events_filtered = df.to_dict(orient="records")
 
-            rendered_html = template.render(
-                events=events_filtered,
-                multi_genre_events=multi_genre_events.to_dict(orient="records"),
-                genre_artists=genre_artists,
-                region_groups=region_groups,
-                current_page=page['current_page'],
-                hero_title=page['hero_title'],
-                hero_subtitle=page['hero_subtitle']
-            )
-            with open(os.path.join(output_dir, page['filename']), "w", encoding="utf-8") as f:
-                f.write(rendered_html)
-        except Exception as e:
-            print(f"Failed to render or write HTML for {page['filename']}: {e}", file=sys.stderr)
-            sys.exit(1)
+        rendered_html = template.render(
+            events=events_filtered,
+            genre_artists=genre_artists,
+            region_groups=region_groups,
+            current_page=page['current_page'],
+            hero_title=page['hero_title'],
+            hero_subtitle=page['hero_subtitle']
+        )
 
-    try:
-        shutil.copy(os.path.join(template_dir, "style.css"), os.path.join(output_dir, "style.css"))
-    except Exception as e:
-        print(f"Failed to copy CSS: {e}", file=sys.stderr)
-        sys.exit(1)
+        with open(os.path.join(output_dir, page['filename']), "w", encoding="utf-8") as f:
+            f.write(rendered_html)
+
+    shutil.copy(os.path.join(template_dir, "style.css"), os.path.join(output_dir, "style.css"))
 
 if __name__ == "__main__":
     main()

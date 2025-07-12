@@ -69,10 +69,14 @@
 {% endif %}
 
 <main class="events" id="events">
+
   {% for event in events %}
-    {% if current_page == 'multi-genre' and event['Genre'] != 'Multi-Genre' %}
-      {% continue %}
+    {% if not (current_page == 'multi-genre' and event['Genre'] != 'Multi-Genre') %}
+      <div class="event-card" ...>
+        ...
+      </div>
     {% endif %}
+  {% endfor %}
   <div class="event-card"
        data-genre="{{ event['Genre'] }}"
        data-region="{{ event['Region'] }}"
