@@ -152,7 +152,7 @@ body {
   gap: 3rem 1.25rem;
   padding: 2rem;
   justify-items: center;
-  grid-auto-rows: 275px; /* 카드 높이 맞춤 */
+  grid-auto-rows: 275px;
 }
 
 .event-card {
@@ -179,13 +179,6 @@ body {
 .details-btn,
 .reveal-btn {
   font-size: 0.875rem; /* 약간 작게 */
-}
-
-/* PRIDE 카드 official site 버튼 효과 제거 - 통일 */
-.event-card[data-genre="PRIDE"] .details-btn {
-  background: #0ff; /* 기본 버튼 배경색 */
-  box-shadow: none;
-  color: black;
 }
 
 .details-btn {
