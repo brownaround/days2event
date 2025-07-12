@@ -53,18 +53,14 @@ def main():
 
     df.fillna('', inplace=True)
 
-    # 멀티장르는 'Multi-Genre' 문자열 장르로 처리
     multi_genre_events = df[df['Genre'] == "Multi-Genre"]
 
-    # 장르별 아티스트 리스트 준비
     genre_artists = {}
     for genre in ['POP', 'K-POP']:
         artists = sorted(df[df['Genre'] == genre]['Artist'].unique())
         genre_artists[genre] = [a for a in artists if a]
 
-    # 대륙(Region) 리스트 준비 (중복 제거 및 정렬)
     region_groups = sorted(df['Region'].dropna().unique())
-    print("Regions found:", region_groups)
 
     env = Environment(loader=FileSystemLoader(template_dir))
     env.globals['countryToEmoji'] = countryToEmoji
