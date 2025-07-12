@@ -274,3 +274,31 @@ body {
     gap: 1rem;
   }
 }
+
+/* Layout and spacing adjustments */
+.event-cards {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .event-cards {
+    flex-direction: column;
+  }
+}
+
+/* Button color swap */
+.btn-official {
+  background-color: var(--daysleft-bg-color);
+  color: var(--daysleft-text-color);
+}
+.btn-daysleft {
+  background-color: var(--official-bg-color);
+  color: var(--official-text-color);
+}
+
+/* Reduce non-main hero sections height */
+.hero:not(.main) {
+  height: 70%;
+}
