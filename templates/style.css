@@ -309,3 +309,34 @@ body { background: var(--bg-color) !important; }
   margin: 2rem 0 !important;
 }
 .content-wrapper { padding: 2rem !important; }
+
+:root {
+  --button-days-bg: #ffd1a9;      /* Pastel orange */
+  --button-official-bg: #fff7ae;  /* Pastel yellow */
+}
+
+/* How Many Days left button */
+.reveal-btn {
+  background: var(--button-days-bg) !important;
+  color: #333 !important;
+  border-radius: 0.5rem !important;
+  text-decoration: none !important;
+}
+
+/* Official Site button */
+.details-btn {
+  background: var(--button-official-bg) !important;
+  color: #333 !important;
+  border-radius: 0.5rem !important;
+  text-decoration: none !important;
+}
+
+/* Animation keyframes and class */
+@keyframes flipIn {
+  0% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+.reveal-animation {
+  animation: flipIn 0.6s ease forwards !important;
+  margin-top: 0.5rem !important;
+}
