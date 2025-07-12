@@ -159,171 +159,61 @@ body {
   padding: 1rem 1.25rem !important;
 }
 
-
-/*================== OVERRIDES ==================*/
-
-/* Variables for pastel tones */
-:root {
-  --bg-color: #ffffff;
-  --festival-start: #ffa726;
-  --festival-end:   #ffeb3b;
-  --button-days-bg: #ffb74d;
-  --button-official-bg: #fff176;
-  --btn-text-color: #333333;
-  --button-active-bg: #ffe0b2;
-}
-
-/* 1) Navbar: remove bullets, unify hover/active */
-.navbar .nav-links {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  gap: 1rem !important;
-}
-.navbar .nav-links li {
-  margin: 0 !important;
-  display: inline-block !important;
-}
-.navbar .nav-links li a,
-.navbar .nav-links li a.active {
-  background-color: transparent !important;
-  color: #fff !important;
-  text-decoration: none !important;
-  padding: 0.5rem 1rem !important;
-}
-.navbar .nav-links li a:hover {
-  background-color: rgba(255,255,255,0.1) !important;
-  border-radius: 0.25rem !important;
-}
-
-/* 2) Hide Loading text */
-.loading, .loading-text, span.loading {
-  display: none !important;
-}
-
-/* 3) Button styles */
+/* Swap How Many Days left and Official Site button styles */
 .reveal-btn {
-  background: var(--button-days-bg) !important;
-  color: var(--btn-text-color) !important;
-  border-radius: 0.5rem !important;
-  padding: 0.5rem 1rem !important;
-  text-decoration: none !important;
-}
-.details-btn {
   background: var(--button-official-bg) !important;
   color: var(--btn-text-color) !important;
-  border-radius: 0.5rem !important;
-  padding: 0.5rem 1rem !important;
-  text-decoration: none !important;
 }
-.reveal-btn:hover,
-.details-btn:hover {
-  opacity: 0.8 !important;
-}
-.region-btn.active,
-.subnav-btn.active,
-.navbar .nav-links li a.active {
-  background-color: var(--button-active-bg) !important;
+.details-btn {
+  background: var(--button-days-bg) !important;
   color: var(--btn-text-color) !important;
 }
 
-/* 4) Responsive events grid */
-.events {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  gap: 2rem !important;
-  justify-content: center !important;
-  margin: 2rem auto !important;
-  max-width: 1200px !important;
+/* EDM cards pastel horizontal gradient */
+  background: linear-gradient(90deg, #d1c4e9, #f8bbd0) !important;
 }
 
-/* 5) Event card tweaks */
-.event-card {
-  background: #fff !important;
-  padding: 1.5rem !important;
-  border-radius: 0.75rem !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-}
-.event-card h2 {
-  font-size: 1.25rem !important;
-  margin-bottom: 0.5rem !important;
-  line-height: 1.2 !important;
-}
-.event-card p {
-  margin-bottom: 0.75rem !important;
-  line-height: 1.4 !important;
+/* Pride cards lighter pastel gradient */
+  background: linear-gradient(90deg, #ffebee, #f3e5f5) !important;
 }
 
-/* 6) Remove duplicate lists */
-.region-buttons + ul,
-.subnav-buttons + ul,
-.tab-content > ul {
-  display: none !important;
+/* EDM cards: green to purple horizontal rave gradient */
+.event-card[data-genre="EDM"] {
+  background: linear-gradient(90deg, #39ff14, #b533ff) !important;
 }
 
-/* 7) cta-btn styling */
-.cta-btn {
-  display: inline-block !important;
-  background: #fff !important;
-  color: var(--festival-start) !important;
-  border-radius: 0.5rem !important;
-  padding: 0.75rem 1.5rem !important;
-  text-decoration: none !important;
-  transition: background 0.3s !important;
-}
-.cta-btn:hover {
-  background: rgba(255,255,255,0.7) !important;
+/* PRIDE cards: maintain original style but apply transparency 0.7 */
+.event-card[data-genre="PRIDE"] {
+  opacity: 0.7 !important;
 }
 
-/* 8) Hero tweaks */
-.hero {
-  background: linear-gradient(135deg, var(--festival-start), var(--festival-end)) !important;
-  padding: 5rem 0 !important;
-  text-align: center !important;
-}
-.hero h1, .hero h2 {
-  color: #fff !important;
-  margin-bottom: 1rem !important;
-}
 
-/* 9) Search button in hero-search */
-.hero-search {
-  max-width: 1200px !important;
-  margin: 1.5rem auto !important;
-  text-align: right !important;
+/* Hero backgrounds matching card colors */
+.edm-page .hero {
+  background: linear-gradient(90deg, #39ff14, #b533ff) !important;
 }
-.hero-search input {
-  padding: 0.75rem 1rem !important;
-  border-radius: 999px !important;
+.pride-page .hero {
+  background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.7)) !important;
 }
-.hero-search .search-btn {
-  margin-left: 0.5rem !important;
-  padding: 0.75rem 1rem !important;
-  font-size: 0.875rem !important;
-}
+/* You can add more page-specific hero backgrounds here */
 
-/* 10) Hamburger: ensure toggling */
-.hamburger {
-  display: none !important;
+/* Subnav Buttons for K-POP Artists */
+.subnav-buttons {
+  text-align: center;
+  margin: 1.5rem 0;
 }
-@media(max-width:768px){
-  .hamburger {
-    display: block !important;
-    cursor: pointer !important;
-    color: #fff !important;
-  }
-  .nav-links {
-    display: none !important;
-  }
-  .nav-links.show {
-    display: flex !important;
-    flex-direction: column !important;
-    background: var(--bg-color) !important;
-    position: absolute !important;
-    top: 60px !important;
-    right: 1rem !important;
-    padding: 1rem !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-  }
+.subnav-btn {
+  display: inline-block;
+  font-size: 1.15rem;
+  margin: 0 0.75rem;
+  padding-bottom: 0.25rem;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.subnav-btn:hover,
+.subnav-btn.active {
+  color: var(--festival-start);
+  border-color: var(--festival-start);
 }
