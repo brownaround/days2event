@@ -149,15 +149,15 @@ body {
 .events {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem 1.25rem;
+  gap: 3.75rem 1.25rem; /* 세로 3배, 가로 동일 */
   padding: 2rem;
   justify-items: center;
-  grid-auto-rows: 250px;
+  grid-auto-rows: 262.5px; /* 카드 높이 맞춤 */
 }
 
 .event-card {
   width: 320px;
-  height: 250px;
+  height: 262.5px; /* 250px + 5% */
   box-sizing: border-box;
   background: #1a1a1a;
   color: white;
@@ -168,6 +168,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 0; /* 카드간 세로 간격은 그리드 gap에 맡김 */
 }
 
 .event-card:hover {
@@ -177,7 +178,14 @@ body {
 
 .details-btn,
 .reveal-btn {
-  font-size: 1rem;
+  font-size: 0.875rem; /* 약간 작게 */
+}
+
+/* PRIDE 카드 official site 버튼 효과 제거 - 통일 */
+.event-card[data-genre="PRIDE"] .details-btn {
+  background: #0ff; /* 기본 버튼 배경색 */
+  box-shadow: none;
+  color: black;
 }
 
 .details-btn {
