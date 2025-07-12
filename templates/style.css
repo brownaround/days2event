@@ -59,8 +59,9 @@ body {
 @media (max-width: 1024px) {
   .events {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    max-width: calc(280px * 2 + 1rem); /* 최대 2장 + 간격 */
+    max-width: calc(280px * 2 + 1.5rem); /* 최대 2장 + 간격 */
     margin: 0 auto;
+    gap: 1.5rem;
   }
 }
 
@@ -70,14 +71,16 @@ body {
     max-width: 320px;
     padding: 1rem;
     margin: 0 auto;
+    gap: 1.5rem;
   }
 }
 
 @media (min-width: 1025px) {
   .events {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    max-width: calc(320px * 4 + 1rem * 3); /* 최대 4장 + 간격 */
+    max-width: calc(320px * 4 + 1.5rem * 3); /* 최대 4장 + 간격 */
     margin: 0 auto;
+    gap: 1.5rem;
   }
 }
 
@@ -152,7 +155,7 @@ body {
 
 .events {
   display: grid;
-  gap: 1rem; /* 가로/세로 동일 */
+  gap: 1.5rem; /* 가로/세로 동일 */
   padding: 2rem;
   justify-items: center;
   grid-auto-rows: 262.5px;
@@ -186,14 +189,14 @@ body {
 
 /* PRIDE 카드 official site 버튼 효과 제거 - 통일 */
 .event-card[data-genre="PRIDE"] .details-btn {
-  background: #0ff;
-  box-shadow: none;
-  color: black;
+  background: #0ff !important;
+  box-shadow: none !important;
+  color: black !important;
 }
 
 .details-btn {
-  background-color: #0ff;
-  color: black;
+  background-color: #0ff !important;
+  color: black !important;
   font-weight: bold;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -203,12 +206,12 @@ body {
   margin-left: 0;
   margin-top: 0.25rem;
   align-self: flex-start;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .details-btn:hover {
-  background-color: #00cccc;
-  color: white;
+  background-color: #00cccc !important;
+  color: white !important;
 }
 
 .countdown-wrapper {
