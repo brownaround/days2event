@@ -55,6 +55,8 @@ def main():
         sys.exit(1)
 
     df.fillna('', inplace=True)
+    df['Start Date Parsed'] = pd.to_datetime(df['Start Date'], errors='coerce')
+    df = df.sort_values(by='Start Date Parsed')
 
     multi_genre_events = df[df['Genre'] == "Multi-Genre"]
 
@@ -89,13 +91,35 @@ def main():
          'hero_subtitle': "Discover POP events and artists."},
         {'filename': 'k-pop.html', 'current_page': 'kpop',
          'hero_title': "🇰🇷🎵 K-POP Festival Highlights",
-         'hero_subtitle': "Discover K-POP events and artists."}
+         'hero_subtitle': "Discover K-POP events and artists."},
+        {'filename': 'edm.html', 'current_page': 'edm',
+         'hero_title': "🪩 EDM Festival Highlights",
+         'hero_subtitle': "Feel the beat at top EDM events."},
+        {'filename': 'pride.html', 'current_page': 'pride',
+         'hero_title': "🏳️‍🌈 PRIDE Festival Highlights",
+         'hero_subtitle': "Celebrate diversity and love with PRIDE events."}
     ]
 
     for page in pages:
         try:
+            # 페이지별 이벤트 필터링
+            if page['current_page'] == 'home':
+                events_filtered = df.to_dict(orient="records")
+            elif page['current_page'] == 'region':
+                events_filtered = df.to_dict(orient="records")
+            elif page['current_page'] == 'pop':
+                events_filtered = df[df['Genre'] == 'POP'].to_dict(orient="records")
+            elif page['current_page'] == 'kpop':
+                events_filtered = df[df['Genre'] == 'K-POP'].to_dict(orient="records")
+            elif page['current_page'] == 'edm':
+                events_filtered = df[df['Genre'] == 'EDM'].to_dict(orient="records")
+            elif page['current_page'] == 'pride':
+                events_filtered = df[df['Genre'] == 'PRIDE'].to_dict(orient="records")
+            else:
+                events_filtered = df.to_dict(orient="records")
+
             rendered_html = template.render(
-                events=df.to_dict(orient="records"),
+                events=events_filtered,
                 multi_genre_events=multi_genre_events.to_dict(orient="records"),
                 genre_artists=genre_artists,
                 region_groups=region_groups,
