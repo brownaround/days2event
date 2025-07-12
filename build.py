@@ -21,7 +21,6 @@ def countryToEmoji(country):
         "Hong Kong": "🇭🇰",
         "Thailand": "🇹🇭",
         "Taiwan": "🇹🇼",
-        # 필요한 국가 추가
     }
     return mapping.get(country, country)
 
