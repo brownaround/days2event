@@ -148,15 +148,16 @@ body {
 
 .events {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.5rem 1rem;
   padding: 2rem;
   justify-items: center;
+  grid-auto-rows: 220px;
 }
 
 .event-card {
-  width: 260px;
-  height: 170px;
+  width: 280px;
+  height: 210px;
   background: #1a1a1a;
   color: white;
   padding: 1rem;
@@ -267,4 +268,13 @@ body {
   }
   100% {
     transform: rotateX(0deg);
-    opacity: 
+    opacity: 1;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #0f0f0f;
+  color: #999;
+}

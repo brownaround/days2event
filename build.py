@@ -9,14 +9,14 @@ def countryToEmoji(country):
     mapping = {
         "USA": "🇺🇸",
         "Canada": "🇨🇦",
-        "Brzail": "🇧🇷",        
+        "Brazil": "🇧🇷",
         "UK": "🇬🇧",
         "France": "🇫🇷",
         "Belgium": "🇧🇪",
         "Netherlands": "🇳🇱",
         "Hungary": "🇭🇺",
         "South Korea": "🇰🇷",
-        "Japan": "🇯🇵",       
+        "Japan": "🇯🇵",
         "China": "🇨🇳",
         "Hong Kong": "🇭🇰",
         "Thailand": "🇹🇭",
@@ -64,6 +64,7 @@ def main():
 
     # 대륙(Region) 리스트 준비 (중복 제거 및 정렬)
     region_groups = sorted(df['Region'].dropna().unique())
+    print("Regions found:", region_groups)
 
     env = Environment(loader=FileSystemLoader(template_dir))
     env.globals['countryToEmoji'] = countryToEmoji
