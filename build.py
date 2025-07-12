@@ -14,7 +14,8 @@ def countryToEmoji(country):
         "Thailand": "🇹🇭",
         "Taiwan": "🇹🇼",
         # 필요한 국가 추가
-    }eturn mapping.get(country, country)
+    }
+    return mapping.get(country, country)
 
 def formatDateRange(start_date, end_date):
     try:
@@ -74,7 +75,10 @@ def main():
             events=df.to_dict(orient="records"),
             multi_genre_events=multi_genre_events.to_dict(orient="records"),
             genre_artists=genre_artists,
-            region_groups=region_groups
+            region_groups=region_groups,
+            current_page='home',  # 기본 페이지
+            hero_title="🌟 Your Festival Countdown Starts Here!",
+            hero_subtitle="From Coachella to Tomorrowland – track how many days are left until the music starts!"
         )
         with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f:
             f.write(rendered_html)
