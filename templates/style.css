@@ -274,3 +274,22 @@ body {
   display: none !important;
 }
 
+
+/* Hero section dark gradient */
+.hero {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364) !important;
+}
+
+/* Browse Festivals button style */
+.cta-btn, .browse-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: #203a43;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transition: background 0.3s;
+}
+.cta-btn:hover, .browse-btn:hover {
+  background: #2c5364 !important;
+}

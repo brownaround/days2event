@@ -35,20 +35,48 @@
       {{ hero_subtitle }}
     {% endif %}
   </p>
-  <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
+  <a href="#events" class="browse-btn">👇🏼 Browse Festivals</a>
 </header>
 
-{% if current_page in ['pop', 'kpop', 'region'] %}
-<div class="tab-menu" id="tabMenu" style="padding: 0 2rem;">
-  {% if current_page == 'pop' %}
-  <button class="tab-btn active" data-filter="artist" data-value="POP">🎶 POP Artists</button>
-  {% elif current_page == 'kpop' %}
-  <button class="tab-btn active" data-filter="artist" data-value="K-POP">🇰🇷🎵 K-POP Artists</button>
-  {% elif current_page == 'region' %}
-    {% for region in region_groups if region %}
-      <button class="tab-btn" data-filter="region" data-value="{{ region }}">{{ region }}</button>
-    {% endfor %}
-  {% endif %}
+
+{% if current_page == 'pop' %}
+{% set artists = genre_artists.get('POP', []) %}
+<div class="subnav-buttons">
+  <a href="pop.html?artist=all" class="subnav-btn{% if selected=='all' %} active{% endif %}">All</a>
+  {% for artiste in artists %}
+    <a href="pop.html?artist={{ artiste }}" class="subnav-btn{% if selected==artiste %} active{% endif %}">{{ artiste }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+{% if current_page == 'kpop' %}
+{% set artists = genre_artists.get('K-POP', []) %}
+<div class="subnav-buttons">
+  <a href="k-pop.html?artist=all" class="subnav-btn{% if selected=='all' %} active{% endif %}">All</a>
+  {% for artiste in artists %}
+    <a href="k-pop.html?artist={{ artiste }}" class="subnav-btn{% if selected==artiste %} active{% endif %}">{{ artiste }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+{% if current_page == 'region' %}
+<div class="region-buttons">
+  <a href="asia.html" class="region-btn{% if selected=='asia' %} active{% endif %}" data-region="asia">🌏 Asia</a>
+  <a href="europe.html" class="region-btn{% if selected=='europe' %} active{% endif %}" data-region="europe">🏰 Europe</a>
+  <a href="latin-america.html" class="region-btn{% if selected=='latin-america' %} active{% endif %}" data-region="latin-america">🎉 Latin America</a>
+  <a href="north-america.html" class="region-btn{% if selected=='north-america' %} active{% endif %}" data-region="north-america">🗽 North America</a>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let regionKey = 'asia';
+  if (tz.startsWith('Europe')) regionKey = 'europe';
+  else if (tz.startsWith('America')) regionKey = 'north-america';
+  document.querySelectorAll('.region-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.querySelector(`.region-btn[data-region="${regionKey}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+});
+</script>
+{% endif %}
+
 </div>
 
 <div class="tab-content active" id="{{ current_page }}" style="padding: 0 2rem;">
