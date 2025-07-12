@@ -275,21 +275,37 @@ body {
   }
 }
 
-/* Festival gradient and white card background override */
 :root {
-  --card-bg-color: #ffffff;
+  --bg-color: #ffffff;
   --festival-start: #ff6f00;
   --festival-end:   #ffd600;
 }
-body {
-  background: var(--bg-color, #ffffff) !important;
-}
-.navbar {
-  background: var(--festival-start) !important;
-}
+body { background: var(--bg-color) !important; }
+.navbar { background: var(--festival-start) !important; }
 .hero {
   background: linear-gradient(135deg, var(--festival-start), var(--festival-end)) !important;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
-.event-card {
-  background: var(--card-bg-color) !important;
+.hero h1, .hero h2 { margin-bottom: 1rem; }
+.hero-search { max-width: 1200px; margin: 1.5rem auto; text-align: right; }
+.event-card { background: #ffffff !important; flex: 0 0 280px !important; max-width: 280px !important; }
+.details-btn, .reveal-btn, .browse-btn, .region-btn, .subnav-btn {
+  text-decoration: none !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.875rem !important;
 }
+.reveal-btn { background: var(--festival-start) !important; color: #fff !important; }
+.details-btn { background: var(--festival-end) !important; color: #333 !important; }
+.browse-btn { background: var(--festival-start) !important; color: #fff !important; padding: 0.5rem 1rem !important; }
+.nav-links li a.active { background-color: rgba(255,255,255,0.15) !important; border-radius: 0.25rem !important; }
+.region-buttons .region-btn { font-size: 1.875rem !important; padding: 0.75rem 1.5rem !important; margin: 0 1.5rem !important; }
+.region-buttons + ul { display: none !important; }
+.events {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  gap: 2.25rem !important;
+  margin: 2rem 0 !important;
+}
+.content-wrapper { padding: 2rem !important; }
