@@ -4,17 +4,7 @@
 {% endblock %}
 {% block content %}
 
-<header class="hero" id="hero-section" style="
-  background: {% if current_page == 'multi-genre' %}
-    linear-gradient(135deg, #ff7e5f, #feb47b)
-  {% elif current_page == 'edm' %}
-    linear-gradient(135deg, #1a8f3f, #054d22)
-  {% elif current_page == 'pride' %}
-    linear-gradient(180deg, #ffb3ba, #ffdfba, #ffffba)
-  {% else %}
-    linear-gradient(135deg, #0ff, #80f)
-  {% endif %};
-  color: white; text-align: center; padding: 5rem 1rem;">
+<header class="hero {% if current_page %}{{ current_page }}{% endif %}" id="hero-section">
   <h1>
     {% if current_page == 'multi-genre' %}
       Multi-Genre Festivals
@@ -22,6 +12,12 @@
       EDM Festivals
     {% elif current_page == 'pride' %}
       PRIDE Festivals
+    {% elif current_page == 'pop' %}
+      POP Festivals
+    {% elif current_page == 'kpop' %}
+      K-POP Festivals
+    {% elif current_page == 'region' %}
+      By Region Festivals
     {% else %}
       {{ hero_title }}
     {% endif %}
@@ -74,6 +70,9 @@
 
 <main class="events" id="events">
   {% for event in events %}
+    {% if current_page == 'multi-genre' and event['Genre'] != 'Multi-Genre' %}
+      {% continue %}
+    {% endif %}
   <div class="event-card"
        data-genre="{{ event['Genre'] }}"
        data-region="{{ event['Region'] }}"

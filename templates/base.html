@@ -39,9 +39,11 @@
     gtag('config', 'G-78R520RQ1E');
   </script>
 
+  <!-- Google Adsense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473"
      crossorigin="anonymous"></script>
 
+  <link rel="stylesheet" href="style.css" />
   {% block head %}{% endblock %}
 </head>
 <body>
@@ -54,9 +56,9 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='/'">🎉 Days2Event</div>
-      <div class="hamburger">☰</div>
-      <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
+      <div class="hamburger" id="hamburger">☰</div>
+      <ul class="nav-links" id="navMenu">
+        <li><a href="/" class="active">🏠 Home</a></li>
         <li><a href="/multi-genre">✨ Multi-Genre</a></li>
         <li><a href="/edm">🪩 EDM</a></li>
         <li><a href="/pop">🎶 POP</a></li>
@@ -70,13 +72,23 @@
 
   {% block content %}{% endblock %}
 
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+<script>
+  // 햄버거 메뉴 토글
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
 
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
+  // 메뉴 클릭 시 모바일 메뉴 닫기
+  document.querySelectorAll('#navMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(navMenu.classList.contains('show')){
+        navMenu.classList.remove('show');
+      }
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
