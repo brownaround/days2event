@@ -3,6 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import os
 import shutil
 import sys
+from datetime import datetime
 
 def countryToEmoji(country):
     mapping = {
@@ -13,26 +14,21 @@ def countryToEmoji(country):
         "Thailand": "🇹🇭",
         "Taiwan": "🇹🇼",
         # 필요한 국가 추가
-    }
-    return mapping.get(country, country)
+    }eturn mapping.get(country, country)
 
 def formatDateRange(start_date, end_date):
-    from datetime import datetime
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
         end = datetime.strptime(end_date, "%Y-%m-%d")
         if start.year == end.year:
             if start.month == end.month:
-                # 같은 달: December 27-31, 2025
                 return f"{start.strftime('%B')} {start.day}-{end.day}, {start.year}"
             else:
-                # 다른 달: December 27 - January 2, 2025
                 return f"{start.strftime('%B')} {start.day} - {end.strftime('%B')} {end.day}, {start.year}"
         else:
-            # 다른 년도: December 27, 2024 - January 2, 2025
             return f"{start.strftime('%B')} {start.day}, {start.year} - {end.strftime('%B')} {end.day}, {end.year}"
     except Exception:
-        return f"{start_date} - {end_date}"  # 실패 시 원본 반환
+        return f"{start_date} - {end_date}"
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))

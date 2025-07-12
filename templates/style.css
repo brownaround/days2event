@@ -56,7 +56,17 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .events {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .events {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .hamburger {
     display: block;
   }
@@ -151,6 +161,10 @@ body {
   box-shadow: 0 0 10px #0ff3;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 350px;
 }
 
 .event-card:hover {
@@ -168,6 +182,7 @@ body {
   display: inline-block;
   transition: background-color 0.3s ease;
   margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .details-btn:hover {
