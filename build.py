@@ -16,57 +16,52 @@ events_by_region = {c: [] for c in CONTINENTS}
 with open('events.csv', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     for row in reader:
-        # CSV 헤더에 맞춰 키 사용
         region = row.get('Region', '').strip()
         if region not in events_by_region:
             continue
-        name = row.get('Festival Name', '').strip()
-        start_date = row.get('Start Date', '').strip()
-        end_date = row.get('End Date', '').strip()
-
-        # 표시용 날짜 포맷
-        if start_date and end_date:
-            display_date = start_date if start_date == end_date else f"{start_date}–{end_date}"
+        # 날짜 처리
+        start = row.get('Start Date', '').strip()
+        end = row.get('End Date', '').strip()
+        if start and end:
+            display_date = start if start == end else f"{start}–{end}"
         else:
-            display_date = start_date or end_date
-
-        # ISO 날짜 (타이머용)
-        iso_date = start_date
-
-        # 정렬용 datetime 객체
+            display_date = start or end
+        iso_date = start
+        # datetime for sorting
         try:
-            dt = datetime.fromisoformat(start_date)
+            dt = datetime.fromisoformat(start)
         except Exception:
             dt = None
-
         events_by_region[region].append({
-            'name':         name,
-            'date_display': display_date,
-            'iso_date':     iso_date,
-            'city':         row.get('City', '').strip(),
-            'country':      row.get('Country', '').strip(),
-            'venue':        row.get('Venue', '').strip(),
-            'attendance':   row.get('Attendance', '').strip(),
-            'revenue':      row.get('Revenue', '').strip(),
-            'dt':           dt,
+            'name':          row.get('Festival Name', '').strip(),
+            'date_display':  display_date,
+            'iso_date':      iso_date,
+            'city':          row.get('City', '').strip(),
+            'country':       row.get('Country', '').strip(),
+            'venue':         row.get('Venue', '').strip(),
+            'attendance':    row.get('Attendance', '').strip(),
+            'revenue':       row.get('Revenue', '').strip(),
+            'dt':            dt,
         })
 
-# 4) 날짜 기준 정렬 (존재하지 않을 경우 최소값 사용)
-for region, evs in events_by_region.items():
-    events_by_region[region] = sorted(evs, key=lambda e: e['dt'] or datetime.min)
+# 4) 날짜 기준 정렬
+events_by_region = {
+    region: sorted(evs, key=lambda e: e['dt'] or datetime.min)
+    for region, evs in events_by_region.items()
+}
 
 # 5) 지역별 페이지 생성
 template = env.get_template('by-region.html')
-for region in CONTINENTS:
+for region, evs in events_by_region.items():
     slug = region.lower().replace(' ', '-')
     html = template.render(
         continents=CONTINENTS,
         selected_region=region,
-        events=events_by_region.get(region, []),
+        events_by_region=events_by_region,
         timer_script='timer.js'
     )
-    out_path = f'build/by-region-{slug}.html'
-    with open(out_path, 'w', encoding='utf-8') as out:
+    out_file = f'build/by-region-{slug}.html'
+    with open(out_file, 'w', encoding='utf-8') as out:
         out.write(html)
 
 print("✅ by-region 페이지 생성 완료!")
