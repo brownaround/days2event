@@ -1,4 +1,13 @@
 
+/* Variables */
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #333333;
+  --primary-color: #007bff;
+  --card-bg-color: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
 /* Reset & Base */
 * {
   box-sizing: border-box;
@@ -7,14 +16,14 @@
 }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #0a0a0a;
-  color: #fff;
+  background: var(--bg-color);
+  color: var(--text-color);
   overflow-x: hidden;
 }
 
 /* Navbar */
 .navbar {
-  background: #0a0a0a;
+  background: var(--bg-color);
   position: sticky;
   top: 0;
   z-index: 999;
@@ -31,7 +40,7 @@ body {
 .logo {
   font-size: 1.75rem;
   font-weight: bold;
-  color: #0ff;
+  color: var(--primary-color);
 }
 .nav-links {
   display: flex;
@@ -39,19 +48,18 @@ body {
   list-style: none;
 }
 .nav-links li a {
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s, text-shadow 0.3s;
+  transition: color 0.3s;
 }
 .nav-links li a:hover {
-  color: #0ff;
-  text-shadow: 0 0 8px #0ff;
+  color: var(--primary-color);
 }
 .hamburger {
   display: none;
   font-size: 1.5rem;
-  color: #fff;
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -62,13 +70,13 @@ body {
   .nav-links {
     display: none;
     flex-direction: column;
-    background: #111;
+    background: var(--bg-color);
     position: absolute;
     top: 60px;
     right: 1rem;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 0 10px #0ff;
+    box-shadow: 0 0 10px var(--primary-color);
   }
   .nav-links.show {
     display: flex;
@@ -82,7 +90,7 @@ body {
 .hero {
   text-align: center;
   padding: 4rem 1rem;
-  background: linear-gradient(135deg, #0ff, #80f);
+  background: linear-gradient(135deg, var(--primary-color), #80b3ff);
 }
 
 /* Content Wrapper */
@@ -102,36 +110,41 @@ body {
   max-width: 360px;
   padding: 0.75rem 1rem;
   font-size: 1rem;
-  border: 2px solid #0ff;
+  border: 2px solid var(--primary-color);
   border-radius: 999px;
-  background: #111;
-  color: #fff;
+  background: #fff;
+  color: var(--text-color);
   transition: box-shadow 0.3s;
 }
 .hero-search input:focus {
-  box-shadow: 0 0 10px #0ff;
-  border-color: #0ff;
+  box-shadow: 0 0 10px var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 /* Events Grid */
 .events {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
   margin-top: 1rem;
+}
+@media (max-width: 992px) {
+  .events {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
 }
 
 /* Event Card */
 .event-card {
-  background: #1a1a1a;
+  background: var(--card-bg-color);
   padding: 1.25rem;
   border-radius: 0.75rem;
-  box-shadow: 0 0 8px #0ff3;
+  box-shadow: 0 2px 8px var(--card-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .event-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 12px #0ff;
+  box-shadow: 0 4px 12px var(--card-shadow);
 }
 .event-card h2 {
   margin-bottom: 0.5rem;
@@ -142,33 +155,37 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Buttons */
-.details-btn,
-.reveal-btn {
-  display: inline-block;
+/* Buttons - unified font size */
+.details-btn, .reveal-btn {
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 0.5rem;
   text-decoration: none;
   padding: 0.5rem 1rem;
   transition: background 0.3s, color 0.3s;
 }
-.details-btn {
-  background: #0ff;
-  color: #000;
-}
-.details-btn:hover {
-  background: #0ce;
-}
+
+/* Make 'How Many Days left?' button solid */
 .reveal-btn {
-  background: transparent;
-  border: 2px solid #0ff;
-  color: #0ff;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
   cursor: pointer;
   margin-bottom: 0.5rem;
 }
 .reveal-btn:hover {
-  background: #0ff;
-  color: #000;
+  background: #0056b3;
+}
+
+/* 'Official Site' outline style */
+.details-btn {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+.details-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
 }
 
 /* Countdown Display */
@@ -188,8 +205,8 @@ body {
 footer {
   text-align: center;
   padding: 2rem 1rem;
-  background: #0f0f0f;
-  color: #999;
+  background: #e0e0e0;
+  color: #666;
 }
 .footer-links {
   margin-top: 1rem;
@@ -200,7 +217,7 @@ footer {
 }
 .footer-links a {
   font-size: 0.875rem;
-  color: #fff;
+  color: var(--text-color);
 }
 .footer-links a:hover {
   text-decoration: underline;
