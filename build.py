@@ -10,7 +10,7 @@ def countryToEmoji(country):
         "Belgium": "🇧🇪",
         "France": "🇫🇷",
         "South Korea": "🇰🇷",
-        "Thailand": "🇹🇭"
+        "Thailand": "🇹🇭",
         "Taiwan": "🇹🇼",
         # 필요한 국가 추가
     }
