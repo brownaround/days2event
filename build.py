@@ -1,87 +1,60 @@
 import pandas as pd
-import os
-from jinja2 import Environment, FileSystemLoader
+import jinja2
 from datetime import datetime
+import os
 
-# CSV 파일 불러오기
+# Read the CSV
 df = pd.read_csv("events.csv")
 
-# 필수 컬럼 누락 제거 (컬럼명은 CSV 기준)
+# Drop rows with missing key fields
 df = df.dropna(subset=[
-    "Festival Name", "Start Date", "City", "Country", "Region", "Link"
+    "Event Name", "Start Date", "City", "Country", "Region", "Official Site"
 ])
 
-# 날짜 처리
+# Convert date columns to datetime
 df["Start Date"] = pd.to_datetime(df["Start Date"], errors='coerce')
 df["End Date"] = pd.to_datetime(df["End Date"], errors='coerce')
-df = df.dropna(subset=["Start Date"])  # 날짜 형식 오류 제거
 
-# 나라 이모지 매핑
-country_emoji = {
-    "USA": "🇺🇸",
-    "Canada": "🇨🇦",
-    "UK": "🇬🇧",
-    "France": "🇫🇷",
-    "Germany": "🇩🇪",
-    "Spain": "🇪🇸",
-    "Italy": "🇮🇹",
-    "South Korea": "🇰🇷",
-    "Japan": "🇯🇵",
-    "Taiwan": "🇹🇼",
-    "Thailand": "🇹🇭",
-    "Singapore": "🇸🇬",
-    "Australia": "🇦🇺",
-    "Mexico": "🇲🇽",
-    "Brazil": "🇧🇷",
-    "Argentina": "🇦🇷",
-    # 필요시 더 추가
+# Format date for display
+df["Start Date Str"] = df["Start Date"].dt.strftime('%b %d, %Y')
+df["End Date Str"] = df["End Date"].dt.strftime('%b %d, %Y')
+
+# Add location string
+df["Location"] = df["City"] + ", " + df["Country"]
+
+# Emoji for each country (basic example)
+country_emojis = {
+    "United States": "🇺🇸", "South Korea": "🇰🇷", "France": "🇫🇷", "Italy": "🇮🇹",
+    "Spain": "🇪🇸", "England": "🇬🇧", "Canada": "🇨🇦", "Taiwan": "🇹🇼",
+    "Singapore": "🇸🇬", "Thailand": "🇹🇭", "Indonesia": "🇮🇩", "Philippines": "🇵🇭"
+}
+df["Location"] = df.apply(lambda row: f"{row['City']}, {row['Country']} {country_emojis.get(row['Country'], '')}", axis=1)
+
+# Timer target (Start Date)
+df["Timer Date"] = df["Start Date"].dt.strftime('%Y-%m-%d')
+
+# Group events by Region
+regions = df["Region"].dropna().unique()
+events_by_region = {
+    region: df[df["Region"] == region].sort_values("Start Date")
+    for region in regions
 }
 
-# 국가 + 이모지 조합
-def format_location(city, country):
-    emoji = country_emoji.get(country, "")
-    if country == "United States":
-        return f"{city}, {country} {emoji}"
-    else:
-        return f"{city}, {country} {emoji}"
-
-df["Location"] = df.apply(lambda row: format_location(row["City"], row["Country"]), axis=1)
-
-# Jinja2 템플릿 설정
-env = Environment(loader=FileSystemLoader("templates"))
+# Set up Jinja2 environment
+env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 template = env.get_template("by-region.html")
 
-# 지역별 그룹핑
-grouped = df.groupby("Region")
-
-# 출력 디렉토리 생성
+# Output directory
 output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
 
-# 모든 대륙 이름 수집
-all_regions = sorted(df["Region"].unique().tolist())
+# Render and save the page
+html = template.render(
+    regions=regions,
+    events_by_region=events_by_region,
+    selected_region="Asia",  # 기본값
+    timer_script="timer.js"
+)
 
-# 지역별 HTML 생성
-for region, group in grouped:
-    region_slug = region.lower().replace(" ", "-")
-
-    # 이벤트 정렬
-    group = group.sort_values("Start Date")
-
-    # HTML 렌더링
-    html = template.render(
-        events=group.to_dict(orient="records"),
-        region_name=region,
-        regions=all_regions,
-        today=datetime.today().strftime("%Y-%m-%d"),
-        timer_script="timer.js"
-    )
-
-    with open(f"{output_dir}/{region_slug}.html", "w", encoding="utf-8") as f:
-        f.write(html)
-
-# index.html 생성
-index_template = env.get_template("index.html")
-index_html = index_template.render(regions=all_regions)
-with open(f"{output_dir}/index.html", "w", encoding="utf-8") as f:
-    f.write(index_html)
+with open(os.path.join(output_dir, "byregion.html"), "w", encoding="utf-8") as f:
+    f.write(html)
