@@ -1,0 +1,42 @@
+{# templates/by-region.html #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Festivals in {{ selected_region }}</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>🎉 Festivals by Region</h1>
+  </header>
+
+  {# — 네비 탭 — #}
+  <nav class="nav-tabs">
+    {% for region in continents %}
+      <div class="nav-item{% if region == selected_region %} active{% endif %}"
+           onclick="location.href='by-region-{{ region | lower | replace(' ', '-') }}.html'">
+        {{ region }}
+      </div>
+    {% endfor %}
+  </nav>
+
+  {# — 이벤트 리스트 혹은 안내문 — #}
+  {% set events = events_by_region.get(selected_region, []) %}
+  {% if events %}
+    <ul class="event-list">
+      {% for event in events %}
+        <li class="event-card">
+          <h2>{{ event.name }} {{ event.emoji }}</h2>
+          <p>{{ event.date }}</p>
+          <div class="countdown" data-datetime="{{ event.iso_date }}"></div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="no-events">No upcoming events in {{ selected_region }}.</p>
+  {% endif %}
+
+  <script src="timer.js"></script>
+</body>
+</html>

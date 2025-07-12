@@ -1,128 +1,73 @@
-import pandas as pd
-from datetime import datetime
+import csv
+import json
+from collections import defaultdict
 from jinja2 import Environment, FileSystemLoader
-import os
-import sys
-import shutil
+from datetime import datetime
 
-def countryToEmoji(country):
-    mapping = {
-        "USA": "🇺🇸",
-        "Canada": "🇨🇦",
-        "Brazil": "🇧🇷",
-        "UK": "🇬🇧",
-        "France": "🇫🇷",
-        "Belgium": "🇧🇪",
-        "Spain": "🇪🇸",
-        "Italy": "🇮🇹",       
-        "Netherlands": "🇳🇱",
-        "Hungary": "🇭🇺",
-        "South Korea": "🇰🇷",
-        "Japan": "🇯🇵",
-        "China": "🇨🇳",
-        "Hong Kong": "🇭🇰",
-        "Indonesia": "🇮🇩",
-        "Philippines": "🇵🇭",
-        "Thailand": "🇹🇭",
-        "Taiwan": "🇹🇼",
-    }
-    return mapping.get(country, country)
+# — 1) 환경 설정
+env = Environment(
+    loader=FileSystemLoader('templates'),
+    autoescape=True
+)
 
-def formatDateRange(start_date, end_date):
-    try:
-        start = datetime.strptime(start_date, "%Y-%m-%d")
-        end = datetime.strptime(end_date, "%Y-%m-%d")
-        if start.year == end.year:
-            if start.month == end.month:
-                return f"{start.strftime('%B')} {start.day}-{end.day}, {start.year}"
-            else:
-                return f"{start.strftime('%B')} {start.day} - {end.strftime('%B')} {end.day}, {start.year}"
-        else:
-            return f"{start.strftime('%B')} {start.day}, {start.year} - {end.strftime('%B')} {end.day}, {end.year}"
-    except Exception:
-        return f"{start_date} - {end_date}"
+# — 2) 상수 정의
+CONTINENTS = ['Asia', 'Europe', 'Latin America', 'North America']
+GENRES     = ['Multi-genre', 'EDM', 'POP', 'K-POP', 'PRIDE']  # 필요에 따라 확장
+TIMER_SCRIPT = 'timer.js'
 
-def main():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    template_dir = os.path.join(base_dir, "templates")
-    output_dir = os.path.join(base_dir, "site")
-    csv_path = os.path.join(base_dir, "events.csv")
+# — 3) CSV에서 이벤트 데이터 로드
+events = []
+with open('events.csv', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        # ISO 날짜로 정렬하기 위해 datetime 변환
+        dt = datetime.fromisoformat(row['date_iso'])
+        events.append({
+            'name':        row.get('name', ''),
+            'city':        row.get('city', ''),
+            'country':     row.get('country', ''),
+            'flag':        row.get('emoji', ''),             # CSV에 🇰🇷 같은 이모지 컬럼이 있다고 가정
+            'venue':       row.get('venue', ''),
+            'attendance':  row.get('attendance', ''),
+            'revenue':     row.get('revenue', ''),
+            'region':      row.get('region', ''),
+            'genre':       row.get('genre', ''),             # CSV에 장르 컬럼이 있다면
+            'date_display':row.get('date_display', ''),
+            'date_iso':    row['date_iso'],
+            'dt':          dt
+        })
 
-    df = pd.read_csv(csv_path)
-    df.fillna('', inplace=True)
-    df['Start Date Parsed'] = pd.to_datetime(df['Start Date'], errors='coerce')
-    df = df.sort_values(by='Start Date Parsed')
+# — 4) 지역별·장르별 그룹핑
+events_by_region = defaultdict(list)
+events_by_genre  = defaultdict(list)
+for ev in sorted(events, key=lambda e: e['dt']):
+    events_by_region[ev['region']].append(ev)
+    events_by_genre[ev['genre']].append(ev)
 
-    genre_artists = {}
-    for genre in ['POP', 'K-POP']:
-        artists = sorted(df[df['Genre'] == genre]['Artist'].unique())
-        genre_artists[genre] = [a for a in artists if a]
+# — 5) 지역별 페이지 생성
+tmpl_region = env.get_template('by-region.html')
+for region in CONTINENTS:
+    slug = region.lower().replace(' ', '-')
+    html = tmpl_region.render(
+        continents=CONTINENTS,
+        selected_region=region,
+        events=events_by_region.get(region, []),
+        timer_script=TIMER_SCRIPT
+    )
+    with open(f'build/by-region-{slug}.html', 'w', encoding='utf-8') as out:
+        out.write(html)
 
-    region_groups = sorted(df['Region'].dropna().unique())
+# — 6) 장르별 페이지 생성
+tmpl_genre = env.get_template('by-genre.html')
+for genre in GENRES:
+    slug = genre.lower().replace(' ', '-')
+    html = tmpl_genre.render(
+        genres=GENRES,
+        selected_genre=genre,
+        events=events_by_genre.get(genre, []),
+        timer_script=TIMER_SCRIPT
+    )
+    with open(f'build/by-genre-{slug}.html', 'w', encoding='utf-8') as out:
+        out.write(html)
 
-    env = Environment(loader=FileSystemLoader(template_dir))
-    env.globals['countryToEmoji'] = countryToEmoji
-    env.filters['formatDateRange'] = formatDateRange
-
-    template = env.get_template("index.html.j2")
-
-    pages = [
-        {'filename': 'index.html', 'current_page': 'home',
-         'hero_title': "🌟 Your Festival Countdown Starts Here!",
-         'hero_subtitle': "From Coachella to Tomorrowland – track how many days are left until the music starts!"},
-        {'filename': 'multi-genre.html', 'current_page': 'multi-genre',
-         'hero_title': "✨ Multi-Genre Festivals",
-         'hero_subtitle': "Explore diverse music festivals worldwide."},
-        {'filename': 'pop.html', 'current_page': 'pop',
-         'hero_title': "🎶 POP Festival Highlights",
-         'hero_subtitle': "Discover POP events and artists."},
-        {'filename': 'k-pop.html', 'current_page': 'kpop',
-         'hero_title': "🇰🇷🎵 K-POP Festival Highlights",
-         'hero_subtitle': "Discover K-POP events and artists."},
-        {'filename': 'edm.html', 'current_page': 'edm',
-         'hero_title': "🪩 EDM Festival Highlights",
-         'hero_subtitle': "Feel the beat at top EDM events."},
-        {'filename': 'pride.html', 'current_page': 'pride',
-         'hero_title': "🏳️‍🌈 PRIDE Festival Highlights",
-         'hero_subtitle': "Celebrate diversity and love with PRIDE events."},
-        {'filename': 'by-region.html', 'current_page': 'region',
-         'hero_title': "📍 Explore Festivals by Region",
-         'hero_subtitle': "Select your continent or region to find upcoming events nearby."}
-    ]
-
-    os.makedirs(output_dir, exist_ok=True)
-
-    for page in pages:
-        if page['current_page'] == 'home':
-            events_filtered = df.to_dict(orient="records")
-        elif page['current_page'] == 'multi-genre':
-            events_filtered = df[df['Genre'] == 'Multi-Genre'].to_dict(orient="records")
-        elif page['current_page'] == 'pop':
-            events_filtered = df[df['Genre'] == 'POP'].to_dict(orient="records")
-        elif page['current_page'] == 'kpop':
-            events_filtered = df[df['Genre'] == 'K-POP'].to_dict(orient="records")
-        elif page['current_page'] == 'edm':
-            events_filtered = df[df['Genre'] == 'EDM'].to_dict(orient="records")
-        elif page['current_page'] == 'pride':
-            events_filtered = df[df['Genre'] == 'PRIDE'].to_dict(orient="records")
-        elif page['current_page'] == 'region':
-            events_filtered = df.to_dict(orient="records")
-        else:
-            events_filtered = df.to_dict(orient="records")
-
-        rendered_html = template.render(
-            events=events_filtered,
-            genre_artists=genre_artists,
-            region_groups=region_groups,
-            current_page=page['current_page'],
-            hero_title=page['hero_title'],
-            hero_subtitle=page['hero_subtitle']
-        )
-
-        with open(os.path.join(output_dir, page['filename']), "w", encoding="utf-8") as f:
-            f.write(rendered_html)
-
-    shutil.copy(os.path.join(template_dir, "style.css"), os.path.join(output_dir, "style.css"))
-
-if __name__ == "__main__":
-    main()
+print("✅ 지역별 및 장르별 페이지 생성 완료!")
