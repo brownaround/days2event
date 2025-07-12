@@ -1,3 +1,4 @@
+import os
 import csv
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
@@ -11,7 +12,11 @@ env = Environment(
 # 2) 생성할 지역(대륙) 리스트
 CONTINENTS = ['Asia', 'Europe', 'Latin America', 'North America']
 
-# 3) CSV에서 이벤트 데이터 로드 및 그룹핑
+# 3) 출력 디렉터리 생성
+BUILD_DIR = 'build'
+os.makedirs(BUILD_DIR, exist_ok=True)
+
+# 4) CSV에서 이벤트 데이터 로드 및 그룹핑
 events_by_region = {c: [] for c in CONTINENTS}
 with open('events.csv', encoding='utf-8') as f:
     reader = csv.DictReader(f)
@@ -44,13 +49,13 @@ with open('events.csv', encoding='utf-8') as f:
             'dt':            dt,
         })
 
-# 4) 날짜 기준 정렬
+# 5) 날짜 기준 정렬
 events_by_region = {
     region: sorted(evs, key=lambda e: e['dt'] or datetime.min)
     for region, evs in events_by_region.items()
 }
 
-# 5) 지역별 페이지 생성
+# 6) 지역별 페이지 생성
 template = env.get_template('by-region.html')
 for region, evs in events_by_region.items():
     slug = region.lower().replace(' ', '-')
@@ -60,7 +65,7 @@ for region, evs in events_by_region.items():
         events_by_region=events_by_region,
         timer_script='timer.js'
     )
-    out_file = f'build/by-region-{slug}.html'
+    out_file = os.path.join(BUILD_DIR, f'by-region-{slug}.html')
     with open(out_file, 'w', encoding='utf-8') as out:
         out.write(html)
 
