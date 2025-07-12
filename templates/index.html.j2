@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="style.css" />
+{% endblock %}
+{% block content %}
+
+<header class="hero" id="hero-section" style="
+  background: {% if current_page == 'multi-genre' %}
+    linear-gradient(135deg, #ff7e5f, #feb47b)
+  {% elif current_page == 'edm' %}
+    linear-gradient(135deg, #1a8f3f, #054d22)
+  {% elif current_page == 'pride' %}
+    linear-gradient(180deg, #ffb3ba, #ffdfba, #ffffba)
+  {% else %}
+    linear-gradient(135deg, #0ff, #80f)
+  {% endif %};
+  color: white; text-align: center; padding: 5rem 1rem;">
+  <h1>
+    {% if current_page == 'multi-genre' %}
+      Multi-Genre Festivals
+    {% elif current_page == 'edm' %}
+      EDM Festivals
+    {% elif current_page == 'pride' %}
+      PRIDE Festivals
+    {% else %}
+      {{ hero_title }}
+    {% endif %}
+  </h1>
+  <p>
+    {% if current_page == 'multi-genre' %}
+      Explore diverse music festivals worldwide.
+    {% elif current_page == 'edm' %}
+      Feel the beat at top EDM events.
+    {% elif current_page == 'pride' %}
+      Celebrate diversity and love with PRIDE events.
+    {% else %}
+      {{ hero_subtitle }}
+    {% endif %}
+  </p>
+  <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
+</header>
+
+{% if current_page in ['pop', 'kpop', 'region'] %}
+<div class="tab-menu" id="tabMenu" style="padding: 0 2rem;">
+  {% if current_page == 'pop' %}
+  <button class="tab-btn active" data-filter="artist" data-value="POP">🎶 POP Artists</button>
+  {% elif current_page == 'kpop' %}
+  <button class="tab-btn active" data-filter="artist" data-value="K-POP">🇰🇷🎵 K-POP Artists</button>
+  {% elif current_page == 'region' %}
+    {% for region in region_groups if region %}
+      <button class="tab-btn" data-filter="region" data-value="{{ region }}">{{ region }}</button>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<div class="tab-content active" id="{{ current_page }}" style="padding: 0 2rem;">
+  <ul>
+    {% if current_page == 'pop' %}
+      {% for artist in genre_artists.get('POP', []) %}
+      <li>{{ artist }}</li>
+      {% endfor %}
+    {% elif current_page == 'kpop' %}
+      {% for artist in genre_artists.get('K-POP', []) %}
+      <li>{{ artist }}</li>
+      {% endfor %}
+    {% elif current_page == 'region' %}
+      {% for region in region_groups if region %}
+      <li>{{ region }}</li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
+
+<main class="events" id="events">
+  {% for event in events %}
+  <div class="event-card"
+       data-genre="{{ event['Genre'] }}"
+       data-region="{{ event['Region'] }}"
+       data-artist="{{ event['Artist'] }}"
+       data-date="{{ event['Start Date'] }}"
+       data-multi-genre="{{ 'yes' if event['Genre'] == 'Multi-Genre' else 'no' }}">
+    <h2>{{ event['Festival Name'] }}</h2>
+    <p>
+      {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }} {{ countryToEmoji(event['Country']) }}
+    </p>
+    <div class="countdown-wrapper">
+      <button class="reveal-btn">⏳ How many days left?</button>
+      <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+    </div>
+    <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
+  </div>
+  {% endfor %}
+</main>
+
+<footer>
+  <p>© 2025 Days2Event · All rights reserved</p>
+</footer>
+
+<script>
+const navLinks = document.querySelectorAll("#navMenu a");
+const cards = [...document.querySelectorAll(".event-card")];
+
+function setActiveButton(button) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  if (button) button.classList.add('active');
+}
+
+function filterCards(filterType, filterValue) {
+  let visibleCards = [];
+  switch(filterType) {
+    case 'all':
+      visibleCards = cards;
+      break;
+    case 'multi-genre':
+      visibleCards = cards.filter(card => card.dataset.multiGenre === 'yes');
+      break;
+    case 'genre':
+      visibleCards = cards.filter(card => card.dataset.genre === filterValue);
+      break;
+    case 'artist':
+      visibleCards = cards.filter(card => card.dataset.artist === filterValue);
+      break;
+    case 'region':
+      visibleCards = cards.filter(card => card.dataset.region === filterValue);
+      break;
+    default:
+      visibleCards = cards;
+  }
+  cards.forEach(card => card.style.display = "none");
+  visibleCards.forEach(card => card.style.display = "block");
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filterType = btn.dataset.filter;
+    const filterValue = btn.dataset.value;
+    filterCards(filterType, filterValue);
+    setActiveButton(btn);
+  });
+});
+
+// Countdown button logic
+cards.forEach(card => {
+  const btn = card.querySelector(".reveal-btn");
+  const countdown = card.querySelector(".countdown");
+  const dateStr = card.getAttribute("data-date");
+  const targetDate = new Date(dateStr);
+  const today = new Date();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.ceil((targetDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / oneDay);
+
+  if (daysLeft < 0) {
+    card.style.display = "none";
+  }
+
+  btn.addEventListener("click", () => {
+    countdown.querySelector("strong").textContent = daysLeft > 0
+      ? `${daysLeft} days left`
+      : daysLeft === 0
+        ? `Today! 🎉`
+        : `Passed 💤`;
+    countdown.classList.remove("hidden");
+    countdown.classList.add("reveal-animation");
+    btn.style.display = "none";
+    card.style.display = "block";
+  });
+});
+</script>
+
+{% endblock %}
