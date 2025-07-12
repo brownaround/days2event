@@ -3,10 +3,13 @@ import jinja2
 from datetime import datetime
 import os
 
-# Read the CSV
+# Load CSV
 df = pd.read_csv("events.csv")
 
-# Drop rows with missing key fields
+# Normalize column names
+df.columns = df.columns.str.strip().str.title()
+
+# Drop rows with missing required fields
 df = df.dropna(subset=[
     "Event Name", "Start Date", "City", "Country", "Region", "Official Site"
 ])
