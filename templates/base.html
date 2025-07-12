@@ -22,20 +22,15 @@
   <meta name="twitter:description" content="How many days until your favorite festival? Find out now!" />
   <meta name="twitter:image" content="https://days2event.com/og-cover.jpg" />
 
-  <!-- Google Tag Manager (GTM) - Replace with your GTM ID -->
-  <script>
-    (function(w,d,s,l,i){
-      w[l]=w[l]||[];
-      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-      var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PS7Q2ZMR');
-  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PS7Q2ZMR');</script>
   <!-- End Google Tag Manager -->
 
-  <!-- Google Analytics 4 (GA4) -->
+  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-78R520RQ1E"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -44,8 +39,8 @@
     gtag('config', 'G-78R520RQ1E');
   </script>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473"
+     crossorigin="anonymous"></script>
 
   {% block head %}{% endblock %}
 </head>
@@ -73,23 +68,7 @@
   </nav>
   <!-- 네비게이션 메뉴 끝 -->
 
-
-  <nav class="navbar">
-  <div class="nav-container">
-    <div class="logo" onclick="showHome()">🎉 Days2Event</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <ul class="nav-links" id="navMenu">
-      <li><a href="#" data-filter="all" class="active">🏠 Home</a></li>
-      <li><a href="#" data-filter="genre" data-value="Multi-Genre">✨ Multi-Genre</a></li>
-      <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
-      <li><a href="#" data-filter="genre" data-value="POP">🎶 POP</a></li>
-      <li><a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a></li>
-      <li><a href="#" data-filter="genre" data-value="PRIDE">🏳️‍🌈 PRIDE</a></li>
-      <li><a href="#" data-filter="region">📍 By Region</a></li>
-    </ul>
-  </div>
-</nav>
-
+  {% block content %}{% endblock %}
 
   <script>
     const hamburger = document.querySelector('.hamburger');
@@ -99,7 +78,5 @@
       navLinks.classList.toggle('show');
     });
   </script>
-
-  {% block content %}{% endblock %}
 </body>
 </html>
