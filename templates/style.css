@@ -149,15 +149,15 @@ body {
 .events {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3.75rem 1.25rem; /* 세로 3배, 가로 동일 */
+  gap: 3rem 1.25rem;
   padding: 2rem;
   justify-items: center;
-  grid-auto-rows: 262.5px; /* 카드 높이 맞춤 */
+  grid-auto-rows: 275px; /* 카드 높이 맞춤 */
 }
 
 .event-card {
-  width: 320px;
-  height: 262.5px; /* 250px + 5% */
+  width: 325px;
+  height: 275px;
   box-sizing: border-box;
   background: #1a1a1a;
   color: white;
