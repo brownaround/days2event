@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
 {% block head %}
 <link rel="stylesheet" href="style.css" />
 {% endblock %}
+
 {% block content %}
 
 <header class="hero {% if current_page %}{{ current_page }}{% endif %}" id="hero-section">
@@ -72,31 +74,25 @@
 
   {% for event in events %}
     {% if not (current_page == 'multi-genre' and event['Genre'] != 'Multi-Genre') %}
-      <div class="event-card" ...>
-        ...
+      <div class="event-card"
+           data-genre="{{ event['Genre'] }}"
+           data-region="{{ event['Region'] }}"
+           data-artist="{{ event['Artist'] }}"
+           data-date="{{ event['Start Date'] }}"
+           data-multi-genre="{{ 'yes' if event['Genre'] == 'Multi-Genre' else 'no' }}">
+        <h2>{{ event['Festival Name'] }}</h2>
+        <p>
+          {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }} {{ countryToEmoji(event['Country']) }}
+        </p>
+        <div class="countdown-wrapper">
+          <button class="reveal-btn">⏳ How many days left?</button>
+          <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
+        </div>
+        <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
       </div>
     {% endif %}
   {% endfor %}
- 
-  {% endblock %}
 
-  <div class="event-card"
-       data-genre="{{ event['Genre'] }}"
-       data-region="{{ event['Region'] }}"
-       data-artist="{{ event['Artist'] }}"
-       data-date="{{ event['Start Date'] }}"
-       data-multi-genre="{{ 'yes' if event['Genre'] == 'Multi-Genre' else 'no' }}">
-    <h2>{{ event['Festival Name'] }}</h2>
-    <p>
-      {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }} {{ countryToEmoji(event['Country']) }}
-    </p>
-    <div class="countdown-wrapper">
-      <button class="reveal-btn">⏳ How many days left?</button>
-      <div class="countdown hidden">⏳ <strong>Loading...</strong></div>
-    </div>
-    <a href="{{ event['Link'] }}" target="_blank" rel="noopener" class="details-btn">Official Site</a>
-  </div>
-  {% endfor %}
 </main>
 
 <footer>
