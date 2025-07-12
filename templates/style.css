@@ -230,17 +230,26 @@ body {
   display: none;
 }
 
-/* PRIDE 은은한 무지개 */
+/* PRIDE 은은한 파스텔 무지개 (밝기 0.6) */
 .event-card[data-genre="PRIDE"]:hover {
   background: linear-gradient(180deg, 
-    rgba(255, 179, 186, 0.4),  /* 연한 핑크 */
-    rgba(255, 223, 186, 0.4),  /* 연한 주황 */
-    rgba(255, 255, 186, 0.4),  /* 연한 노랑 */
-    rgba(186, 255, 201, 0.4),  /* 연한 연두 */
-    rgba(186, 225, 255, 0.4),  /* 연한 파랑 */
-    rgba(255, 186, 255, 0.4)   /* 연한 보라 */
+    rgba(255, 179, 186, 0.6),
+    rgba(255, 223, 186, 0.6),
+    rgba(255, 255, 186, 0.6),
+    rgba(186, 255, 201, 0.6),
+    rgba(186, 225, 255, 0.6),
+    rgba(255, 186, 255, 0.6)
   );
   color: white;
+}
+
+.event-card[data-genre="PRIDE"] .details-btn {
+  background: linear-gradient(180deg, 
+    #ffb3ba, #ffdfba, #ffffba, #baffc9, #bae1ff, #ffbaff
+  );
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(255, 179, 186, 0.6);
 }
 
 /* EDM 몽환적인 녹색 레이저 느낌 배경 */
@@ -248,7 +257,6 @@ body {
   background: linear-gradient(180deg, #1a8f3f, #054d22);
   color: white;
 }
-
 
 /* K-POP 한국적인 느낌 배경 */
 .event-card[data-genre="K-POP"]:hover {
