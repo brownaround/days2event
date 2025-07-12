@@ -1,37 +1,48 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0a0a0a;
-  color: white;
+/* Reset & 기본 스타일 */
+* {
+  box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* 네비게이션 바 */
 .navbar {
-  background: #0a0a0a;
-  padding: 1rem 1.5rem;
+  background-color: #222;
+  color: white;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 100;
 }
 
 .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #0ff;
   cursor: pointer;
 }
 
+.hamburger {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
 .nav-links {
-  display: flex;
-  gap: 1.5rem;
   list-style: none;
+  display: flex;
+  gap: 1rem;
   margin: 0;
   padding: 0;
 }
@@ -39,171 +50,227 @@ body, html {
 .nav-links li a {
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: color 0.3s, text-shadow 0.3s;
-  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-.nav-links li a:hover, .nav-links li a.active {
-  color: #0ff;
-  text-shadow: 0 0 8px #0ff;
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: #555;
 }
 
-.hamburger {
-  display: none;
-  font-size: 1.75rem;
-  color: white;
-  cursor: pointer;
-  user-select: none;
+/* 모바일 메뉴 표시 */
+.nav-links.show {
+  display: block;
+  background-color: #222;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
 }
 
-@media (max-width: 1024px) {
-  .events {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    max-width: calc(280px * 2 + 3rem);
-    margin: 0 auto;
-    gap: 2rem;
-  }
+@media (max-width: 768px) {
   .hamburger {
     display: block;
   }
   .nav-links {
     display: none;
     flex-direction: column;
-    background: #111;
-    position: absolute;
-    top: 64px;
-    right: 1.5rem;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #0ff3;
-    max-width: 90vw;
-    z-index: 1000;
+    gap: 0;
   }
-  .nav-links.show {
-    display: flex;
+  .nav-links li {
+    border-bottom: 1px solid #444;
   }
   .nav-links li a {
-    padding: 0.5rem 0;
-    font-size: 1rem;
+    padding: 1rem;
   }
 }
 
-@media (min-width: 1025px) {
-  .events {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    max-width: calc(320px * 4 + 3rem * 3);
-    margin: 0 auto;
-    gap: 2rem;
-  }
-}
-
-.events {
-  display: grid;
-  gap: 2rem;
-  padding: 2rem;
-  justify-items: center;
-  grid-auto-rows: 280px;
-  max-width: 100vw;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.event-card {
-  width: 100%;
-  max-width: 320px;
-  height: 280px;
-  background: #1a1a1a;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 10px #0ff3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.event-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 15px #0ff;
-}
-
-/* 카드 hover 색상 페이지별 통일 */
-.hero.multi-genre {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
-}
-.event-card[data-genre="Multi-Genre"]:hover {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+/* Hero section */
+.hero {
+  padding: 4rem 1rem;
+  text-align: center;
   color: white;
+  background: linear-gradient(135deg, #0ff, #80f);
+}
+
+.hero.multi-genre {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
 }
 
 .hero.edm {
-  background: linear-gradient(135deg, #1a8f3f, #054d22);
-}
-.event-card[data-genre="EDM"]:hover {
-  background: linear-gradient(135deg, #1a8f3f, #054d22);
-  color: white;
+  background: linear-gradient(135deg, #009688, #004d40);
 }
 
 .hero.pride {
-  background: linear-gradient(180deg, #ffb3ba, #ffdfba, #ffffba);
+  background: linear-gradient(135deg, #e91e63, #673ab7);
 }
-.event-card[data-genre="PRIDE"]:hover {
-  background: linear-gradient(180deg, #ffb3ba, #ffdfba, #ffffba);
+
+.hero.pop {
+  background: linear-gradient(135deg, #ff5722, #ff9800);
+}
+
+.hero.kpop {
+  background: linear-gradient(135deg, #3f51b5, #2196f3);
+}
+
+.hero.region {
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+}
+
+.hero h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+}
+
+.hero p {
+  margin: 0 0 2rem 0;
+  font-size: 1.25rem;
+}
+
+.cta-btn {
+  background-color: #fff;
+  color: #333;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #ddd;
+}
+
+/* 탭 메뉴 */
+.tab-menu {
+  margin: 2rem auto 1rem auto;
+  max-width: 1200px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tab-btn {
+  background-color: #eee;
+  border: none;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background-color: #333;
   color: white;
 }
 
-/* PRIDE Official Site 버튼 일반 버튼 스타일로 통일 */
-.details-btn {
-  background-color: #0ff;
-  color: black;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 0.25rem;
-  align-self: flex-start;
-  box-shadow: none;
-  transition: none;
+/* 이벤트 카드 그리드 및 간격 조절 */
+.events {
+  max-width: 1200px;
+  margin: 0 auto 4rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem; /* 가로세로 모두 2rem 간격 */
+  padding: 0 1rem;
 }
 
-.details-btn:hover {
-  background-color: #0cc;
-  color: black;
-}
-
-/* 공통 버튼 스타일 (How many days left 포함) */
-.reveal-btn {
-  background: transparent;
-  border: 1px solid #0ff;
-  color: #0ff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.reveal-btn:hover {
-  background: #0ff;
-  color: black;
-}
-
-.countdown-wrapper {
-  margin-top: 0.5rem;
+/* 카드 스타일 */
+.event-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
   display: flex;
-  justify-content: flex-start;
-  gap: 0.75rem;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+  transition: background 0.3s ease;
 }
 
-/* 기타 */
+/* 카드 호버 효과 - 페이지별 색상 통일 */
+.event-card:hover {
+  filter: brightness(0.9);
+}
+
+.hero.multi-genre .event-card:hover {
+  background: linear-gradient(180deg, #ffc107a0, #ff9800a0);
+  color: white;
+}
+
+.hero.edm .event-card:hover {
+  background: linear-gradient(180deg, #00695ca0, #004d40a0);
+  color: white;
+}
+
+.hero.pride .event-card:hover {
+  background: linear-gradient(180deg, #f48fb1a0, #7e57c2a0);
+  color: white;
+}
+
+.hero.pop .event-card:hover {
+  background: linear-gradient(180deg, #ff7043a0, #f4511ea0);
+  color: white;
+}
+
+.hero.kpop .event-card:hover {
+  background: linear-gradient(180deg, #3f51b5a0, #2196f3a0);
+  color: white;
+}
+
+.hero.region .event-card:hover {
+  background: linear-gradient(180deg, #388e3ca0, #689f38a0);
+  color: white;
+}
+
+/* 버튼 스타일 통일 */
+.details-btn,
+.reveal-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #00ffff;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  box-shadow: none !important; /* 무지개 효과 제거 */
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.details-btn:hover,
+.reveal-btn:hover {
+  background-color: #00cccc;
+  box-shadow: none !important;
+}
+
+/* 숨김 클래스 */
 .hidden {
   display: none;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  .events {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .events {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
