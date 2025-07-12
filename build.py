@@ -8,9 +8,17 @@ from datetime import datetime
 def countryToEmoji(country):
     mapping = {
         "USA": "🇺🇸",
-        "Belgium": "🇧🇪",
+        "Canada": "🇨🇦",
+        "Brzail": "🇧🇷",        
+        "UK": "🇬🇧",
         "France": "🇫🇷",
+        "Belgium": "🇧🇪",
+        "Netherlands": "🇳🇱",
+        "Hungary": "🇭🇺",
         "South Korea": "🇰🇷",
+        "Japan": "🇯🇵",       
+        "China": "🇨🇳",
+        "Hong Kong": "🇭🇰",
         "Thailand": "🇹🇭",
         "Taiwan": "🇹🇼",
         # 필요한 국가 추가
@@ -45,18 +53,17 @@ def main():
 
     df.fillna('', inplace=True)
 
-    df['GenreList'] = df['Genre'].str.split(',')
-    multi_genre_events = df[df['GenreList'].apply(lambda x: len(x) > 1 if isinstance(x, list) else False)]
+    # 멀티장르는 'Multi-Genre' 문자열 장르로 처리
+    multi_genre_events = df[df['Genre'] == "Multi-Genre"]
 
-    regions = sorted(df['Region'].unique())
+    # 장르별 아티스트 리스트 준비
     genre_artists = {}
     for genre in ['POP', 'K-POP']:
         artists = sorted(df[df['Genre'] == genre]['Artist'].unique())
         genre_artists[genre] = [a for a in artists if a]
 
-    region_groups = {}
-    for reg in regions:
-        region_groups[reg] = [reg]
+    # 대륙(Region) 리스트 준비 (중복 제거 및 정렬)
+    region_groups = sorted(df['Region'].dropna().unique())
 
     env = Environment(loader=FileSystemLoader(template_dir))
     env.globals['countryToEmoji'] = countryToEmoji
@@ -76,7 +83,7 @@ def main():
             multi_genre_events=multi_genre_events.to_dict(orient="records"),
             genre_artists=genre_artists,
             region_groups=region_groups,
-            current_page='home',  # 기본 페이지
+            current_page='home',
             hero_title="🌟 Your Festival Countdown Starts Here!",
             hero_subtitle="From Coachella to Tomorrowland – track how many days are left until the music starts!"
         )

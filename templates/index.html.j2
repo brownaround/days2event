@@ -9,7 +9,7 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <ul class="nav-links" id="navMenu">
       <li><a href="#" data-filter="all" class="active">🏠 Home</a></li>
-      <li><a href="#" data-filter="multi-genre">✨ Multi-Genre</a></li>
+      <li><a href="#" data-filter="genre" data-value="Multi-Genre">✨ Multi-Genre</a></li>
       <li><a href="#" data-filter="genre" data-value="EDM">🪩 EDM</a></li>
       <li><a href="#" data-filter="genre" data-value="POP">🎶 POP</a></li>
       <li><a href="#" data-filter="genre" data-value="K-POP">🇰🇷🎵 K-POP</a></li>
@@ -19,9 +19,9 @@
   </div>
 </nav>
 
-<header class="hero" id="hero-section">
-  <h1>{{ hero_title or "🌟 Your Festival Countdown Starts Here!" }}</h1>
-  <p>{{ hero_subtitle or "From Coachella to Tomorrowland – track how many days are left until the music starts!" }}</p>
+<header class="hero" id="hero-section" style="background: linear-gradient(135deg, #0ff, #80f); color: white; text-align: center; padding: 5rem 1rem;">
+  <h1>{{ hero_title }}</h1>
+  <p>{{ hero_subtitle }}</p>
   <a href="#events" class="cta-btn">👇🏼 Browse Festivals</a>
 </header>
 
@@ -47,7 +47,7 @@
       <li>{{ artist }}</li>
       {% endfor %}
     {% elif current_page == 'region' %}
-      {% for region in region_groups.keys() %}
+      {% for region in region_groups %}
       <li>{{ region }}</li>
       {% endfor %}
     {% endif %}
@@ -62,7 +62,7 @@
        data-region="{{ event['Region'] }}"
        data-artist="{{ event['Artist'] }}"
        data-date="{{ event['Start Date'] }}"
-       data-multi-genre="{{ 'yes' if ',' in event['Genre'] else 'no' }}">
+       data-multi-genre="{{ 'yes' if event['Genre'] == 'Multi-Genre' else 'no' }}">
     <h2>{{ event['Festival Name'] }}</h2>
     <p>
       {{ countryToEmoji(event['Country']) }} {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }}
@@ -121,7 +121,7 @@ function filterCards(filterType, filterValue) {
       visibleCards = cards;
   }
   cards.forEach(card => card.style.display = "none");
-  visibleCards.slice(0,4).forEach(card => card.style.display = "block");
+  visibleCards.forEach(card => card.style.display = "block");
 }
 
 navLinks.forEach(link => {
