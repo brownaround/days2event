@@ -1,67 +1,55 @@
+import pandas as pd
 import os
-import csv
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 
-# 1) 템플릿 환경 설정
-env = Environment(
-    loader=FileSystemLoader('templates'),
-    autoescape=True
+# CSV 불러오기
+csv_path = "events.csv"
+df = pd.read_csv(csv_path)
+
+# 날짜 포맷 정리
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce').dt.strftime('%b %d, %Y')
+
+# 국가별 이모지 매핑
+def get_flag_emoji(country):
+    try:
+        return ''.join([chr(127397 + ord(c.upper())) for c in country if c.isalpha()])
+    except:
+        return ''
+
+# 지역 목록
+CONTINENTS = sorted(df['Region'].dropna().unique())
+
+# 지역별 정리
+events_by_region = {}
+for _, row in df.iterrows():
+    region = row['Region'].strip()
+    event = {
+        "name": row["Event Name"],
+        "location": f"{row['City']}, {row['Country']} {get_flag_emoji(row['Country'])}",
+        "date": row["Date"],
+        "official_site": row["Official Site"],
+    }
+    if region not in events_by_region:
+        events_by_region[region] = []
+    events_by_region[region].append(event)
+
+# Jinja2 템플릿 설정
+env = Environment(loader=FileSystemLoader("templates"))
+template = env.get_template("by-region.html")
+
+# 출력 HTML
+region = CONTINENTS[0]
+html = template.render(
+    continents=CONTINENTS,
+    events_by_region=events_by_region,
+    selected_region=region,
+    timer_script='timer.js'
 )
 
-# 2) 출력 디렉터리 설정 (Cloudflare Pages 기본값)
-BUILD_DIR = 'site'
-os.makedirs(BUILD_DIR, exist_ok=True)
-
-# 3) 생성할 지역 리스트
-CONTINENTS = ['Asia', 'Europe', 'Latin America', 'North America']
-
-# 4) CSV 로드 및 지역별 그룹핑
-events_by_region = {c: [] for c in CONTINENTS}
-with open('events.csv', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        region = row.get('Region', '').strip()
-        if region not in events_by_region:
-            continue
-
-        start = row.get('Start Date', '').strip()
-        end = row.get('End Date', '').strip()
-        display_date = start if start == end else f"{start}–{end}" if start and end else start or end
-        iso_date = start
-        try:
-            dt = datetime.fromisoformat(start)
-        except Exception:
-            dt = None
-
-        events_by_region[region].append({
-            'name':         row.get('Festival Name', '').strip(),
-            'date_display': display_date,
-            'iso_date':     iso_date,
-            'city':         row.get('City', '').strip(),
-            'country':      row.get('Country', '').strip(),
-            'venue':        row.get('Venue', '').strip(),
-            'attendance':   row.get('Attendance', '').strip(),
-            'revenue':      row.get('Revenue', '').strip(),
-            'dt':           dt
-        })
-
-# 5) 날짜 기준 정렬
-for region in CONTINENTS:
-    events_by_region[region] = sorted(events_by_region[region], key=lambda e: e['dt'] or datetime.min)
-
-# 6) 페이지 렌더링
-template = env.get_template('by-region.html')
-for region in CONTINENTS:
-    slug = region.lower().replace(' ', '-')
-    html = template.render(
-        continents=CONTINENTS,
-        selected_region=region,
-        events=events_by_region[region],
-        timer_script='timer.js'
-    )
-    output_path = os.path.join(BUILD_DIR, f'by-region-{slug}.html')
-    with open(output_path, 'w', encoding='utf-8') as out:
-        out.write(html)
+# 결과 저장 경로
+os.makedirs("site", exist_ok=True)
+with open("site/byregion.html", "w", encoding="utf-8") as f:
+    f.write(html)
 
 print("✅ by-region 페이지 생성 완료!")
