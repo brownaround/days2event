@@ -55,6 +55,33 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+  <!-- 네비게이션 메뉴 시작 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='/'">🎉 Days2Event</div>
+      <div class="hamburger">☰</div>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/multi-genre">Multi-Genre</a></li>
+        <li><a href="/edm">EDM</a></li>
+        <li><a href="/pop">POP</a></li>
+        <li><a href="/k-pop">K-POP</a></li>
+        <li><a href="/pride">PRIDE</a></li>
+        <li><a href="/by-region">By Region</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- 네비게이션 메뉴 끝 -->
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+
   {% block content %}{% endblock %}
 </body>
 </html>
