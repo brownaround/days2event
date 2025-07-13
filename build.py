@@ -45,10 +45,8 @@ def get_jinja_env():
         loader=jinja2.FileSystemLoader("templates"),
         autoescape=jinja2.select_autoescape(["html", "xml"])
     )
-    # 필터 등록
     env.filters['formatDateRange'] = format_date_range
-    # countryToEmoji를 함수로 글로벌 등록 (필수!)
-    env.globals['countryToEmoji'] = country_to_emoji
+    env.globals['countryToEmoji'] = country_to_emoji  # <<== 필수!
     return env
 
 # 4. Jinja2 환경 및 필터 등록
