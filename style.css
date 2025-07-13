@@ -285,31 +285,6 @@ body, html {
   margin-bottom: 1.2rem;
 }
 
-/* 카운트다운 래퍼 */
-.countdown-wrapper {
-  margin-bottom: 0.8rem;
-}
-
-.countdown {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #111;
-  background: #111;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 0 8px #0ff5;
-}
-
-.countdown.fade-in {
-  opacity: 1;
-}
-
-.hidden {
-  display: none;
-}
-
 /* 버튼: How many days left? */
 .reveal-btn {
   background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
@@ -333,6 +308,30 @@ body, html {
   color: #fff;
 }  
 
+/* 카운트다운 래퍼 */
+.countdown-wrapper {
+  margin-bottom: 0.8rem;
+}
+
+.countdown {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0ff; /* 글자색을 네온 블루로 변경 */
+  background: #111; /* 배경색 유지 */
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 8px #0ff5;
+}
+
+.countdown.fade-in {
+  opacity: 1;
+}
+
+.hidden {
+  display: none;
+}
 
 /* 버튼: Official Site */
 .details-btn {
@@ -354,7 +353,7 @@ body, html {
 .details-btn:focus {
   background: #e6f0ff;
   color: #0056b3;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
 }
 
 /* 반응형: 모바일 */
