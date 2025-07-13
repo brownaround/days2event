@@ -17,7 +17,14 @@ def main():
     df.columns = df.columns.str.strip()
     df['Start Date'] = pd.to_datetime(df['Start Date'])
     df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
+    env = get_jinja_env()
 
+    def format_date_filter(value, format='%Y-%m-%d'):
+    if value is None:
+        return ''
+    return value.strftime(format)
+    env.filters['strftime'] = format_date_filter
+ 
     # 날짜 표시용
     def format_date(row):
         start = row["Start Date"]
@@ -51,8 +58,6 @@ def main():
         # 필요한 국가 추가
     }
     df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
-
-    env = get_jinja_env() 
 
     # 카테고리별 페이지 필터
     categories = {
