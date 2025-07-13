@@ -6,21 +6,21 @@
   <title>{% block title %}Global Festival Countdown | Days2Event{% endblock %}</title>
   <meta name="description" content="{% block description %}Track upcoming global music festivals...{% endblock %}"/>
   <meta name="keywords" content="festival countdown"/>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar">
   <div class="nav-container">
-    <a href="{{ url_for('index') }}"><div class="logo">🎉 Days2Event</div></a>
+    <a href="index.html"><div class="logo">🎉 Days2Event</div></a>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <ul class="nav-links" id="navMenu">
-      <li><a href="{{ url_for('index') }}">🏠 Home</a></li>
-      <li><a href="{{ url_for('multi') }}">✨ Multi-Genre</a></li>
-      <li><a href="{{ url_for('edm') }}">🪩 EDM</a></li>
-      <li><a href="{{ url_for('pop') }}">🎶 POP</a></li>
-      <li><a href="{{ url_for('kpop') }}">🇰🇷🎵 K-POP</a></li>
-      <li><a href="{{ url_for('pride') }}">🏳️‍🌈 PRIDE</a></li>
-      <li><a href="{{ url_for('by_region') }}">📍 By Region</a></li>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="multi.html">✨ Multi-Genre</a></li>
+      <li><a href="edm.html">🪩 EDM</a></li>
+      <li><a href="pop.html">🎶 POP</a></li>
+      <li><a href="kpop.html">🇰🇷🎵 K-POP</a></li>
+      <li><a href="pride.html">🏳️‍🌈 PRIDE</a></li>
+      <li><a href="by-region.html">📍 By Region</a></li>
     </ul>
   </div>
 </nav>
@@ -35,9 +35,9 @@
 <footer>
   <p>© 2025 Days2Event · All rights reserved</p>
   <ul class="footer-links">
-    <li><a href="{{ url_for('about') }}">About</a></li>
-    <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
-    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
   </ul>
 </footer>
 <script>
