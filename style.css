@@ -267,7 +267,7 @@ body, html {
   width: 100%; /* 카드 너비는 100% */
 }
 .event-card:hover {
-  box-shadow: 0 8px 16px rgba(0,123,255,0.3);
+  box-shadow: 0 10px 20px rgba(0,123,255,0.3);
 }
 
 .event-card h2 {
@@ -281,7 +281,7 @@ body, html {
   margin: 0;
   font-weight: 400;
   font-size: 1.05rem;
-  color: #ccc;
+  color: #2c2c2c;
   margin-bottom: 1.2rem;
 }
 

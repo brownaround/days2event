@@ -2,22 +2,24 @@
 {% block title %}🇰🇷 K-POP Festivals & Concerts 2025 (BTS, BLACKPINK) | Days2Event{% endblock %}
 {% block description %}Track K-POP concerts and festivals for 2025, featuring BTS, BLACKPINK, and more. See all dates, locations, and official links for every major K-POP event worldwide!{% endblock %}
 
-{% block hero %}
-<header class="hero">
-  <h1>🇰🇷 K-POP Festivals & Concerts 2025</h1>
-  <p>Find every major K-POP show, festival, and world tour—<strong>BTS, BLACKPINK</strong>, and more.</p>
-</header>
-{% endblock %}
-
 {% block content %}
 <main class="events" id="events">
   {% for event in events %}
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
-      {{ event['Start Date'] }}
-      {% if event['City'] %} · {{ event['City'] }}{% endif %}
-      {% if event['Country'] %} {{ event['Country'] }}{% endif %}
+      {# 날짜 포맷 변경 #}
+      {{ event.date_display }}
+      
+      {# 도시가 있으면 점(`·`) 추가해서 표시 #}
+      {% if event['City'] %}
+        · {{ event['City'] }}
+      {% endif %}
+      
+      {# 국가명 대신 이모지 출력 #}
+      {% if event.country_emoji %}
+        &nbsp;{{ event.country_emoji }}
+      {% endif %}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>
