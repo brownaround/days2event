@@ -10,7 +10,7 @@
 <body>
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="logo">🌎 Days2Event</a>
+      <a href="index.html" class="logo">🥳 Days2Event</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="multi.html">✨ Multi-Genre</a></li>
@@ -30,7 +30,7 @@
     <div class="hero-search">
       <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search interested event" type="text" />
     </div>
-{% endblock %}
+  {% endblock %}
   {% block content %}{% endblock %}
 
   <footer style="text-align:center; margin: 2rem 0 1.5rem 0; color:#aaa; font-size:.96rem;">
@@ -52,18 +52,47 @@
     });
   });
 
-  // How many days left? 버튼 클릭 이벤트 (버튼에 class="reveal-btn" 있다고 가정)
+  // How many days left? 버튼 클릭 처리
   document.addEventListener('DOMContentLoaded', () => {
     const btn = document.querySelector('.reveal-btn');
     if (btn) {
       btn.addEventListener('click', () => {
-        alert('How many days left? 버튼이 클릭됐어요!');
-        // 여기에 실제 기능 코드 넣기
+        // 버튼이 속한 카드(event-card) 찾기
+        let card = btn.closest('.event-card');
+        if (!card) {
+          alert("Event card not found.");
+          return;
+        }
+
+        // 시작 날짜 가져오기 (data-start-date 속성으로 가정)
+        const startDateStr = card.getAttribute('data-start-date');
+        if (!startDateStr) {
+          alert("Start date not specified.");
+          return;
+        }
+
+        const startDate = new Date(startDateStr);
+        const today = new Date();
+
+        // 날짜 차이 (밀리초)
+        const diffTime = startDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        let message;
+        if (diffDays > 0) {
+          message = `${diffDays} days left!`;
+        } else if (diffDays === 0) {
+          message = `Today!`;
+        } else {
+          message = `Passed`;
+        }
+
+        alert(message);
       });
     }
   });
 
-  // 검색창 필터링 함수 예시 (이미 있음)
+  // 검색창 필터링 함수
   function filterCards() {
     const input = document.getElementById('searchInput');
     const filter = input.value.toLowerCase();
