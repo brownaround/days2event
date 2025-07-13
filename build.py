@@ -15,18 +15,18 @@ def main():
     ensure_output_dir()
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
+    df['Start Date'] = pd.to_datetime(df['Start Date'])
+    df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
 
-    # 날짜 포맷 예쁘게 만들기 (ex: Apr 10–12, 2025 or Apr 10, 2025)
+    # 날짜 표시용
     def format_date(row):
-        start = pd.to_datetime(row["Start Date"])
+        start = row["Start Date"]
         end = pd.to_datetime(row["End Date"]) if pd.notna(row["End Date"]) else None
         if end and start != end:
             return f"{start.strftime('%b %d')}–{end.strftime('%d, %Y')}"
         else:
             return start.strftime("%b %d, %Y")
     df['date_display'] = df.apply(format_date, axis=1)
-    events_data = df.to_dict(orient="records")
-    print(events_data[0]['date_display'])  # 예: Apr 10–12, 2025
 
     # 국가 이모지 매핑
     country_emoji_map = {
@@ -52,14 +52,19 @@ def main():
     }
     df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
 
-    env = get_jinja_env()
-
-    # 전체 페이지 빌드 (index.html)
-    template = env.get_template("index.j2")
-    with open("site/index.html", "w", encoding="utf-8") as f:
-        f.write(template.render(events=df.to_dict(orient="records")))
-
-    # 장르별 페이지도 동일한 방식으로 작성 가능
+    # 장르별 페이지 필터
+    genres = {
+        "multi": "Multi-genre",
+        "edm": "EDM",
+        "pop": "POP",
+        "k-pop": "K-POP",
+        "pride": "PRIDE",
+    }
+    for fname, genre in genres.items():
+        genre_events = df[df['Genre'] == genre].to_dict(orient="records")
+        template = env.get_template(f"{fname}.j2")
+        with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
+            f.write(template.render(events=genre_events))
 
     # style.css 복사
     if os.path.exists("style.css"):
