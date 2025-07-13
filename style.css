@@ -1,5 +1,6 @@
-/* 기본 바디 설정 */
-body {
+body, html {
+  margin: 0;
+  padding: 0;
   background-color: #f5f7fa;
   color: #222;
   font-family: 'Segoe UI', sans-serif;
@@ -277,7 +278,7 @@ body {
   margin-bottom: 0.6rem;
   font-weight: 700;
   font-size: 1.4rem;
-  color: rgba(0,123,255,0.3);
+  color: rgb(0, 123, 255);
 }
 .event-card p {
   margin: 0;
@@ -294,7 +295,7 @@ body {
 .countdown {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #aaa;
+  color: #111;
   background: #111;
   border-radius: 1.2rem;
   padding: 0.4rem 1.2rem;
@@ -311,7 +312,7 @@ body {
   border: none;
   padding: 0.5rem 1.2rem;
   border-radius: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4);
@@ -329,8 +330,8 @@ body {
 /* 버튼: Official Site */
 .details-btn {
   background: transparent;
-  color: #419af8;
-  border: 2px solid #419af8;
+  color: rgba(0, 123, 255, 0.705);
+  border: 2px solid rgba(0, 123, 255, 0.705);
   padding: 0.5rem 1.2rem;
   border-radius: 1.5rem;
   font-weight: 500;
