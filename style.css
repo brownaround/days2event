@@ -27,7 +27,7 @@ body, html {
 /* 로고 스타일 */
 .logo {
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: white;
   text-decoration: none;
 }
@@ -50,7 +50,7 @@ body, html {
     color: white;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     padding: 0.3rem 1rem;
     border-radius: 0.8rem;
     transition: background-color 0.15s ease, color 0.15s ease;
@@ -78,7 +78,7 @@ body, html {
     padding: 1.2rem 0;
     display: none;
     z-index: 1200;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
   }
   .nav-links.show {
     display: flex;
@@ -143,7 +143,7 @@ body, html {
     padding: 1.2rem 0;
     display: none;
     z-index: 1200;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     flex-direction: column;
     gap: 1.2rem;
   }
@@ -218,13 +218,13 @@ body, html {
 /* 검색창 */
 .hero-search {
   display: flex;
-  justify-content: flex-end;
-  max-width: 1200px;
+  justify-content: center; /* 검색창 중앙 정렬 */
+  max-width: 320px;
+  min-width: 320px;
   margin-left: 10px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
-  margin-top: 1.5rem; /* 아래 여백 유지 */
+  margin-top: 1.2rem; /* 위 여백 유지 */
   margin-bottom: 1.2rem; /* 아래 여백 유지 */
   padding: 0 1.2rem;
-  min-width: 280px;
   box-sizing: border-box;
 }
 
@@ -241,12 +241,15 @@ body, html {
 
 .hero-search input:focus {
   border-color: #0b47c1;
+  width: 90%;
+  max-width: 320px;
 }
 
-
-/* 이벤트 카드 그리드 */
+/* 카드 전체 컨테이너 */
 .events {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 가로 중앙 정렬 */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
@@ -256,10 +259,12 @@ body, html {
 
 /* 카드 스타일 */
 .event-card {
-  max-width: 300px; /* 카드 최대 너비 제한 */
+  max-width: 320px; /* 카드 최대 너비 제한 */
+  width: 90%; /* 모바일에선 90% 너비 */
   background-color: #ffffff;
   color: #222;
-  padding: 1.5rem;
+  padding: 1.2rem;
+  margin: 0 auto; /* 혹시 여백을 줄 때 */
   border-radius: 1.2rem;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s ease;
