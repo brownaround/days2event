@@ -106,15 +106,6 @@
         countdownDiv.textContent = message;
         countdownDiv.classList.remove('hidden');
         countdownDiv.classList.add('fade-in');
-
-        // 3초 후 원래 상태로 복원
-        setTimeout(() => {
-          btn.textContent = originalText;
-          countdownDiv.classList.remove('fade-in');
-          countdownDiv.classList.add('hidden');
-          countdownDiv.textContent = '';
-        }, 3000);
-      });
     });
   });
 
