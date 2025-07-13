@@ -25,6 +25,8 @@ def main():
         else:
             return start.strftime("%b %d, %Y")
     df['date_display'] = df.apply(format_date, axis=1)
+    events_data = df.to_dict(orient="records")
+    print(events_data[0]['date_display'])  # 예: Apr 10–12, 2025
 
     # 국가 이모지 매핑
     country_emoji_map = {
