@@ -257,79 +257,100 @@ body, html {
   /* 필요에 따라 width: 100% 또는 padding 추가 */
 }
 
-/* 카드 스타일 */
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* 카드 중앙 정렬 */
+}
+
 .event-card {
-  flex: 1 1 320px;    /* 최소 320px, 공간 나눔 */
+  flex: 1 1 calc(33.333% - 1rem);
+  box-sizing: border-box;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 280px;
   max-width: 350px;
-  min-width: 290px;
-  background: #fff;
-  border-radius: 1.2rem;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
-  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-  margin-bottom: 1.6rem;
+}
+
+.button-row {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+  justify-content: flex-start; /* 버튼 왼쪽 정렬 */
 }
 
-.event-card:hover {
-  box-shadow: 0 8px 16px rgba(0,123,255,0.3);
-}
-
-.event-card h2 {
-  margin-top: 0;
-  margin-bottom: 0.6rem;
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: rgb(0, 123, 255);
-}
-.event-card p {
-  margin: 0;
-  font-weight: 400;
-  font-size: 1.05rem;
-  color: #424242;
-  margin-bottom: 1.2rem;
-}
-
-.button-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.45rem;
-  margin-top: 0.8rem;
-  margin-bottom: 0.2rem;
-}
-.reveal-btn {
+.reveal-btn,
+.details-btn {
   font-size: 1rem;
   font-weight: 700;
   padding: 0.55rem 1.3rem;
   border-radius: 1.1rem;
-  border: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.13s ease;
+}
+
+.reveal-btn {
   background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
   color: #fff;
+  border: none;
   box-shadow: 0 1px 5px rgba(0, 123, 255, 0.13);
-  cursor: pointer;
 }
+
 .details-btn {
   background: transparent;
   color: #1877f2;
   border: 2px solid #90caff;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
   font-weight: 500;
   font-size: 0.98rem;
-  cursor: pointer;
   box-shadow: none;
-  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
   text-decoration: none;
   display: inline-block;
 }
+
 .details-btn:hover,
 .details-btn:focus {
   background: #e6f0ff;
   color: #0056b3;
   box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
 }
+
+.countdown {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  color: #0073ff;
+  min-height: 1.2em;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.countdown.hidden {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 960px) {
+  .event-card {
+    flex: 1 1 calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .event-card {
+    flex: 1 1 100%;
+  }
+}
+
+
 
 /* 반응형: 모바일 */
 @media (max-width: 700px) {
