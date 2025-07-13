@@ -9,7 +9,7 @@ body, html {
 /* 네비게이션 바 전체 스타일 */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -27,7 +27,7 @@ body, html {
 /* 로고 스타일 */
 .logo {
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   color: white;
   text-decoration: none;
 }
@@ -52,7 +52,7 @@ body, html {
     font-weight: 500;
     font-size: 1.1rem;
     padding: 0.3rem 1rem;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     transition: background-color 0.15s ease, color 0.15s ease;
   }
   .nav-links li a:hover,
@@ -73,7 +73,7 @@ body, html {
     right: 10px;
     width: 220px;
     background-color: rgba(30, 30, 30, 1);
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     box-shadow: 0 6px 20px #0ff7;
     padding: 1.2rem 0;
     display: none;
@@ -90,7 +90,7 @@ body, html {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    border-radius: 0.6rem;
+    border-radius: 0.8rem;
     text-decoration: none;
     transition: background-color 0.2s ease;
   }
@@ -138,7 +138,7 @@ body, html {
     right: 10px;
     width: 220px;
     background-color: rgba(30, 30, 30, 0.95);
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     box-shadow: 0 6px 20px #0ff7;
     padding: 1.2rem 0;
     display: none;
@@ -157,7 +157,7 @@ body, html {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    border-radius: 0.6rem;
+    border-radius: 0.8rem;
     text-decoration: none;
     transition: background-color 0.2s ease;
   }
@@ -196,12 +196,12 @@ body, html {
 .hero-browse-btn button {
   background: #0ff;
   color: #17181a;
-  border-radius: 2rem;
-  padding: 0.7rem 2rem;
+  border-radius: 1.2rem;
+  padding: 0.5rem 2rem;
   font-weight: 700;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 4px 12px #0ff7;
+  box-shadow: 0 5px 10px #0ff7;
   border: none;
   transition: background 0.3s ease;
   display: flex;
@@ -221,19 +221,19 @@ body, html {
   justify-content: flex-end;
   max-width: 1200px;
   margin-left: 10px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
-  margin-top: 1.2rem; /* 아래 여백 유지 */
+  margin-top: 1.5rem; /* 아래 여백 유지 */
   margin-bottom: 1.2rem; /* 아래 여백 유지 */
-  padding: 0 1.5rem;
+  padding: 0 1.2rem;
   min-width: 280px;
   box-sizing: border-box;
 }
 
 .hero-search input {
-  width: 280px; /* 기본보다 약간 작게 */
+  width: 300px; /* 기본보다 약간 작게 */
   max-width: 90vw; /* 반응형 고려 */
   padding: 0.5rem 1rem;
   font-size: 0.95rem; /* 글자 크기도 약간 줄임 */
-  border-radius: 1.3rem;
+  border-radius: 1.2rem;
   border: 2px solid #1a73e8;
   outline: none;
   transition: border-color 0.3s ease;
@@ -260,7 +260,7 @@ body, html {
   background-color: #ffffff;
   color: #222;
   padding: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 1.2rem;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s ease;
   position: relative;
@@ -294,8 +294,8 @@ body, html {
   font-weight: 600;
   color: #111;
   background: #111;
-  border-radius: 1.2rem;
-  padding: 0.4rem 1.2rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
   box-shadow: 0 0 8px #0ff5;
 }
 .hidden {
