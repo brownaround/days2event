@@ -1,92 +1,361 @@
-import os
-import pandas as pd
-import jinja2
-from datetime import datetime
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f7fa;
+  color: #222;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-def ensure_output_dir():
-    os.makedirs("site", exist_ok=True)
+/* 네비게이션 바 전체 스타일 */
+.navbar {
+  background: linear-gradient(135deg, #00f7ff, #8500ff);
+  padding: 1rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 
-def get_jinja_env():
-    return jinja2.Environment(
-        loader=jinja2.FileSystemLoader("templates"),
-        autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
-    )
+/* 네비게이션 컨테이너 */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-def format_date_filter(value, format='%Y-%m-%d'):
-    if value is None:
-        return ''
-    if isinstance(value, str):
-        try:
-            value = datetime.fromisoformat(value)
-        except Exception:
-            return value
-    return value.strftime(format)
+/* 로고 스타일 */
+.logo {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: white;
+  text-decoration: none;
+}
 
-def main():
-    ensure_output_dir()
-    df = pd.read_csv("events.csv")
-    df.columns = df.columns.str.strip()
-    df['Start Date'] = pd.to_datetime(df['Start Date'])
-    df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
+.nav-links {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.1rem; /* 메뉴 아이템 간격 일정하게 */
+}
 
-    env = get_jinja_env()
-    env.filters['strftime'] = format_date_filter
+/* 데스크톱(851px 이상) 스타일 */
+@media (min-width: 851px) {
+  .nav-links {
+    flex-direction: row;
+    gap: 1rem; /* 동일한 간격 유지 */
+  }
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 0.3rem 1rem;
+    border-radius: 0.8rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: 700;
+  }
+}
 
-    # 날짜 표시용
-    def format_date(row):
-        start = row["Start Date"]
-        end = pd.to_datetime(row["End Date"]) if pd.notna(row["End Date"]) else None
-        if end and start != end:
-            return f"{start.strftime('%b %d')}–{end.strftime('%d, %Y')}"
-        else:
-            return start.strftime("%b %d, %Y")
-    df['date_display'] = df.apply(format_date, axis=1)
+/* 모바일(850px 이하) 스타일 */
+@media (max-width: 850px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem; /* 동일한 간격 유지 */
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    width: 220px;
+    background-color: rgba(30, 30, 30, 1);
+    border-radius: 0.8rem;
+    box-shadow: 0 6px 20px #0ff7;
+    padding: 1.2rem 0;
+    display: none;
+    z-index: 1200;
+    font-size: 1.2rem;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .nav-links li a {
+    color: white;
+    padding: 0.9rem 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #0ff;
+  }
+}
 
-    # 국가 이모지 매핑
-    country_emoji_map = {
-        "USA": "🇺🇸",
-        "Canada": "🇨🇦",
-        "Brazil": "🇧🇷",
-        "UK": "🇬🇧",
-        "Germany": "🇩🇪",
-        "France": "🇫🇷",
-        "Belgium": "🇧🇪",
-        "Netherlands": "🇳🇱",
-        "Hungary": "🇭🇺",        
-        "South Korea": "🇰🇷",
-        "Japan": "🇯🇵",
-        "China": "🇨🇳",
-        "Hong Kong": "🇭🇰",
-        "Macao": "🇲🇴",
-        "Macau": "🇲🇴",
-        "Thailand": "🇹🇭",
-        "Singapore": "🇸🇬",
-        "Malaysia": "🇲🇾",
-        "Indonesia": "🇮🇩",
-        # 필요한 국가 추가
-    }
-    df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
 
-    # 카테고리별 페이지 필터
-    categories = {
-        "multi": "Multi-Genre",
-        "edm": "EDM",
-        "pop": "POP",
-        "k-pop": "K-POP",
-        "pride": "PRIDE"
-    }
-    for fname, category in categories.items():
-        category_events = df[df['Category'] == category].to_dict(orient="records")
-        template = env.get_template(f"{fname}.j2")
-        with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
-            f.write(template.render(events=category_events))
+/* 햄버거 메뉴 아이콘 스타일 */
 
-    # style.css 복사
-    if os.path.exists("style.css"):
-        with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
-            fdst.write(fsrc.read())
+.hamburger {
+  display: none; /* 기본은 숨김 */
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: white !important;
+  cursor: pointer;
+  font-size: 2.2rem;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+}
 
-    print("Build completed!")
+/*.hamburger:hover {
+  color: white !important;
+  background: none !important; 
+}*/
 
-if __name__ == "__main__":
-    main()
+@media (max-width: 850px) {
+  .hamburger {
+    display: block; /* 모바일에서만 보임 */
+  }
+}
+
+/* 모바일 전용 스타일 (850px 이하) */
+@media (max-width: 850px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    width: 220px;
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 0.8rem;
+    box-shadow: 0 6px 20px #0ff7;
+    padding: 1.2rem 0;
+    display: none;
+    z-index: 1200;
+    font-size: 1.2rem;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .nav-links li a {
+    color: white;
+    padding: 0.9rem 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #0ff;
+  }
+}
+
+/* hero */
+.hero {
+  text-align: center;
+  padding: 5rem 1rem;
+  background: linear-gradient(135deg,#00f7ff,#8500ff);
+  color: white;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.04em;
+}
+.hero p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+}
+
+/* Browse Events 버튼 */
+.hero-browse-btn {
+  margin: 2rem auto 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.hero-browse-btn button {
+  background: #0ff;
+  color: #17181a;
+  border-radius: 1.2rem;
+  padding: 0.5rem 2rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 10px #0ff7;
+  border: none;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.hero-browse-btn button:hover {
+  background: #16ffe5;
+}
+.hero-browse-btn .arrow {
+  font-size: 1.3em;
+}
+
+/* 검색창 */
+.hero-search {
+  display: flex;
+  justify-content: center; /* 검색창 중앙 정렬 */
+  max-width: 320px;
+  min-width: 320px;
+  margin-left: 10px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
+  margin-top: 1.2rem; /* 위 여백 유지 */
+  margin-bottom: 1.2rem; /* 아래 여백 유지 */
+  padding: 0 1.2rem;
+  box-sizing: border-box;
+}
+
+.hero-search input {
+  width: 300px; /* 기본보다 약간 작게 */
+  max-width: 90vw; /* 반응형 고려 */
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem; /* 글자 크기도 약간 줄임 */
+  border-radius: 1.2rem;
+  border: 2px solid #1a73e8;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.hero-search input:focus {
+  border-color: #0b47c1;
+  width: 90%;
+  max-width: 320px;
+}
+
+/* 카드 전체 컨테이너 */
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 가로 중앙 정렬 */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px; /* 전체 컨테이너 최대 너비 제한 */
+  margin: 0 auto 3rem auto;
+}
+
+/* 카드 스타일 */
+.event-card {
+  max-width: 320px; /* 카드 최대 너비 제한 */
+  width: 90%; /* 모바일에선 90% 너비 */
+  background-color: #ffffff;
+  color: #222;
+  padding: 1.2rem;
+  margin: 0 auto; /* 혹시 여백을 줄 때 */
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  width: 100%; /* 카드 너비는 100% */
+}
+.event-card:hover {
+  box-shadow: 0 8px 16px rgba(0,123,255,0.3);
+}
+
+.event-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: rgb(0, 123, 255);
+}
+.event-card p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #424242;
+  margin-bottom: 1.2rem;
+}
+
+/* 버튼: How many days left? */
+.reveal-btn {
+  background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
+  color: #fff;
+  border: none;
+  width: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 123, 255, 0.4);
+  transition: background 0.15s ease, color 0.13s ease, box-shadow 0.18s opacity 0.2s, transform 0.25s, ease;
+}
+.reveal-btn:focus {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 114, 255, 0.8);
+}
+.reveal-btn:hover {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  color: #fff;
+}
+.reveal-btn.sliding {
+  opacity: 0;
+  transform: translateX(-0px);  
+
+/* 날짜 카운트다운 */
+.hidden {
+  display: none !important;
+}
+
+
+/* 버튼: Official Site */
+.details-btn {
+  background: transparent;
+  color: rgba(0, 123, 255, 0.705);
+  border: 2px solid rgba(0, 123, 255, 0.705);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.details-btn:hover,
+.details-btn:focus {
+  background: #e6f0ff;
+  color: #0056b3;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+/* 반응형: 모바일 */
+@media (max-width: 700px) {
+  .hero-search {
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+  .events {
+    padding: 0.5rem 0.2rem 2rem 0.2rem;
+  }
+  .event-card {
+    padding: 1.4rem 0.8rem 1rem 0.8rem;
+  }
+}

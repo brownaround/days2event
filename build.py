@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import jinja2
+from datetime import datetime
 
 def ensure_output_dir():
     os.makedirs("site", exist_ok=True)
@@ -11,16 +12,6 @@ def get_jinja_env():
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
 
-def main():
-    ensure_output_dir()
-    df = pd.read_csv("events.csv")
-    df.columns = df.columns.str.strip()
-    df['Start Date'] = pd.to_datetime(df['Start Date'])
-    df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
-    env = get_jinja_env()
-
-from datetime import datetime
-
 def format_date_filter(value, format='%Y-%m-%d'):
     if value is None:
         return ''
@@ -28,12 +19,19 @@ def format_date_filter(value, format='%Y-%m-%d'):
         try:
             value = datetime.fromisoformat(value)
         except Exception:
-            return value  # 이미 문자열이면 그냥 반환
+            return value
     return value.strftime(format)
 
-env = get_jinja_env()
-env.filters['strftime'] = format_date_filter
- 
+def main():
+    ensure_output_dir()
+    df = pd.read_csv("events.csv")
+    df.columns = df.columns.str.strip()
+    df['Start Date'] = pd.to_datetime(df['Start Date'])
+    df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
+
+    env = get_jinja_env()
+    env.filters['strftime'] = format_date_filter
+
     # 날짜 표시용
     def format_date(row):
         start = row["Start Date"]
@@ -60,10 +58,11 @@ env.filters['strftime'] = format_date_filter
         "China": "🇨🇳",
         "Hong Kong": "🇭🇰",
         "Macau": "🇲🇴",
+        "Macao": "🇲🇴",
         "Thailand": "🇹🇭",
         "Singapore": "🇸🇬",
         "Malaysia": "🇲🇾",
-        "Indonesia": "🇮🇩",   
+        "Indonesia": "🇮🇩",
         # 필요한 국가 추가
     }
     df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
