@@ -7,10 +7,12 @@ def ensure_output_dir():
     os.makedirs("site", exist_ok=True)
 
 def get_jinja_env():
-    return jinja2.Environment(
+    env = jinja2.Environment(
         loader=jinja2.FileSystemLoader("templates"),
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
+    env.filters['strftime'] = format_date_filter
+    return env
 
 def format_date_filter(value, format='%Y-%m-%d'):
     if value is None:
@@ -22,25 +24,22 @@ def format_date_filter(value, format='%Y-%m-%d'):
             return value
     return value.strftime(format)
 
+def format_date(row):
+    start = row["Start Date"]
+    end = pd.to_datetime(row["End Date"]) if pd.notna(row["End Date"]) else None
+    if end and start != end:
+        return f"{start.strftime('%b %d')}–{end.strftime('%d, %Y')}"
+    else:
+        return start.strftime("%b %d, %Y")
+
 def main():
     ensure_output_dir()
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
     df['Start Date'] = pd.to_datetime(df['Start Date'])
-    df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
-
-    env = get_jinja_env()
-    env.filters['strftime'] = format_date_filter
-
-    # 날짜 표시용
-    def format_date(row):
-        start = row["Start Date"]
-        end = pd.to_datetime(row["End Date"]) if pd.notna(row["End Date"]) else None
-        if end and start != end:
-            return f"{start.strftime('%b %d')}–{end.strftime('%d, %Y')}"
-        else:
-            return start.strftime("%b %d, %Y")
+    df['End Date'] = pd.to_datetime(df['End Date'])
     df['date_display'] = df.apply(format_date, axis=1)
+    df = df.sort_values('Start Date')
 
     # 국가 이모지 매핑
     country_emoji_map = {
@@ -72,12 +71,18 @@ def main():
         "edm": "EDM",
         "pop": "POP",
         "k-pop": "K-POP",
-        "pride": "PRIDE"
+        "pride": "PRIDE",
+        "by-region": "By Region"
     }
+
+    env = get_jinja_env()
+
     for fname, category in categories.items():
-        filtered_df = df[df['Category'] == category]
-        print(f"Category '{category}' has {len(filtered_df)} events")
-        
+        events = df[df['Category'] == category].to_dict(orient="records")
+        template = env.get_template(f"{fname}.j2")
+        with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
+            f.write(template.render(events=events))
+
     # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
