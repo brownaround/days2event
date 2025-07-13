@@ -218,19 +218,20 @@ body {
 
 /* 검색창 */
 .hero-search {
-  max-width: 300px;
-  margin: 0 auto 2rem auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  max-width: 1200px;          /* 카드 컨테이너 최대 너비와 동일 */
+  margin: 0 auto 2rem auto;   /* 수평 가운데 정렬 + 아래 마진 */
   padding: 0 1.5rem;
+  min-width: 280px;
   box-sizing: border-box;
 }
-.hero-search input[type="text"] {
-  width: 100%;
-  /* 기타 스타일 */
-}
+
+/* 검색 입력창 너비 조절 */
+.hero-search input[type="text"],
 .hero-search input[type="search"] {
-  width: 100%; /* 부모 너비에 맞춤 */
+  width: 100%;
+  max-width: 300px;   /* 카드 최대 너비와 맞춤 */
   padding: 0.7rem 1.3rem;
   font-size: 1.12rem;
   border-radius: 1.8rem;
