@@ -1,7 +1,7 @@
 {% extends "base.j2" %}
 
 {% block title %}🪩 Best EDM & Rave Festivals 2025 | Days2Event{% endblock %}
-{% block description %}Discover the world’s top EDM and rave festivals: Tomorrowland, EDC, Ultra, and more. Countdown to every epic rave, see festival dates, lineups & official links!{% endblock %}
+{% block description %}Discover the world’s top EDM, rave, and electronic dance festivals: Tomorrowland, EDC, Ultra, and more. Countdown to every epic rave!{% endblock %}
 
 {% block hero %}
 <header class="hero">
@@ -12,7 +12,7 @@
 
 {% block content %}
 <main class="events" id="events">
-  {% for event in events[:4] %}
+  {% for event in events %}   #
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
@@ -20,6 +20,10 @@
       {% if event['City'] %} · {{ event['City'] }}{% endif %}
       {% if event['Country'] %} {{ event['Country'] }}{% endif %}
     </p>
+    <div class="countdown-wrapper">
+      <button class="reveal-btn">⏳ How many days left?</button>
+      <div class="countdown hidden"></div>
+    </div>
     {% if event['Official Site'] %}
       <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
     {% endif %}

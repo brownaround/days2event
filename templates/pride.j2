@@ -1,0 +1,39 @@
+{% extends "base.j2" %}
+
+{% block title %}🏳️‍🌈 Global PRIDE, Rave & Circuit Parties 2025 | Days2Event{% endblock %}
+{% block description %}Celebrate at the world’s best PRIDE parades, LGBTQ+ festivals, raves, and circuit parties! Countdown to major global pride events and find official links for every LGBTQ+ circuit party worldwide.{% endblock %}
+
+{% block hero %}
+<header class="hero">
+  <h1>🏳️‍🌈 PRIDE Festivals & Circuit Parties 2025</h1>
+  <p>Discover upcoming PRIDE parades, LGBTQ+ music festivals, raves, and <strong>circuit parties</strong> around the world. Find the hottest parties, plan your next LGBTQ+ adventure, and join the global celebration of diversity and love!</p>
+</header>
+{% endblock %}
+
+{% block search %}
+<div class="hero-search">
+  <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search PRIDE, Circuit Party..." type="text"/>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="events" id="events">
+  {% for event in events %}   #
+  <div class="event-card" data-date="{{ event['Start Date'] }}">
+    <h2>{{ event['Event Name'] }}</h2>
+    <p>
+      {{ event['Start Date'] }}
+      {% if event['City'] %} · {{ event['City'] }}{% endif %}
+      {% if event['Country'] %} {{ event['Country'] }}{% endif %}
+    </p>
+    <div class="countdown-wrapper">
+      <button class="reveal-btn">⏳ How many days left?</button>
+      <div class="countdown hidden"></div>
+    </div>
+    {% if event['Official Site'] %}
+      <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</main>
+{% endblock %}
