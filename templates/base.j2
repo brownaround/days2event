@@ -94,17 +94,13 @@
           message = `${diffDaysStart} days left!`;
         } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
           const dayNum = Math.abs(diffDaysStart) + 1;
-          message = `Ongoing! Day ${dayNum}`;
+          message = `Ongoing! Day ${dayNum} 🎉`;
         } else {
           message = `Passed 😥`;
         }
 
-        // 슬라이드 애니메이션 + 텍스트 교체
-        btn.classList.add('sliding');
-        setTimeout(() => {
-          btn.textContent = message;
-          btn.classList.remove('sliding');
-        }, 200);
+        // 결과 텍스트 교체
+        btn.textContent = message;
       });
     });
   });
