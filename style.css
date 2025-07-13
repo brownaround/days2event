@@ -218,13 +218,17 @@ body {
 
 /* 검색창 */
 .hero-search {
-  max-width: 300px;  /* 카드 너비와 동일하게 */
-  margin: 0 auto 2rem auto; /* 가운데 정렬 + 아래 여백 */
-  padding: 0 1rem;
-  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
 }
-
-.hero-search input[type="text"],
+.hero-search input[type="text"] {
+  width: 100%;
+  /* 기타 스타일 */
+}
 .hero-search input[type="search"] {
   width: 100%; /* 부모 너비에 맞춤 */
   padding: 0.7rem 1.3rem;
