@@ -40,6 +40,17 @@ def country_to_emoji(country):
     }
     return flags.get(str(country), '')
 
+def get_jinja_env():
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader("templates"),
+        autoescape=jinja2.select_autoescape(["html", "xml"])
+    )
+    # 필터 등록
+    env.filters['formatDateRange'] = format_date_range
+    # countryToEmoji를 함수로 글로벌 등록 (필수!)
+    env.globals['countryToEmoji'] = country_to_emoji
+    return env
+
 # 4. Jinja2 환경 및 필터 등록
 def get_jinja_env():
     env = jinja2.Environment(
