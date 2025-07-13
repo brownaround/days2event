@@ -4,7 +4,7 @@
 
 {% block hero %}
 <header class="hero">
-  <h1>📍 Festivals by Region 2025</h1>
+  <h1>📍 Festivals by Region</h1>
   <p>Browse upcoming music festivals by country or continent. Discover what’s happening near you!</p>
 </header>
 {% endblock %}
@@ -15,9 +15,18 @@
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
+      {# 날짜 포맷 변경 #}
       {{ event.date_display }}
-      {% if event['City'] %} · {{ event['City'] }}{% endif %}
-      {% if event.country_emoji %} &nbsp;{{ event.country_emoji }}{% endif %}
+      
+      {# 도시가 있으면 점(`·`) 추가해서 표시 #}
+      {% if event['City'] %}
+        · {{ event['City'] }}
+      {% endif %}
+      
+      {# 국가명 대신 이모지 출력 #}
+      {% if event.country_emoji %}
+        &nbsp;{{ event.country_emoji }}
+      {% endif %}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>
