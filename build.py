@@ -19,11 +19,20 @@ def main():
     df = df.sort_values('Start Date')  # 가까운 날짜부터 정렬
     env = get_jinja_env()
 
-    def format_date_filter(value, format='%Y-%m-%d'):
-        if value is None:
-            return ''
-        return value.strftime(format)
-    env.filters['strftime'] = format_date_filter
+from datetime import datetime
+
+def format_date_filter(value, format='%Y-%m-%d'):
+    if value is None:
+        return ''
+    if isinstance(value, str):
+        try:
+            value = datetime.fromisoformat(value)
+        except Exception:
+            return value  # 이미 문자열이면 그냥 반환
+    return value.strftime(format)
+
+env = get_jinja_env()
+env.filters['strftime'] = format_date_filter
  
     # 날짜 표시용
     def format_date(row):
