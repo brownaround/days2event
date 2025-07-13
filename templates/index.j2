@@ -27,7 +27,11 @@
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
-      {{ event['Start Date'] }}
+      {% if event['Start Date'] and event['End Date'] %}
+        {{ event['Start Date'] }} - {{ event['End Date'] }}
+      {% else %}
+        {{ event['Start Date'] }}
+      {% endif %}
       {% if event['City'] %} · {{ event['City'] }}{% endif %}
       {% if event['Country'] %} {{ event['Country'] }}{% endif %}
     </p>
