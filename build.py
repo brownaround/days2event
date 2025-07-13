@@ -52,20 +52,20 @@ def main():
     }
     df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
 
-    # 장르별 페이지 필터
-    genres = {
-        "multi": "Multi-genre",
-        "edm": "EDM",
-        "pop": "POP",
-        "k-pop": "K-POP",
-        "pride": "PRIDE",
-    }
-    for fname, genre in genres.items():
-        genre_events = df[df['Genre'] == genre].to_dict(orient="records")
-        template = env.get_template(f"{fname}.j2")
-        with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
-            f.write(template.render(events=genre_events))
-
+    # 카테고리별 페이지 필터
+    categories = {
+    "multi": "Multi-genre",
+    "edm": "EDM",
+    "pop": "POP",
+    "k-pop": "K-POP",
+    "pride": "PRIDE"
+}
+    for fname, category in categories.items():
+    category_events = df[df['Category'] == category].to_dict(orient="records")
+    template = env.get_template(f"{fname}.j2")
+    with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
+        f.write(template.render(events=category_events))
+        
     # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:

@@ -295,6 +295,7 @@ body, html {
   background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
   color: #fff;
   border: none;
+  width: auto;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   font-weight: 700;
