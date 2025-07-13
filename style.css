@@ -291,6 +291,9 @@ body, html {
 }
 
 .reveal-btn { /* How Many Days Left? */
+  display: block;
+  width: fit-content;
+  margin-bottom: 0.7rem;
   font-size: 1rem;
   font-weight: 700;
   padding: 0.55rem 1.3rem;
@@ -304,18 +307,18 @@ body, html {
 }
 
 .details-btn {  /* Official Site */
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
   background: transparent;
   color: #1877f2;
   border: 2px solid #90caff;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  font-weight: 500;
-  font-size: 0.98rem;
-  cursor: pointer;
   box-shadow: none;
-  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
+  cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
 }
 
 .details-btn:hover,
@@ -324,6 +327,7 @@ body, html {
   color: #0056b3;
   box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
 }
+
 /* 반응형: 모바일 */
 @media (max-width: 700px) {
   .hero-search {
