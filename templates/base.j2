@@ -37,20 +37,44 @@
     &copy; 2025 Days2Event. All rights reserved.
   </footer>
 
-  <script>
-    // 모바일 햄버거 메뉴 토글
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
+<script>
+  // 모바일 햄버거 메뉴 토글
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
 
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('show');
     });
+  });
 
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('show');
+  // How many days left? 버튼 클릭 이벤트 (버튼에 class="reveal-btn" 있다고 가정)
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.reveal-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        alert('How many days left? 버튼이 클릭됐어요!');
+        // 여기에 실제 기능 코드 넣기
       });
+    }
+  });
+
+  // 검색창 필터링 함수 예시 (이미 있음)
+  function filterCards() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll('.event-card');
+
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(filter) ? '' : 'none';
     });
-  </script>
+  }
+</script>
+
 </body>
 </html>
