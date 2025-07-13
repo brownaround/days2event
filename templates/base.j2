@@ -24,6 +24,8 @@
     </div>
   </nav>
 
+<!-- 중략: head, nav, body 등은 기존과 동일 -->
+
   {% block hero %}{% endblock %}
   {% block browse_btn %}{% endblock %}
   {% block search %}
@@ -52,7 +54,7 @@
     });
   });
 
-  // How many days left? 버튼 클릭 처리
+  // 모든 How many days left? 버튼에 이벤트 등록
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.reveal-btn');
     buttons.forEach(btn => {
@@ -98,7 +100,7 @@
     });
   });
 
-  // 검색창 필터링 함수
+  // 검색 필터 함수
   function filterCards() {
     const input = document.getElementById('searchInput');
     const filter = input.value.toLowerCase();

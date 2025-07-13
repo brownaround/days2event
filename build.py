@@ -6,27 +6,25 @@ def ensure_output_dir():
     os.makedirs("site", exist_ok=True)
 
 def get_jinja_env():
-    env = jinja2.Environment(
+    return jinja2.Environment(
         loader=jinja2.FileSystemLoader("templates"),
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
-    return env
-
-def format_event_date(row):
-    start = pd.to_datetime(row['Start Date'])
-    end = pd.to_datetime(row['End Date'])
-    if start.month == end.month:
-        return f"{start.day}-{end.day} {start.strftime('%b')}"
-    else:
-        return f"{start.day} {start.strftime('%b')} - {end.day} {end.strftime('%b')}"
 
 def main():
     ensure_output_dir()
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
 
-    # 날짜 포맷 컬럼 추가
-    df['date_display'] = df.apply(format_event_date, axis=1)
+    # 날짜 포맷 예쁘게 만들기 (ex: Apr 10–12, 2025 or Apr 10, 2025)
+    def format_date(row):
+        start = pd.to_datetime(row["Start Date"])
+        end = pd.to_datetime(row["End Date"]) if pd.notna(row["End Date"]) else None
+        if end and start != end:
+            return f"{start.strftime('%b %d')}–{end.strftime('%d, %Y')}"
+        else:
+            return start.strftime("%b %d, %Y")
+    df['date_display'] = df.apply(format_date, axis=1)
 
     # 국가 이모지 매핑
     country_emoji_map = {
@@ -54,34 +52,19 @@ def main():
 
     env = get_jinja_env()
 
-    genres = [
-        ("multi.html", "Multi-Genre"),
-        ("edm.html", "EDM"),
-        ("pop.html", "POP"),
-        ("k-pop.html", "K-POP"),
-        ("pride.html", "PRIDE"),
-        ("by-region.html", "By Region")
-    ]
-
+    # 전체 페이지 빌드 (index.html)
     template = env.get_template("index.j2")
     with open("site/index.html", "w", encoding="utf-8") as f:
         f.write(template.render(events=df.to_dict(orient="records")))
 
-    for filename, genre in genres:
-        template_name = filename.replace(".html", ".j2")
-        filtered = df[df["Genre"].str.strip().str.lower() == genre.lower()]
-        if not os.path.exists(os.path.join("templates", template_name)):
-            continue
-        with open(f"site/{filename}", "w", encoding="utf-8") as f:
-            f.write(
-                env.get_template(template_name).render(events=filtered.to_dict(orient="records"))
-            )
+    # 장르별 페이지도 동일한 방식으로 작성 가능
 
+    # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
             fdst.write(fsrc.read())
 
-    print("Build completed! All html files generated in /site.")
+    print("Build completed!")
 
 if __name__ == "__main__":
     main()
