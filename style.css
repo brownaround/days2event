@@ -100,18 +100,11 @@ body, html {
   }
 }
 
-.hamburger {
-  display: none; /* 기본은 숨김 */
-}
-
-@media (max-width: 850px) {
-  .hamburger {
-    display: block; /* 모바일에서만 보임 */
-  }
-}
 
 /* 햄버거 메뉴 아이콘 스타일 */
+
 .hamburger {
+  display: none; /* 기본은 숨김 */
   background: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -123,9 +116,15 @@ body, html {
   margin: 0;
 }
 
-.hamburger:hover {
+/*.hamburger:hover {
   color: white !important;
-  background: none !important;
+  background: none !important; 
+}*/
+
+@media (max-width: 850px) {
+  .hamburger {
+    display: block; /* 모바일에서만 보임 */
+  }
 }
 
 /* 모바일 전용 스타일 (850px 이하) */
@@ -307,8 +306,9 @@ body, html {
 
 /* 버튼: How many days left? */
 .reveal-btn {
-  background: linear-gradient(90deg, #7bbffa 0%, #92faff 100%);
-  color: #222;
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  color: #fff;
+
   border: none;
   padding: 0.5rem 1.2rem;
   border-radius: 1.5rem;
@@ -320,6 +320,9 @@ body, html {
 }
 
 .reveal-btn:hover,
+  background: linear-gradient(90deg, #7bbffa 0%, #92faff 100%);
+  color: #222;
+  
 .reveal-btn:focus {
   background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
   color: #fff;
