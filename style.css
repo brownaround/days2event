@@ -221,7 +221,8 @@ body, html {
   justify-content: flex-end;
   max-width: 1200px;
   margin-left: 10px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
-  margin-bottom: 1.5rem; /* 아래 여백 유지 */
+  margin-top: 1.2rem; /* 아래 여백 유지 */
+  margin-bottom: 1.2rem; /* 아래 여백 유지 */
   padding: 0 1.5rem;
   min-width: 280px;
   box-sizing: border-box;
@@ -303,7 +304,7 @@ body, html {
 
 /* 버튼: How many days left? */
 .reveal-btn {
-  background: linear-gradient(90deg, #00c8ff75 0%, #0073ff67 100%);
+  background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
   color: #fff;
   border: none;
   padding: 0.5rem 1.2rem;
@@ -311,17 +312,17 @@ body, html {
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4);
+  box-shadow: 0 1px 5px rgba(0, 123, 255, 0.4);
   transition: background 0.15s ease, color 0.13s ease, box-shadow 0.18s ease;
 }
 .reveal-btn:focus {
   background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
   color: #fff;
-  box-shadow: 0 0 14px rgba(0, 114, 255, 0.8);
+  box-shadow: 0 0 10px rgba(0, 114, 255, 0.8);
 }
 .reveal-btn:hover {
   background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
-  color: #222;
+  color: #fff;
 }  
 
 
