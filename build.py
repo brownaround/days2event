@@ -11,13 +11,23 @@ def get_jinja_env():
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
     return env
-
+    
 def main():
     ensure_output_dir()
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
 
     env = get_jinja_env()
+
+    # genre 리스트 반드시 선언!
+    genres = [
+        ("multi.html", "Multi-Genre"),
+        ("edm.html", "EDM"),
+        ("pop.html", "POP"),
+        ("k-pop.html", "K-POP"),
+        ("pride.html", "PRIDE"),
+        ("by-region.html", "By Region")
+    ]
 
     # 메인(index.html): 전체 카드!
     template = env.get_template("index.j2")
@@ -35,12 +45,13 @@ def main():
                 env.get_template(template_name).render(events=filtered.to_dict(orient="records"))
             )
 
-    # style.css 복사 (root -> site/)
+    # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
             fdst.write(fsrc.read())
 
     print("Build completed! All html files generated in /site.")
+
 
 if __name__ == "__main__":
     main()

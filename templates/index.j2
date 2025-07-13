@@ -15,7 +15,7 @@
 
 {% block content %}
 <main class="events" id="events">
-  {% for event in events[:4] %}
+  {% for event in events %}   #
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>

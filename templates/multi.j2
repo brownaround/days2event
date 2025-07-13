@@ -1,0 +1,24 @@
+{% extends "base.j2" %}
+{% block hero %}
+<header class="hero">
+  <h1>✨ Multi-Genre Festivals</h1>
+  <p>All styles, one place.</p>
+</header>
+{% endblock %}
+{% block content %}
+<main class="events" id="events">
+  {% for event in events %}   #
+  <div class="event-card" data-date="{{ event['Start Date'] }}">
+    <h2>{{ event['Event Name'] }}</h2>
+    <p>
+      {{ event['Start Date'] }}
+      {% if event['City'] %} · {{ event['City'] }}{% endif %}
+      {% if event['Country'] %} {{ event['Country'] }}{% endif %}
+    </p>
+    {% if event['Official Site'] %}
+      <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</main>
+{% endblock %}

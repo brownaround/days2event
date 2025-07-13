@@ -95,9 +95,10 @@ body {
 
 .events {
   display: grid;
-  gap: 2rem;                /* 카드 간격은 그대로! */
-  grid-template-columns: repeat(4, 1fr);  /* 데스크탑 최대 4개! */
+  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개! */
 }
+
 @media (max-width: 1200px) {
   .events {
     grid-template-columns: repeat(3, 1fr);
