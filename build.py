@@ -50,7 +50,7 @@ def main():
         "Indonesia": "🇮🇩",    
         # 필요한 국가 추가
     }
-    df['country_emoji'] = df['Location'].map(country_emoji_map).fillna(df['Location'])
+    df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
 
     env = get_jinja_env()
 
