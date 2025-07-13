@@ -1,167 +1,197 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0f0f0f;
-  color: #fff;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0a0a;
+  color: white;
 }
-
-a {
-  color: #0ff;
-  text-decoration: none;
+.navbar {
+  background: #0a0a0a;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
-
-nav {
-  background-color: #1a1a1a;
-  padding: 1rem 2rem;
+.nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
-
-nav a.logo {
+.logo {
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-nav .menu a {
-  margin-left: 1.5rem;
-  font-size: 1rem;
-}
-
-header {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
-}
-
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
   color: #0ff;
 }
-
-header p {
-  font-size: 1.2rem;
-  color: #ccc;
-}
-
-.container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.card {
-  background-color: #1e1e1e;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.02);
-}
-
-.card h2 {
-  font-size: 1.2rem;
-  color: #0ff;
-  margin-top: 0;
-}
-
-.card p {
-  font-size: 0.95rem;
-  color: #bbb;
-}
-
-.countdown {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  font-weight: bold;
-  color: #fff;
-}
-
-.countdown-wrapper {
-  margin-top: 0.5rem;
+.nav-links {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 0.75rem;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
-/* 🔁 애니메이션 후 줄바꿈 방지 */
-.reveal-animation {
-  display: block;
-  animation: flipIn 0.6s ease forwards;
-  margin-top: 0.5rem;
-  min-height: 1.5rem;
-}
-
-@keyframes flipIn {
-  from {
-    opacity: 0;
-    transform: rotateX(-90deg);
-  }
-  to {
-    opacity: 1;
-    transform: rotateX(0);
-  }
-}
-
-/* ⏳ How many days left? 버튼 스타일 - 검정 배경 */
-.reveal-btn {
-  background-color: black !important;
-  color: #0ff !important;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  transition: background-color 0.3s ease;
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
   white-space: nowrap;
-  box-shadow: none !important;
+  display: inline-block;
+  transition: color 0.3s, text-shadow 0.3s;
 }
-
-.reveal-btn:hover {
-  background-color: #0ff !important;
-  color: black !important;
+.nav-links li a:hover {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff;
 }
-
-/* 🌐 Official Site → 투명배경 + 테두리 */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #111;
+    position: absolute;
+    top: 64px;
+    right: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #0ff3;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .nav-links li a {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+}
+.hero {
+  text-align: center;
+  padding: 5rem 1rem;
+  background: linear-gradient(135deg,#0ff,#80f);
+  color: white;
+}
+.cta-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: .75rem 1.5rem;
+  background: black;
+  color: #0ff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.events {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+@media (min-width: 1500px) {
+  .events {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (min-width: 1200px) and (max-width: 1499px) {
+  .events {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 700px) and (max-width: 1199px) {
+  .events {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 699px) {
+  .events {
+    grid-template-columns: 1fr;
+  }
+}
+.event-card {
+  background: #1a1a1a;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px #0ff3;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px #0ff;
+}
 .details-btn {
-  background: transparent !important;
+  display: inline-block;
+  margin-top: 1rem;
+  background: #0ff;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+.countdown-wrapper {
+  margin-top: 1rem;
+}
+.reveal-btn {
+  background: transparent;
   border: 1px solid #0ff;
   color: #0ff;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  cursor: pointer;
   font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s ease;
-  white-space: nowrap;
+  transition: background 0.3s;
 }
-
-.details-btn:hover {
+.reveal-btn:hover {
   background: #0ff;
   color: black;
 }
-
+.hidden {
+  display: none;
+}
+.reveal-animation {
+  display: block;
+  animation: flipIn 0.6s ease forwards;
+  margin-top: .5rem;
+}
+@keyframes flipIn {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
 footer {
   text-align: center;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  color: #777;
-  background-color: #111;
+  padding: 2rem;
+  background: #0f0f0f;
+  color: #999;
+}
+/* Wrapper */
+.content-wrapper{max-width:1200px;margin:0 auto;}
+/* Search under hero, right aligned */
+.hero-search{max-width:80%;margin:1.5rem auto;text-align:right;}
+.hero-search input{width:40%;max-width:360px;padding:.75rem 1rem;font-size:1rem;border:2px solid #0ff;border-radius:999px;background:#111;color:#fff;transition:box-shadow .3s;}
+.hero-search input:focus{box-shadow:0 0 10px #0ff;border-color:#0ff;}
+/* Footer */
+.footer-links a{font-size:0.875rem;color:white!important;text-decoration:none!important;}
+.footer-links a:hover{text-decoration:underline!important;}
+/* Pride page */
+.pride-page .event-card{background:linear-gradient(135deg,#ffc0cb,#ff69b4);}
+.pride-page .details-btn{background:#ff69b4;color:white;}
+.pride-page .reveal-btn{border-color:#ff69b4;color:#ff69b4;}
+/* Remove underline and prevent color change on text links */
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+a:hover, a:focus {
+  text-decoration: none !important;
+  color: inherit !important;
 }
