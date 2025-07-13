@@ -71,45 +71,43 @@
   window.filterCards = filterCards;
 
   // 버튼/카드 관련 코드
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.reveal-btn');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.event-card');
-      if (!card) return;
-      const startDateStr = card.getAttribute('data-start-date');
-      const endDateStr = card.getAttribute('data-end-date');
-      if (!startDateStr || !endDateStr) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.reveal-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.event-card');
+        if (!card) return;
+        const startDateStr = card.getAttribute('data-start-date');
+        const endDateStr = card.getAttribute('data-end-date');
+        if (!startDateStr || !endDateStr) return;
 
-      const startDate = new Date(startDateStr);
-      const endDate = new Date(endDateStr);
-      const today = new Date();
-      const diffTimeStart = startDate - today;
-      const diffDaysStart = Math.ceil(diffTimeStart / (1000 * 60 * 60 * 24));
-      const diffTimeEnd = endDate - today;
-      const diffDaysEnd = Math.ceil(diffTimeEnd / (1000 * 60 * 60 * 24));
+        const startDate = new Date(startDateStr);
+        const endDate = new Date(endDateStr);
+        const today = new Date();
+        const diffTimeStart = startDate - today;
+        const diffDaysStart = Math.ceil(diffTimeStart / (1000 * 60 * 60 * 24));
+        const diffTimeEnd = endDate - today;
+        const diffDaysEnd = Math.ceil(diffTimeEnd / (1000 * 60 * 60 * 24));
 
-      btn.classList.add('sliding');  // 왼쪽으로 빠지면서 투명
-      setTimeout(() => {
-        btn.textContent = message;   // 텍스트 교체(보이지 않는 상태)
-        btn.classList.remove('sliding'); // 오른쪽으로 부드럽게 등장
-      }, 200);  // transition 속도와 맞춤(필요에 따라 200~300으로 조정)
+        let message;
+        if (diffDaysStart > 0) {
+          message = `${diffDaysStart} days left!`;
+        } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
+          const dayNum = Math.abs(diffDaysStart) + 1;
+          message = `Ongoing! Day ${dayNum}`;
+        } else {
+          message = `Passed 😥`;
+        }
 
-      let message;
-      if (diffDaysStart > 0) {
-        message = `${diffDaysStart} days left!`;
-      } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
-        const dayNum = Math.abs(diffDaysStart) + 1;
-        message = `Ongoing! Day ${dayNum}`;
-      } else {
-        message = `Passed 😥`;
-      }
-
-      // 버튼 텍스트만 결과로 대체
-      btn.textContent = message;
+        // 슬라이드 애니메이션 + 텍스트 교체
+        btn.classList.add('sliding');
+        setTimeout(() => {
+          btn.textContent = message;
+          btn.classList.remove('sliding');
+        }, 200);
+      });
     });
   });
-});
 </script>
 </body>
 </html>
