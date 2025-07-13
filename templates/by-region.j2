@@ -15,9 +15,9 @@
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
-      {{ event['Start Date'] }}
+      {{ event.date_display }}
       {% if event['City'] %} · {{ event['City'] }}{% endif %}
-      {% if event['Country'] %} {{ event['Country'] }}{% endif %}
+      {% if event.country_emoji %} &nbsp;{{ event.country_emoji }}{% endif %}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>

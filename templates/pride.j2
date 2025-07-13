@@ -4,7 +4,7 @@
 
 {% block hero %}
 <header class="hero">
-  <h1>🏳️‍🌈 PRIDE Festivals & Circuit Parties 2025</h1>
+  <h1>🏳️‍🌈 PRIDE Festivals & Circuit Parties</h1>
   <p>Discover upcoming PRIDE parades, LGBTQ+ music festivals, raves, and <strong>circuit parties</strong> around the world. Find the hottest parties and join the global celebration!</p>
 </header>
 {% endblock %}
@@ -15,9 +15,9 @@
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
-      {{ event['Start Date'] }}
+      {{ event.date_display }}
       {% if event['City'] %} · {{ event['City'] }}{% endif %}
-      {% if event['Country'] %} {{ event['Country'] }}{% endif %}
+      {% if event.country_emoji %} &nbsp;{{ event.country_emoji }}{% endif %}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>
