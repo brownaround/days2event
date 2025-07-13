@@ -50,10 +50,11 @@
   function scrollToEvents() {
     const eventsSection = document.getElementById('events');
     if (eventsSection) {
-      eventsSection.scrollIntoView({ behavior: 'smooth' });
+      const y = eventsSection.getBoundingClientRect().top + window.pageYOffset - 50;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
-
+  
   function filterCards() {
     const input = document.getElementById('searchInput');
     if (!input) return;  // input이 없으면 중단!
@@ -88,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const diffTimeEnd = endDate - today;
       const diffDaysEnd = Math.ceil(diffTimeEnd / (1000 * 60 * 60 * 24));
 
+      btn.classList.add('sliding');  // 왼쪽으로 빠지면서 투명
+      setTimeout(() => {
+        btn.textContent = message;   // 텍스트 교체(보이지 않는 상태)
+        btn.classList.remove('sliding'); // 오른쪽으로 부드럽게 등장
+      }, 200);  // transition 속도와 맞춤(필요에 따라 200~300으로 조정)
+
       let message;
       if (diffDaysStart > 0) {
         message = `${diffDaysStart} days left!`;
@@ -98,14 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
         message = `Passed 😥`;
       }
 
-      // 버튼 텍스트만 결과로 대체 (스타일, 사이즈 자동)
+      // 버튼 텍스트만 결과로 대체
       btn.textContent = message;
-
-      // 필요하다면 .countdown은 hidden 처리
-      const countdownDiv = card.querySelector('.countdown');
-      if (countdownDiv) {
-        countdownDiv.classList.add('hidden');
-      }
     });
   });
 });
