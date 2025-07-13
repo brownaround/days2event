@@ -72,16 +72,13 @@ def main():
         "edm": "EDM",
         "pop": "POP",
         "k-pop": "K-POP",
-        "pride": "PRIDE",
-        "by-region": "By Region",
+        "pride": "PRIDE"
     }
-
     for fname, category in categories.items():
         category_events = df[df['Category'] == category].to_dict(orient="records")
         template = env.get_template(f"{fname}.j2")
         with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
             f.write(template.render(events=category_events))
-
     # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
