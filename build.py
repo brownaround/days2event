@@ -20,9 +20,9 @@ def main():
     env = get_jinja_env()
 
     def format_date_filter(value, format='%Y-%m-%d'):
-    if value is None:
-        return ''
-    return value.strftime(format)
+        if value is None:
+            return ''
+        return value.strftime(format)
     env.filters['strftime'] = format_date_filter
  
     # 날짜 표시용
