@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% block title %}Days2Event – Global Festival Countdown{% endblock %}</title>
-  <meta name="description" content="{% block description %}Track the world’s biggest festivals, concerts, and raves. Countdown, lineup, and location info for every major music event!{% endblock %}">
-  <link rel="stylesheet" href="style.css">
-  {% block head %}{% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% endblock %}" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-container">
-      <a class="logo" href="index.html">🌎 Days2Event</a>
+      <a href="index.html" class="logo">🌎 Days2Event</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="multi.html">✨ Multi-Genre</a></li>
@@ -21,73 +20,31 @@
         <li><a href="pride.html">🏳️‍🌈 PRIDE</a></li>
         <li><a href="by-region.html">📍 By Region</a></li>
       </ul>
-      <span class="hamburger" id="hamburger">&#9776;</span>
+      <span id="hamburger" class="hamburger">&#9776;</span>
     </div>
   </nav>
-  <main>
-    {% block hero %}{% endblock %}
-    {% block hero_browse_btn %}
-    <div class="hero-browse-btn">
-      <button type="button" onclick="scrollToEvents()">
-        <span class="arrow">👇🏼</span> Browse Events
-      </button>
-    </div>
-    {% endblock %}
-    {% block search %}
-    <div class="hero-search">
-      <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search events..." type="text"/>
-    </div>
-    {% endblock %}
-    {% block content %}{% endblock %}
-  </main>
+
+  {% block hero %}{% endblock %}
+  {% block search %}{% endblock %}
+  {% block browse_btn %}{% endblock %}
+  {% block content %}{% endblock %}
+
   <footer style="text-align:center; margin: 2rem 0 1.5rem 0; color:#aaa; font-size:.96rem;">
     &copy; 2025 Days2Event. All rights reserved.
   </footer>
+
   <script>
-    // 네비게이션 모바일
+    // 모바일 햄버거 메뉴 토글
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
-    if (hamburger && navLinks) {
-      hamburger.onclick = () => navLinks.classList.toggle('show');
-      Array.from(navLinks.getElementsByTagName('a')).forEach(link => {
-        link.onclick = () => navLinks.classList.remove('show');
-      });
-    }
 
-    // Browse Events 버튼 스크롤
-    function scrollToEvents() {
-      const el = document.getElementById('events');
-      if (el) el.scrollIntoView({behavior: "smooth"});
-    }
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
 
-    // 카드 검색 필터링
-    function filterCards() {
-      let input = document.getElementById("searchInput");
-      let filter = input.value.toLowerCase();
-      let events = document.getElementById("events");
-      let cards = events.getElementsByClassName("event-card");
-      for (let card of cards) {
-        let text = card.textContent || card.innerText;
-        card.style.display = text.toLowerCase().indexOf(filter) > -1 ? "" : "none";
-      }
-    }
-
-    // 카운트다운(How many days left?)
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.event-card').forEach(card => {
-        let btn = card.querySelector('.reveal-btn');
-        let countdown = card.querySelector('.countdown');
-        if (btn && countdown) {
-          btn.onclick = () => {
-            btn.style.display = 'none';
-            let dateStr = card.getAttribute('data-date');
-            let eventDate = new Date(dateStr);
-            let now = new Date();
-            let diff = Math.floor((eventDate - now) / (1000 * 60 * 60 * 24));
-            countdown.textContent = diff >= 0 ? `${diff} days left` : 'Event Passed';
-            countdown.classList.remove('hidden');
-          };
-        }
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
       });
     });
   </script>
