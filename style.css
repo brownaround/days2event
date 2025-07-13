@@ -70,22 +70,22 @@ body {
 
 /* 햄버거 메뉴 아이콘 스타일 */
 .hamburger {
-  font-size: 2.2rem;
-  color: white;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: white !important;
   cursor: pointer;
+  font-size: 2.2rem;
   user-select: none;
-  background-color: #000c;
-  border-radius: 6px;
-  padding: 6px 10px;
-  display: none;
-  z-index: 1100;
-  transition: background-color 0.2s ease, color 0.3s ease;
+  padding: 0;
+  margin: 0;
 }
 
 .hamburger:hover {
-  background-color: #0ff3;
-  color: #121417;
+  color: white !important;
+  background: none !important;
 }
+
 
 /* 모바일 전용 스타일 (850px 이하) */
 @media (max-width: 850px) {
@@ -94,10 +94,10 @@ body {
   }
   .nav-links {
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 10px;
     width: 220px;
-    background-color: rgba(50, 50, 50, 0.85);
+    background-color: rgba(30, 30, 30, 0.95);
     border-radius: 1rem;
     box-shadow: 0 6px 20px #0ff7;
     padding: 1.2rem 0;
