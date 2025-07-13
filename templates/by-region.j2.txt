@@ -1,16 +1,13 @@
 {% extends "base.j2" %}
 
+{% block title %}📍 Festivals by Region 2025 | Days2Event{% endblock %}
+{% block description %}Explore top music festivals by continent and country. Find upcoming events near you, sorted by region, with official links and countdowns!{% endblock %}
+
 {% block hero %}
 <header class="hero">
-  <h1>🌟 Your Festival Countdown Starts Here!</h1>
-  <p>From Coachella to Tomorrowland – track days left!</p>
+  <h1>📍 Festivals by Region 2025</h1>
+  <p>Browse upcoming music festivals by country or continent. Discover what’s happening near you!</p>
 </header>
-{% endblock %}
-
-{% block search %}
-<div class="hero-search">
-  <input id="searchInput" placeholder="🔍 Search festivals..." type="text"/>
-</div>
 {% endblock %}
 
 {% block content %}

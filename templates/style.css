@@ -4,6 +4,7 @@ body {
   background: #0a0a0a;
   color: white;
 }
+
 .navbar {
   background: #0a0a0a;
   padding: 1rem 1.5rem;
@@ -11,16 +12,19 @@ body {
   top: 0;
   z-index: 999;
 }
+
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #0ff;
 }
+
 .nav-links {
   display: flex;
   gap: 1.25rem;
@@ -28,6 +32,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .nav-links li a {
   color: white;
   text-decoration: none;
@@ -40,6 +45,7 @@ body {
   color: #0ff;
   text-shadow: 0 0 8px #0ff;
 }
+
 .hamburger {
   display: none;
   font-size: 1.5rem;
@@ -69,6 +75,7 @@ body {
     font-size: 1rem;
   }
 }
+
 .hero {
   text-align: center;
   padding: 5rem 1rem;
@@ -85,31 +92,28 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
+
 .events {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;                /* 카드 간격은 그대로! */
+  grid-template-columns: repeat(4, 1fr);  /* 데스크탑 최대 4개! */
 }
-@media (min-width: 1500px) {
-  .events {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-@media (min-width: 1200px) and (max-width: 1499px) {
+@media (max-width: 1200px) {
   .events {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (min-width: 700px) and (max-width: 1199px) {
+@media (max-width: 900px) {
   .events {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 699px) {
+@media (max-width: 600px) {
   .events {
     grid-template-columns: 1fr;
   }
 }
+
 .event-card {
   background: #1a1a1a;
   color: white;
@@ -122,6 +126,7 @@ body {
   transform: scale(1.03);
   box-shadow: 0 0 15px #0ff;
 }
+
 .details-btn {
   display: inline-block;
   margin-top: 1rem;
@@ -132,61 +137,44 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
-.countdown-wrapper {
-  margin-top: 1rem;
-}
-.reveal-btn {
-  background: transparent;
-  border: 1px solid #0ff;
-  color: #0ff;
-  padding: .5rem 1rem;
-  border-radius: .5rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-.reveal-btn:hover {
-  background: #0ff;
-  color: black;
-}
-.hidden {
-  display: none;
-}
-.reveal-animation {
-  display: block;
-  animation: flipIn 0.6s ease forwards;
-  margin-top: .5rem;
-}
-@keyframes flipIn {
-  0% {
-    transform: rotateX(-90deg);
-    opacity: 0;
-  }
-  100% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-}
 footer {
   text-align: center;
   padding: 2rem;
   background: #0f0f0f;
   color: #999;
 }
-/* Wrapper */
-.content-wrapper{max-width:1200px;margin:0 auto;}
-/* Search under hero, right aligned */
-.hero-search{max-width:80%;margin:1.5rem auto;text-align:right;}
-.hero-search input{width:40%;max-width:360px;padding:.75rem 1rem;font-size:1rem;border:2px solid #0ff;border-radius:999px;background:#111;color:#fff;transition:box-shadow .3s;}
-.hero-search input:focus{box-shadow:0 0 10px #0ff;border-color:#0ff;}
-/* Footer */
-.footer-links a{font-size:0.875rem;color:white!important;text-decoration:none!important;}
-.footer-links a:hover{text-decoration:underline!important;}
-/* Pride page */
-.pride-page .event-card{background:linear-gradient(135deg,#ffc0cb,#ff69b4);}
-.pride-page .details-btn{background:#ff69b4;color:white;}
-.pride-page .reveal-btn{border-color:#ff69b4;color:#ff69b4;}
-/* Remove underline and prevent color change on text links */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-search {
+  max-width: 80%;
+  margin: 1.5rem auto;
+  text-align: right;
+}
+.hero-search input {
+  width: 40%;
+  max-width: 360px;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #0ff;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  transition: box-shadow .3s;
+}
+.hero-search input:focus {
+  box-shadow: 0 0 10px #0ff;
+  border-color: #0ff;
+}
+.footer-links a {
+  font-size: 0.875rem;
+  color: white !important;
+  text-decoration: none !important;
+}
+.footer-links a:hover {
+  text-decoration: underline !important;
+}
 a {
   text-decoration: none !important;
   color: inherit !important;

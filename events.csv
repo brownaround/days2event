@@ -1,17 +1,16 @@
 Event Name,Start Date,End Date,City,Country,Genre,Artist,Region,Official Site,Slug
-Coachella 2026 - Week 1,2026-04-10,2026-04-12,Indio,USA,Multi-Genre,,North America,https://www.coachella.com,
-Coachella 2026 - Week 2,2026-04-17,2026-04-19,Indio,USA,Multi-Genre,,North America,https://www.coachella.com,
-Tomorrowland Belgium 2025 - Week 1,2025-07-18,2025-07-20,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,
-Tomorrowland Belgium 2025 - Week 2,2025-07-25,2025-07-27,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,
-The Magic of Tomorrowland,2025-11-22,2025-11-22,Shanghai,China,EDM,,Asia,https://magicoftomorrowland.com/,
-Tomorrowland Brazil 2025,2025-10-10,2025-10-12,Sao Paulo,Brazil,EDM,,Latin America,https://brasil.tomorrowland.com/en/welcome/,
-Tomorrowland Winter 2026,2026-03-21,2026-03-28,Alpe d'Huez,France,EDM,,Europe,https://winter.tomorrowland.com/en/welcome/,
-EDC Thailand 2026,2026-01-16,2026-01-18,Phuket,Thailand,EDM,,Asia,https://thailand.electricdaisycarnival.com/,
-EDC Orlando 2025,2025-11-07,2025-11-09,"Orlando, FL",USA,EDM,,North America,https://orlando.electricdaisycarnival.com/,
-EDC Las Vegas 2026,2026-05-15,2026-05-17,"Las Vegas, NV",USA,EDM,,North America,https://lasvegas.electricdaisycarnival.com,
-Ultra Music Festival 2026,2026-03-27,2026-03-29,Miami,USA,EDM,,North America,https://ultramusicfestival.com,
-Ultra Japan 2026,2025-09-13,2025-09-14,Tokyo,Japan,EDM,,Asia,https://ultrajapan.com/,
-S20 Taiwan,2025-07-12,2025-07-13,Taipei,Taiwan,EDM,,Asia,https://www.s2otaiwan.com/en,
+Coachella 2026 - Week 1,2026-04-10,2026-04-12,Indio,USA,Multi-Genre,,North America,https://www.coachella.com,coachella-2026
+Coachella 2026 - Week 2,2026-04-17,2026-04-19,Indio,USA,Multi-Genre,,North America,https://www.coachella.com,coachella-2026
+Tomorrowland Belgium 2025 - Week 1,2025-07-18,2025-07-20,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,tomorrowland-2026
+Tomorrowland Belgium 2025 - Week 2,2025-07-25,2025-07-27,Boom,Belgium,EDM,,Europe,https://www.tomorrowland.com,tomorrowland-2026
+The Magic of Tomorrowland,2025-11-22,2025-11-22,Shanghai,China,EDM,,Asia,https://magicoftomorrowland.com/,magic-of-tomorrowland
+Tomorrowland Brazil 2025,2025-10-10,2025-10-12,Sao Paulo,Brazil,EDM,,Latin America,https://brasil.tomorrowland.com/en/welcome/,tomorrowland-brazil
+Tomorrowland Winter 2026,2026-03-21,2026-03-28,Alpe d'Huez,France,EDM,,Europe,https://winter.tomorrowland.com/en/welcome/,tomorrowland-winter
+EDC Thailand 2026,2026-01-16,2026-01-18,Phuket,Thailand,EDM,,Asia,https://thailand.electricdaisycarnival.com/,edc-thailand-2026
+EDC Orlando 2025,2025-11-07,2025-11-09,"Orlando, FL",USA,EDM,,North America,https://orlando.electricdaisycarnival.com/,edc-orlando-2025
+EDC Las Vegas 2026,2026-05-15,2026-05-17,"Las Vegas, NV",USA,EDM,,North America,https://lasvegas.electricdaisycarnival.com,edc-2026
+Ultra Music Festival 2026,2026-03-27,2026-03-29,Miami,USA,EDM,,North America,https://ultramusicfestival.com,ultra-music-festival-2026
+Ultra Japan 2026,2025-09-13,2025-09-14,Tokyo,Japan,EDM,,Asia,https://ultrajapan.com/,lollapalooza-2025
 Lollapalooza 2025,2025-07-31,2025-08-03,Chicago,USA,POP,,North America,https://www.lollapalooza.com,
 Glastonbury 2025,2025-06-25,2025-06-29,Somerset,UK,Multi-Genre,,Europe,https://www.glastonburyfestivals.co.uk,
 Fuji Rock 2025,2025-07-25,2025-07-27,Niigata,Japan,Multi-Genre,,Asia,https://en.fujirockfestival.com/,
