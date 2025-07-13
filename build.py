@@ -31,9 +31,9 @@ def main():
     # 국가 이모지 매핑
     country_emoji_map = {
         "USA": "🇺🇸",
-        "Canada": "🇫🇷",
-        "Brazil": "🇺🇸",
-        "UK": "🇰🇷",
+        "Canada": "🇨🇦",
+        "Brazil": "🇧🇷",
+        "UK": "🇬🇧",
         "Germany": "🇩🇪",
         "France": "🇫🇷",
         "Belgium": "🇧🇪",
@@ -46,11 +46,13 @@ def main():
         "Macau": "🇲🇴",
         "Thailand": "🇹🇭",
         "Singapore": "🇸🇬",
-        "Malaysia": "🇲🇾",   
-        "Indonesia": "🇮🇩",    
+        "Malaysia": "🇲🇾",
+        "Indonesia": "🇮🇩",   
         # 필요한 국가 추가
     }
     df['country_emoji'] = df['Country'].map(country_emoji_map).fillna(df['Country'])
+
+    env = get_jinja_env() 
 
     # 카테고리별 페이지 필터
     categories = {
