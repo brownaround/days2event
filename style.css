@@ -249,28 +249,29 @@ body, html {
 .events {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* 가로 중앙 정렬 */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1200px; /* 전체 컨테이너 최대 너비 제한 */
-  margin: 0 auto 3rem auto;
+  gap: 2.5rem 2.2rem;  /* 카드 사이 여백 적당히 */
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 1100px;
+  /* 필요에 따라 width: 100% 또는 padding 추가 */
 }
 
 /* 카드 스타일 */
 .event-card {
-  max-width: 320px; /* 카드 최대 너비 제한 */
-  width: 90%; /* 모바일에선 90% 너비 */
-  background-color: #ffffff;
-  color: #222;
-  padding: 1.2rem;
-  margin: 0 auto; /* 혹시 여백을 줄 때 */
+  flex: 1 1 320px;    /* 최소 320px, 공간 나눔 */
+  max-width: 350px;
+  min-width: 290px;
+  background: #fff;
   border-radius: 1.2rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
-  position: relative;
-  width: 100%; /* 카드 너비는 100% */
+  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
+
 .event-card:hover {
   box-shadow: 0 8px 16px rgba(0,123,255,0.3);
 }
@@ -290,10 +291,16 @@ body, html {
   margin-bottom: 1.2rem;
 }
 
-.reveal-btn { /* How Many Days Left? */
-  display: block;
-  width: fit-content;
-  margin-bottom: 0.7rem;
+.button-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* 왼쪽정렬 */
+  gap: 0.45rem;              /* 버튼 간격 */
+  margin-top: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.reveal-btn {
   font-size: 1rem;
   font-weight: 700;
   padding: 0.55rem 1.3rem;
@@ -303,22 +310,23 @@ body, html {
   color: #fff;
   box-shadow: 0 1px 5px rgba(0, 123, 255, 0.13);
   cursor: pointer;
-  transition: background 0.18s, color 0.13s, box-shadow 0.18s;
+  margin-bottom: 0;
 }
 
-.details-btn {  /* Official Site */
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
+.details-btn {
   background: transparent;
   color: #1877f2;
   border: 2px solid #90caff;
-  box-shadow: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  font-size: 0.98rem;
   cursor: pointer;
-  text-decoration: none;
+  box-shadow: none;
   transition: background 0.15s, color 0.15s, box-shadow 0.18s;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0;
 }
 
 .details-btn:hover,
