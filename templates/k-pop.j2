@@ -5,30 +5,25 @@
 {% block content %}
 <main class="events" id="events">
   {% for event in events %}
-  <div class="event-card" data-date="{{ event['Start Date'] }}">
-    <h2>{{ event['Event Name'] }}</h2>
-    <p>
-      {# 날짜 포맷 변경 #}
-      {{ event.date_display }}
-      
-      {# 도시가 있으면 점(`·`) 추가해서 표시 #}
-      {% if event['City'] %}
-        · {{ event['City'] }}
+    <div class="event-card" data-start-date="{{ event['Start Date'] }}" data-end-date="{{ event['End Date'] }}">
+      <h2>{{ event['Event Name'] }}</h2>
+      <p>
+        {{ event.date_display }}
+        {% if event['City'] %}
+          · {{ event['City'] }}
+        {% endif %}
+        {% if event.country_emoji %}
+          &nbsp;{{ event.country_emoji }}
+        {% endif %}
+      </p>
+      <div class="countdown-wrapper">
+        <button class="reveal-btn">⏳ How many days left?</button>
+        <div class="countdown hidden"></div>
+      </div>
+      {% if event['Official Site'] %}
+        <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
       {% endif %}
-      
-      {# 국가명 대신 이모지 출력 #}
-      {% if event.country_emoji %}
-        &nbsp;{{ event.country_emoji }}
-      {% endif %}
-    </p>
-    <div class="countdown-wrapper">
-      <button class="reveal-btn">⏳ How many days left?</button>
-      <div class="countdown hidden"></div>
     </div>
-    {% if event['Official Site'] %}
-      <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
-    {% endif %}
-  </div>
   {% endfor %}
 </main>
 {% endblock %}

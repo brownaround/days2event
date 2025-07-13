@@ -54,18 +54,17 @@
 
   // How many days left? 버튼 클릭 처리
   document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.querySelector('.reveal-btn');
-    if (btn) {
+    const buttons = document.querySelectorAll('.reveal-btn');
+    buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        // 클릭한 버튼에 가장 가까운 카드(event-card) 찾기
         const card = btn.closest('.event-card');
         if (!card) {
           alert("Event card not found.");
           return;
         }
 
-        const startDateStr = card.getAttribute('data-start-date');       // 시작일자
-        const endDateStr = card.getAttribute('data-end-date');           // 종료일자 (추가)
+        const startDateStr = card.getAttribute('data-start-date');
+        const endDateStr = card.getAttribute('data-end-date');
         if (!startDateStr || !endDateStr) {
           alert("Start or end date not specified.");
           return;
@@ -84,25 +83,21 @@
         let message;
 
         if (diffDaysStart > 0) {
-          // 행사 시작 전
           message = `${diffDaysStart} days left!`;
         } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
-          // 행사 중
           const dayNum = Math.abs(diffDaysStart) + 1;
-
           const suffixes = ["st", "nd", "rd"];
           const suffix = suffixes[(dayNum - 1) < 3 ? (dayNum -1) : 3] || "th";
-
           message = `${dayNum}${suffix} day 🎉`;
         } else {
-          // 행사 종료 후
           message = `Passed 😥`;
         }
 
         alert(message);
       });
-    }
+    });
   });
+
 
 
   // 검색창 필터링 함수
