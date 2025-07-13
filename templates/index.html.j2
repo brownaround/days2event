@@ -82,7 +82,7 @@
        data-multi-genre="{{ 'yes' if event['Genre'] == 'Multi-Genre' else 'no' }}">
     <h2>{{ event['Festival Name'] }}</h2>
     <p>
-      {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }} {{ countryToEmoji(event['Country']) }}
+      {{ event['Start Date']|formatDateRange(event['End Date']) }} · {{ event['City'] }} {{ event['Country'] | countryToEmoji }}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>
