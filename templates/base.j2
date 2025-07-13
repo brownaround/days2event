@@ -1,104 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}Days2Event | Festival Countdown{% endblock %}</title>
-  <meta name="description" content="{% block description %}All major global music festivals & raves, including EDM, K-POP, PRIDE, and more. Countdown and event info in one place!{% endblock %}">
-  <link rel="stylesheet" href="style.css" />
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8888557569927473"
-     crossorigin="anonymous"></script>
-
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78R520RQ1E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-78R520RQ1E');
-  </script>
-
-  <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PS7Q2ZMR');
-  </script>
-  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Days2Event – Global Festival Countdown{% endblock %}</title>
+  <meta name="description" content="{% block description %}Track the world’s biggest festivals, concerts, and raves. Countdown, lineup, and location info for every major music event!{% endblock %}">
+  <link rel="stylesheet" href="style.css">
+  {% block head %}{% endblock %}
 </head>
-
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PS7Q2ZMR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html"><div class="logo">🎉 Days2Event</div></a>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <ul class="nav-links" id="navMenu">
-      <li><a href="index.html">🏠 Home</a></li>
-      <li><a href="multi.html">✨ Multi-Genre</a></li>
-      <li><a href="edm.html">🪩 EDM</a></li>
-      <li><a href="pop.html">🎶 POP</a></li>
-      <li><a href="k-pop.html">🇰🇷🎵 K-POP</a></li>
-      <li><a href="pride.html">🏳️‍🌈 PRIDE</a></li>
-      <li><a href="by-region.html">📍 By Region</a></li>
-    </ul>
-  </div>
-</nav>
-{% block hero %}{% endblock %}
-{% block search %}{% endblock %}
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="logo" href="index.html">🌎 Days2Event</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="multi.html">✨ Multi-Genre</a></li>
+        <li><a href="edm.html">🪩 EDM</a></li>
+        <li><a href="pop.html">🎶 POP</a></li>
+        <li><a href="k-pop.html">🇰🇷 K-POP</a></li>
+        <li><a href="pride.html">🏳️‍🌈 PRIDE</a></li>
+        <li><a href="by-region.html">📍 By Region</a></li>
+      </ul>
+      <span class="hamburger" id="hamburger">&#9776;</span>
+    </div>
+  </nav>
+  <main>
+    {% block hero %}{% endblock %}
+    {% block hero_browse_btn %}
+    <div class="hero-browse-btn">
+      <button type="button" onclick="scrollToEvents()">
+        <span class="arrow">👇🏼</span> Browse Events
+      </button>
+    </div>
+    {% endblock %}
+    {% block search %}
+    <div class="hero-search">
+      <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search events..." type="text"/>
+    </div>
+    {% endblock %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer style="text-align:center; margin: 2rem 0 1.5rem 0; color:#aaa; font-size:.96rem;">
+    &copy; 2025 Days2Event. All rights reserved.
+  </footer>
+  <script>
+    // 네비게이션 모바일
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+      hamburger.onclick = () => navLinks.classList.toggle('show');
+      Array.from(navLinks.getElementsByTagName('a')).forEach(link => {
+        link.onclick = () => navLinks.classList.remove('show');
+      });
+    }
 
-<div class="content-wrapper">
-  {% block content %}{% endblock %}
-</div>
-<footer>
-  <p>© 2025 Days2Event · All rights reserved</p>
-  <ul class="footer-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="privacy.html">Privacy Policy</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-  </ul>
-</footer>
-<script>
-function toggleMenu() {
-  document.getElementById('navMenu').classList.toggle('show');
-}
-window.addEventListener('DOMContentLoaded', ()=>{
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navMenu').classList.remove('show');
-    });
-  });
+    // Browse Events 버튼 스크롤
+    function scrollToEvents() {
+      const el = document.getElementById('events');
+      if (el) el.scrollIntoView({behavior: "smooth"});
+    }
 
-  // 카드 날짜순 정렬 및 카운트다운
-  let cards = [...document.querySelectorAll('.event-card')];
-  cards.sort((a,b)=>new Date(a.dataset.date)-new Date(b.dataset.date));
-  const c = document.getElementById('events');
-  if(c){c.innerHTML='';cards.forEach(x=>c.appendChild(x));}
-  cards.forEach(card=>{
-    const btn=card.querySelector('.reveal-btn'),
-      cd=card.querySelector('.countdown'),
-      d=new Date(card.dataset.date), t=new Date(),
-      days=Math.ceil((d.setHours(0,0,0,0)-t.setHours(0,0,0,0))/(86400000));
-    if(btn) btn.addEventListener('click', ()=>{
-      cd.textContent=`⏳ ${days>0?days+' days left':days===0?'Today! 🎉':'Passed 💤'}`;
-      cd.classList.remove('hidden');
-      cd.classList.add('reveal-animation');
-      btn.style.display='none';
+    // 카드 검색 필터링
+    function filterCards() {
+      let input = document.getElementById("searchInput");
+      let filter = input.value.toLowerCase();
+      let events = document.getElementById("events");
+      let cards = events.getElementsByClassName("event-card");
+      for (let card of cards) {
+        let text = card.textContent || card.innerText;
+        card.style.display = text.toLowerCase().indexOf(filter) > -1 ? "" : "none";
+      }
+    }
+
+    // 카운트다운(How many days left?)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.event-card').forEach(card => {
+        let btn = card.querySelector('.reveal-btn');
+        let countdown = card.querySelector('.countdown');
+        if (btn && countdown) {
+          btn.onclick = () => {
+            btn.style.display = 'none';
+            let dateStr = card.getAttribute('data-date');
+            let eventDate = new Date(dateStr);
+            let now = new Date();
+            let diff = Math.floor((eventDate - now) / (1000 * 60 * 60 * 24));
+            countdown.textContent = diff >= 0 ? `${diff} days left` : 'Event Passed';
+            countdown.classList.remove('hidden');
+          };
+        }
+      });
     });
-  });
-});
-function filterCards() {
-  const q=document.getElementById('searchInput').value.toLowerCase();
-  document.querySelectorAll('.event-card').forEach(card=>{
-    card.style.display=card.querySelector('h2').innerText.toLowerCase().includes(q)?'block':'none';
-  });
-}
-</script>
+  </script>
 </body>
 </html>

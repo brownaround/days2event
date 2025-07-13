@@ -1,18 +1,17 @@
 {% extends "base.j2" %}
-
-{% block title %}🪩 Best EDM & Rave Festivals 2025 | Days2Event{% endblock %}
-{% block description %}Discover the world’s top EDM, rave, and electronic dance festivals: Tomorrowland, EDC, Ultra, and more. Countdown to every epic rave!{% endblock %}
+{% block title %}🪩 EDM & Rave Festivals 2025 | Days2Event{% endblock %}
+{% block description %}Track the world’s best EDM, rave, and electronic music festivals in 2025. See full lineup & countdown to the party!{% endblock %}
 
 {% block hero %}
 <header class="hero">
   <h1>🪩 EDM & Rave Festivals 2025</h1>
-  <p>Find your next rave! Explore the biggest EDM, electronic dance, and rave festivals worldwide. Countdown to legendary parties like Tomorrowland, EDC, and more.</p>
+  <p>Countdown to Tomorrowland, Ultra, EDC and more rave destinations!</p>
 </header>
 {% endblock %}
 
 {% block content %}
 <main class="events" id="events">
-  {% for event in events %}   #
+  {% for event in events %}
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>

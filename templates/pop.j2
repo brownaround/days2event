@@ -1,5 +1,4 @@
 {% extends "base.j2" %}
-
 {% block title %}🎶 POP Music Festivals 2025 | Days2Event{% endblock %}
 {% block description %}Explore the most popular pop music festivals worldwide! Countdown to Lollapalooza, Glastonbury, and more. All dates & official links here.{% endblock %}
 
@@ -10,15 +9,9 @@
 </header>
 {% endblock %}
 
-{% block search %}
-<div class="hero-search">
-  <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search festivals..." type="text"/>
-</div>
-{% endblock %}
-
 {% block content %}
 <main class="events" id="events">
-  {% for event in events %}   #
+  {% for event in events %}
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>

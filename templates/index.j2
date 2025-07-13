@@ -1,21 +1,18 @@
 {% extends "base.j2" %}
 
+{% block title %}🌎 All Festivals & Concerts 2025 | Days2Event{% endblock %}
+{% block description %}Browse every major music festival, rave, and concert worldwide. Countdown to top events by date, city, genre!{% endblock %}
+
 {% block hero %}
 <header class="hero">
-  <h1>🌟 Your Festival Countdown Starts Here!</h1>
-  <p>From Coachella to Tomorrowland – track days left!</p>
+  <h1>🌎 All Festivals & Concerts 2025</h1>
+  <p>Plan your next adventure. Every festival, concert, and rave at a glance!</p>
 </header>
-{% endblock %}
-
-{% block search %}
-<div class="hero-search">
-  <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search festivals..." type="text"/>
-</div>
 {% endblock %}
 
 {% block content %}
 <main class="events" id="events">
-  {% for event in events %}   #
+  {% for event in events %}
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
