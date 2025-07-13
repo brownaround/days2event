@@ -11,15 +11,49 @@ def get_jinja_env():
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
     return env
-    
+
+def format_event_date(row):
+    start = pd.to_datetime(row['Start Date'])
+    end = pd.to_datetime(row['End Date'])
+    if start.month == end.month:
+        return f"{start.day}-{end.day} {start.strftime('%b')}"
+    else:
+        return f"{start.day} {start.strftime('%b')} - {end.day} {end.strftime('%b')}"
+
 def main():
     ensure_output_dir()
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
 
+    # 날짜 포맷 컬럼 추가
+    df['date_display'] = df.apply(format_event_date, axis=1)
+
+    # 국가 이모지 매핑
+    country_emoji_map = {
+        "USA": "🇺🇸",
+        "Canada": "🇫🇷",
+        "Brazil": "🇺🇸",
+        "UK": "🇰🇷",
+        "Germany": "🇩🇪",
+        "France": "🇫🇷",
+        "Belgium": "🇧🇪",
+        "Netherlands": "🇳🇱",
+        "Hungary": "🇭🇺",        
+        "South Korea": "🇰🇷",
+        "Japan": "🇯🇵",
+        "China": "🇨🇳",
+        "Hong Kong": "🇭🇰",
+        "Macau": "🇲🇴",
+        "Thailand": "🇹🇭",
+        "Singapore": "🇸🇬",
+        "Malaysia": "🇲🇾",   
+        "Indonesia": "🇮🇩",    
+        # 필요한 국가 추가
+    }
+    df['country_emoji'] = df['Location'].map(country_emoji_map).fillna(df['Location'])
+
     env = get_jinja_env()
 
-    # genre 리스트 반드시 선언!
     genres = [
         ("multi.html", "Multi-Genre"),
         ("edm.html", "EDM"),
@@ -29,12 +63,10 @@ def main():
         ("by-region.html", "By Region")
     ]
 
-    # 메인(index.html): 전체 카드!
     template = env.get_template("index.j2")
     with open("site/index.html", "w", encoding="utf-8") as f:
         f.write(template.render(events=df.to_dict(orient="records")))
 
-    # 장르별 페이지: 해당 장르 전체 카드!
     for filename, genre in genres:
         template_name = filename.replace(".html", ".j2")
         filtered = df[df["Genre"].str.strip().str.lower() == genre.lower()]
@@ -45,13 +77,11 @@ def main():
                 env.get_template(template_name).render(events=filtered.to_dict(orient="records"))
             )
 
-    # style.css 복사
     if os.path.exists("style.css"):
         with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
             fdst.write(fsrc.read())
 
     print("Build completed! All html files generated in /site.")
-
 
 if __name__ == "__main__":
     main()
