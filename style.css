@@ -289,7 +289,10 @@ body, html {
 .countdown-wrapper {
   margin-bottom: 0.8rem;
 }
+
 .countdown {
+  opacity: 0;
+  transition: opacity 0.5s ease;
   font-size: 1.05rem;
   font-weight: 600;
   color: #111;
@@ -298,6 +301,11 @@ body, html {
   padding: 0.5rem 1rem;
   box-shadow: 0 0 8px #0ff5;
 }
+
+.countdown.fade-in {
+  opacity: 1;
+}
+
 .hidden {
   display: none;
 }
