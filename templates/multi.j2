@@ -17,10 +17,8 @@
       <p>
         {{ event['date_display'] }} · {{ event['City'] }} {{ event['country_emoji'] }}
       </p>
-      <div style="display: flex; align-items: center; gap: 0.7rem;">
-        <button class="reveal-btn">⏳ How many days left?</button>
-        <a href="{{ event['Link'] }}" target="_blank" class="details-btn">Official Site</a>
-      </div>
+      <button class="reveal-btn">⏳ How many days left?</button>
+      <a href="{{ event['Link'] }}" target="_blank" class="details-btn">Official Site</a>
     </div>
   {% endfor %}
 </main>
