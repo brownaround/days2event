@@ -118,6 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+  // Brose Events 스크롤 다운
+  function scrollToEvents() {
+    const eventsSection = document.getElementById('events');
+    if (eventsSection) {
+      eventsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 
   // 검색 필터 함수
   function filterCards() {
@@ -130,6 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.display = text.includes(filter) ? '' : 'none';
     });
   }
+
+
 </script>
 
 </body>

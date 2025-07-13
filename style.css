@@ -313,18 +313,14 @@ body, html {
   color: #fff;
 }  
 
-/* 카운트다운 래퍼 */
-.countdown-wrapper {
-  margin-bottom: 0.8rem;
-}
-
+/* 날짜 카운트다운 */
 .countdown {
   opacity: 0;
   transition: opacity 0.5s ease;
   font-size: 1.05rem;
   font-weight: 600;
-  color: #0ff; /* 글자색을 네온 블루로 변경 */
-  background: #111; /* 배경색 유지 */
+  color: #0ff; /* 네온 블루 */
+  background: #111;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   box-shadow: 0 0 8px #0ff5;
@@ -337,6 +333,7 @@ body, html {
 .hidden {
   display: none;
 }
+
 
 /* 버튼: Official Site */
 .details-btn {
