@@ -13,14 +13,11 @@
   {% for event in events %}
   <div class="event-card" data-start-date="{{ event['Start Date']|strftime('%Y-%m-%d') }}" data-end-date="{{ event['End Date']|strftime('%Y-%m-%d') }}">
     <h2>{{ event['Event Name'] }}</h2>
-    <p>
-      {{ event['date_display'] }} · {{ event['City'] }} &nbsp;{{ event['country_emoji'] }}
-    </p>
+    <p>{{ event['date_display'] }} · {{ event['City'] }} {{ event['country_emoji'] }}</p>
     <div class="button-row">
       <button class="reveal-btn">⏳ How many days left?</button>
       <a href="{{ event['Link'] }}" target="_blank" class="details-btn">Official Site</a>
     </div>
-    <div class="countdown hidden"></div>
   </div>
   {% endfor %}
 </main>

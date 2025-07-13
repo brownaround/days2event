@@ -252,7 +252,7 @@ body, html {
   gap: 2.5rem 2.2rem;  /* 카드 사이 여백 적당히 */
   justify-content: flex-start; /* 왼쪽 정렬 */
   align-items: stretch;
-  margin: 0 auto;
+  margin-top: 2rem;
   max-width: 1100px;
   /* 필요에 따라 width: 100% 또는 padding 추가 */
 }
@@ -278,30 +278,35 @@ body, html {
   max-width: 350px;
 }
 
+.event-card.selected {
+  background-color: #d0e8ff; /* 연한 파란색 */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease;
+}
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  margin-top: 0.5rem;
-  justify-content: flex-start; /* 버튼 왼쪽 정렬 */
+  justify-content: flex-start;
+  margin-bottom: 0.4rem;
 }
 
-.reveal-btn,
-.details-btn {
+.button-row .reveal-btn,
+.button-row .details-btn {
   font-size: 1rem;
-  font-weight: 700;
   padding: 0.55rem 1.3rem;
   border-radius: 1.1rem;
   white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.13s ease;
 }
 
 .reveal-btn {
+  font-weight: 700;
+  border: none;
   background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
   color: #fff;
-  border: none;
+  cursor: pointer;
   box-shadow: 0 1px 5px rgba(0, 123, 255, 0.13);
+  transition: background 0.18s, color 0.13s, box-shadow 0.18s;
 }
 
 .details-btn {
@@ -309,10 +314,12 @@ body, html {
   color: #1877f2;
   border: 2px solid #90caff;
   font-weight: 500;
-  font-size: 0.98rem;
-  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
   text-decoration: none;
   display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
 }
 
 .details-btn:hover,
@@ -321,36 +328,6 @@ body, html {
   color: #0056b3;
   box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
 }
-
-.countdown {
-  margin-top: 0.6rem;
-  font-weight: 600;
-  color: #0073ff;
-  min-height: 1.2em;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.countdown.hidden {
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-@media (max-width: 960px) {
-  .event-card {
-    flex: 1 1 calc(50% - 1rem);
-  }
-}
-
-@media (max-width: 600px) {
-  .event-card {
-    flex: 1 1 100%;
-  }
-}
-
-
 
 /* 반응형: 모바일 */
 @media (max-width: 700px) {

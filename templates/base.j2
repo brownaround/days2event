@@ -71,45 +71,44 @@
   window.filterCards = filterCards;
 
   // 버튼/카드 관련 코드
-  document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.reveal-btn');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.event-card');
-        if (!card) return;
-
-        const startDateStr = card.getAttribute('data-start-date');
-        const endDateStr = card.getAttribute('data-end-date');
-        if (!startDateStr || !endDateStr) return;
-
-        const startDate = new Date(startDateStr);
-        const endDate = new Date(endDateStr);
-        const today = new Date();
-
-        const diffDaysStart = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
-        const diffDaysEnd = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
-
-        let message;
-        if (diffDaysStart > 0) {
-          message = `${diffDaysStart} days left!`;
-        } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
-          const dayNum = Math.abs(diffDaysStart) + 1;
-          const suffixes = ["st", "nd", "rd"];
-          const suffix = suffixes[(dayNum - 1) < 3 ? (dayNum - 1) : 3] || "th";
-          message = `${dayNum}${suffix} day 🎉`;
-        } else {
-          message = `Passed 😥`;
-        }
-
-        const countdownDiv = card.querySelector('.countdown');
-        countdownDiv.textContent = message;
-        countdownDiv.classList.remove('hidden');
-
-        // 버튼 텍스트는 초기 상태 유지(옵션)
-        // btn.textContent = "⏳ How many days left?";
-      });
+document.addEventListener('DOMContentLoaded', () => {
+  // 카드 선택 시 파스텔 파란 배경 효과를 위한 selected 클래스 토글
+  document.querySelectorAll('.event-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('selected');
     });
   });
+
+  // 기존 How many days left? 버튼 클릭 이벤트도 여기 포함 가능
+  document.querySelectorAll('.reveal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.event-card');
+      if (!card) return;
+      const startDateStr = card.getAttribute('data-start-date');
+      const endDateStr = card.getAttribute('data-end-date');
+      if (!startDateStr || !endDateStr) return;
+
+      const startDate = new Date(startDateStr);
+      const endDate = new Date(endDateStr);
+      const today = new Date();
+
+      const diffDaysStart = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
+      const diffDaysEnd = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+
+      let message;
+      if (diffDaysStart > 0) {
+        message = `${diffDaysStart} days left!`;
+      } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
+        const dayNum = Math.abs(diffDaysStart) + 1;
+        message = `Ongoing! Day ${dayNum}`;
+      } else {
+        message = `Passed 😥`;
+      }
+      btn.textContent = message;
+    });
+  });
+});
+
 
 </script>
 </body>
