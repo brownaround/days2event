@@ -100,6 +100,16 @@ body {
   }
 }
 
+.hamburger {
+  display: none; /* 기본은 숨김 */
+}
+
+@media (max-width: 850px) {
+  .hamburger {
+    display: block; /* 모바일에서만 보임 */
+  }
+}
+
 /* 햄버거 메뉴 아이콘 스타일 */
 .hamburger {
   background: none !important;
@@ -117,7 +127,6 @@ body {
   color: white !important;
   background: none !important;
 }
-
 
 /* 모바일 전용 스타일 (850px 이하) */
 @media (max-width: 850px) {
