@@ -27,6 +27,11 @@
   {% block hero %}{% endblock %}
   {% block search %}{% endblock %}
   {% block browse_btn %}{% endblock %}
+  {% block search %}
+    <div class="hero-search">
+      <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search interested event" type="text" />
+    </div>
+{% endblock %}
   {% block content %}{% endblock %}
 
   <footer style="text-align:center; margin: 2rem 0 1.5rem 0; color:#aaa; font-size:.96rem;">

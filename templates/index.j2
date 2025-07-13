@@ -14,13 +14,6 @@
   </div>
 </header>
 {% endblock %}
-
-{% block search %}
-<div class="hero-search">
-  <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search events..." type="text"/>
-</div>
-{% endblock %}
-
 {% block content %}
 <main class="events" id="events">
   {% for event in events %}
