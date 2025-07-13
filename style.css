@@ -290,9 +290,8 @@ body, html {
   margin-bottom: 1.2rem;
 }
 
-/* 버튼: How many days left? */
-.reveal-btn {
-  font-size: 1rem; /* 버튼 글씨 크기 통일 */
+.reveal-btn { /* How Many Days Left? */
+  font-size: 1rem;
   font-weight: 700;
   padding: 0.55rem 1.3rem;
   border-radius: 1.1rem;
@@ -301,47 +300,20 @@ body, html {
   color: #fff;
   box-shadow: 0 1px 5px rgba(0, 123, 255, 0.13);
   cursor: pointer;
-  margin-bottom: 0.35rem;
-  margin-right: 20px; /* 버튼-링크 사이 간격 */
   transition: background 0.18s, color 0.13s, box-shadow 0.18s;
 }
 
-.site-link {
-  display: inline-block;
-  font-size: 1rem;
-  color: #1877f2;
-  text-decoration: none;
-  margin-left: 0;
-  margin-top: 0.05rem;
-  /* 필요시 폰트 굵기/hover 등 추가 가능 */
-}
-
-.site-link:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 700px) {
-  .event-card {
-    padding: 0.9rem 0.6rem;
-  }
-  .reveal-btn,
-  .site-link {
-    font-size: 0.98rem;
-  }
-}
-
-/* 버튼: Official Site */
-.details-btn {
+.details-btn {  /* Official Site */
   background: transparent;
-  color: rgba(0, 123, 255, 0.705);
-  border: 2px solid rgba(0, 123, 255, 0.705);
+  color: #1877f2;
+  border: 2px solid #90caff;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   cursor: pointer;
   box-shadow: none;
-  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.18s ease;
+  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
   text-decoration: none;
   display: inline-block;
 }
@@ -350,9 +322,8 @@ body, html {
 .details-btn:focus {
   background: #e6f0ff;
   color: #0056b3;
-  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
 }
-
 /* 반응형: 모바일 */
 @media (max-width: 700px) {
   .hero-search {

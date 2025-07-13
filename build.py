@@ -73,9 +73,8 @@ def main():
         "pop": "POP",
         "k-pop": "K-POP",
         "pride": "PRIDE",
-        "by-region": "By Region",  # ← 쉼표 필수!
+        "by-region": "By Region",
     }
-
 
     for fname, category in categories.items():
         category_events = df[df['Category'] == category].to_dict(orient="records")
