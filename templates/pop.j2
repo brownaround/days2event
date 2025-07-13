@@ -4,8 +4,8 @@
 
 {% block hero %}
 <header class="hero">
-  <h1>🎶 Top POP Festivals 2025</h1>
-  <p>Experience the world’s biggest pop music festivals, from global icons to rising stars. Plan your next concert trip!</p>
+  <h1>🎶 Top POP Festivals & Concerts 2025</h1>
+  <p>Experience the world’s biggest pop music festivals, world tours from global icons to rising stars. Plan your next concert trip!</p>
 </header>
 {% endblock %}
 
@@ -15,9 +15,18 @@
   <div class="event-card" data-date="{{ event['Start Date'] }}">
     <h2>{{ event['Event Name'] }}</h2>
     <p>
+      {# 날짜 포맷 변경 #}
       {{ event.date_display }}
-      {% if event['City'] %} · {{ event['City'] }}{% endif %}
-      {% if event.country_emoji %} &nbsp;{{ event.country_emoji }}{% endif %}
+      
+      {# 도시가 있으면 점(`·`) 추가해서 표시 #}
+      {% if event['City'] %}
+        · {{ event['City'] }}
+      {% endif %}
+      
+      {# 국가명 대신 이모지 출력 #}
+      {% if event.country_emoji %}
+        &nbsp;{{ event.country_emoji }}
+      {% endif %}
     </p>
     <div class="countdown-wrapper">
       <button class="reveal-btn">⏳ How many days left?</button>

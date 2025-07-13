@@ -16,12 +16,8 @@
       <h2>{{ event['Event Name'] }}</h2>
       <p>
         {{ event.date_display }}
-        {% if event['City'] %}
-          · {{ event['City'] }}
-        {% endif %}
-        {% if event.country_emoji %}
-          &nbsp;{{ event.country_emoji }}
-        {% endif %}
+        {% if event['City'] %} · {{ event['City'] }}{% endif %}
+        {% if event.country_emoji %} {{ event.country_emoji }}{% endif %}
       </p>
       <div class="countdown-wrapper">
         <button class="reveal-btn">⏳ How many days left?</button>
