@@ -1,3 +1,4 @@
+/* 기본 바디 설정 */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -5,6 +6,7 @@ body {
   color: white;
 }
 
+/* 네비게이션 바 전체 스타일 */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
   padding: 1rem 1.5rem;
@@ -12,6 +14,8 @@ body {
   top: 0;
   z-index: 999;
 }
+
+/* 네비게이션 컨테이너 */
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,96 +23,107 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+/* 로고 스타일 */
 .logo {
   font-weight: 700;
   font-size: 1.7rem;
   color: white;
   text-decoration: none;
 }
+
+/* 네비 메뉴 리스트 기본 설정 */
 .nav-links {
-  position: absolute;
-  top: 60px; /* 약간 더 아래로 내려서 겹침 방지 */
-  right: 10px;
-  width: 220px; /* 조금 넓힘 */
-  background-color: #121417;
-  border-radius: 1rem;
-  box-shadow: 0 6px 20px #0ff7;
-  padding: 1.2rem 0;
-  display: none;
-  z-index: 1200; /* 더 위로 */
-  font-size: 1.15rem; /* 글씨 키우기 */
-}
-.nav-links.show {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
-.nav-links li a {
-  padding: 0.9rem 1.6rem;
-  font-weight: 700;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  border-radius: 0.6rem;
-  transition: background-color 0.2s ease;
-}
-.nav-links li a:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #0ff;
+/* 데스크톱 전용 스타일 (851px 이상) */
+@media (min-width: 851px) {
+  .nav-links {
+    background: transparent !important;
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    box-shadow: none !important;
+    width: auto !important;
+    padding: 0 !important;
+    gap: 1.4rem;
+  }
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.3rem 1rem;
+    border-radius: 1.2rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: 700;
+  }
 }
 
+/* 햄버거 메뉴 아이콘 스타일 */
 .hamburger {
-  color: white; /* 클릭 안했을 때 기본 색상 */
+  font-size: 2.2rem;
+  color: white;
   cursor: pointer;
-  font-size: 2.4rem; /* 조금 키움 */
   user-select: none;
   background-color: #000c;
   border-radius: 6px;
   padding: 6px 10px;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  display: none;
+  z-index: 1100;
+  transition: background-color 0.2s ease, color 0.3s ease;
 }
 
 .hamburger:hover {
-  color: #0ff;
-  background-color: #111;
+  background-color: #0ff3;
+  color: #121417;
 }
 
+/* 모바일 전용 스타일 (850px 이하) */
 @media (max-width: 850px) {
   .hamburger {
     display: block;
   }
   .nav-links {
     position: absolute;
-    top: 55px;
+    top: 60px;
     right: 10px;
-    width: 200px;
-    flex-direction: column;
-    background-color: #121417;
+    width: 220px;
+    background-color: rgba(50, 50, 50, 0.85);
     border-radius: 1rem;
-    box-shadow: 0 4px 18px #0ff7;
-    padding: 1rem 0;
+    box-shadow: 0 6px 20px #0ff7;
+    padding: 1.2rem 0;
     display: none;
+    z-index: 1200;
+    font-size: 1.15rem;
+    flex-direction: column;
+    gap: 1.2rem;
   }
   .nav-links.show {
     display: flex;
   }
   .nav-links li a {
+    color: white;
+    padding: 0.9rem 1.6rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    color: #fff;
-    padding: 0.8rem 1.4rem;
-    font-weight: 700;
-    font-size: 1.05rem;
+    border-radius: 0.6rem;
     text-decoration: none;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.2s ease;
   }
   .nav-links li a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #121417;
-    border-radius: 0.6rem;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #0ff;
   }
 }
 
