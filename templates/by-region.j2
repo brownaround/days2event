@@ -10,6 +10,12 @@
 </header>
 {% endblock %}
 
+{% block search %}
+<div class="hero-search">
+  <input id="searchInput" onkeyup="filterCards()" placeholder="🔍 Search by region..." type="text"/>
+</div>
+{% endblock %}
+
 {% block content %}
 <main class="events" id="events">
   {% for event in events[:4] %}
@@ -20,6 +26,10 @@
       {% if event['City'] %} · {{ event['City'] }}{% endif %}
       {% if event['Country'] %} {{ event['Country'] }}{% endif %}
     </p>
+    <div class="countdown-wrapper">
+      <button class="reveal-btn">⏳ How many days left?</button>
+      <div class="countdown hidden"></div>
+    </div>
     {% if event['Official Site'] %}
       <a class="details-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
     {% endif %}
