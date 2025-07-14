@@ -5,17 +5,33 @@
 {% block hero %}
 <header class="hero">
   <h1>📍 Festivals by Region</h1>
-  <p>Browse upcoming music festivals by country or continent. Discover what’s happening near you!</p>
+  <p>Browse upcoming music festivals by country or continent.</p>
+  <p>Discover what’s happening near you!</p>
 </header>
 {% endblock %}
 
-<main class="events" id="events">
+{% block content %}
+<div class="event-list">
   {% for event in events %}
-  <div class="event-card" data-start-date="{{ event['Start Date']|strftime('%Y-%m-%d') }}" data-end-date="{{ event['End Date']|strftime('%Y-%m-%d') }}">
+  <div class="card">
+    <div class="card-header">
+      <span class="date">{{ event['date_display'] }}</span>
+      <span class="country">{{ event['country_emoji'] }}</span>
+    </div>
     <h2>{{ event['Event Name'] }}</h2>
-    <p>{{ event['date_display'] }} · {{ event['City'] }} {{ event['country_emoji'] }}</p>
-    <button class="reveal-btn">⏳ How many days left?</button>
-    <a href="{{ event['Link'] }}" target="_blank" class="details-btn">Official Site</a>
+    <div class="meta">
+      <span>{{ event['City'] }}</span> |
+      <span>{{ event['Category'] }}</span>
+    </div>
+    {% if event['Official Site'] %}
+      <div><a href="{{ event['Official Site'] }}" target="_blank">공식 사이트 ↗</a></div>
+    {% endif %}
+    <div class="countdown">
+      {% if event['Start Date'].date() >= now().date() %}
+        {{ (event['Start Date'].date() - now().date()).days }} days left!
+      {% endif %}
+    </div>
   </div>
   {% endfor %}
-</main>
+</div>
+{% endblock %}

@@ -5,7 +5,8 @@
 {% block hero %}
 <header class="hero">
   <h1>🎶 Top POP Festivals & Concerts 2025</h1>
-  <p>Experience the world’s biggest pop music festivals, world tours from global icons to rising stars. Plan your next concert trip!</p>
+  <p>Experience the world’s biggest pop music festivals, world tours from global icons to rising stars.</p>
+  <p>Plan your next concert trip!</p>
 </header>
 {% endblock %}
 
@@ -26,8 +27,8 @@
       <div><a href="{{ event['Official Site'] }}" target="_blank">공식 사이트 ↗</a></div>
     {% endif %}
     <div class="countdown">
-      {% if event['Start Date'] >= now().date() %}
-        {{ (event['Start Date'] - now().date()).days }} days left!
+      {% if event['Start Date'].date() >= now().date() %}
+        {{ (event['Start Date'].date() - now().date()).days }} days left!
       {% endif %}
     </div>
   </div>

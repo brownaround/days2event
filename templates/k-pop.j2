@@ -5,7 +5,8 @@
 {% block hero %}
 <header class="hero">
   <h1>🎵 K-POP Festivals & Concerts 2025</h1>
-  <p>Discover the hottest K-POP events around the world! Stay updated with dates, venues, and more for your favorite stars.</p>
+  <p>Discover the hottest K-POP events around the world!</p>
+  <p>Stay updated with dates, venues, and more for your favorite stars.</p>
 </header>
 {% endblock %}
 
@@ -26,8 +27,8 @@
       <div><a href="{{ event['Official Site'] }}" target="_blank">공식 사이트 ↗</a></div>
     {% endif %}
     <div class="countdown">
-      {% if event['Start Date'] >= now().date() %}
-        {{ (event['Start Date'] - now().date()).days }} days left!
+      {% if event['Start Date'].date() >= now().date() %}
+        {{ (event['Start Date'].date() - now().date()).days }} days left!
       {% endif %}
     </div>
   </div>

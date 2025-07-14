@@ -5,7 +5,8 @@
 {% block hero %}
 <header class="hero">
   <h1>🏳️‍🌈 PRIDE Festivals & Circuit Parties</h1>
-  <p>Discover upcoming PRIDE parades, LGBTQ+ music festivals, raves, and <strong>circuit parties</strong> around the world. Find the hottest parties and join the global celebration!</p>
+  <p>Discover upcoming PRIDE parades, LGBTQ+ music festivals, raves, and <strong>circuit parties</strong> around the world.</p>
+  <p>Find the hottest parties and join the global celebration!</p>
 </header>
 {% endblock %}
 
@@ -26,11 +27,12 @@
       <div><a href="{{ event['Official Site'] }}" target="_blank">공식 사이트 ↗</a></div>
     {% endif %}
     <div class="countdown">
-      {% if event['Start Date'] >= now().date() %}
-        {{ (event['Start Date'] - now().date()).days }} days left!
+      {% if event['Start Date'].date() >= now().date() %}
+        {{ (event['Start Date'].date() - now().date()).days }} days left!
       {% endif %}
     </div>
   </div>
   {% endfor %}
 </div>
 {% endblock %}
+
