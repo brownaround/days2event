@@ -6,7 +6,7 @@ body, html {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* ========== NAVIGATION BAR ========== */
+/* Navigation Bar (Menu) */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
   padding: 1rem 1rem;
@@ -112,7 +112,7 @@ body, html {
   }
 }
 
-/* ========== HERO SECTION ========== */
+/* Hero Section */
 .hero {
   text-align: center;
   padding: 5rem 1rem;
@@ -184,105 +184,128 @@ body, html {
   max-width: 320px;
 }
 
-/* ========== EVENT CARD (카드/리스트/버튼) ========== */
+/* 카드 리스트 컨테이너 */
 .event-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2em;
+  gap: 1.5rem;
   justify-content: center;
   padding: 2rem 0;
+  background: #f3f7fa;
 }
 
+/* 개별 카드 */
 .card {
-  border-radius: 1em !important;
-  box-shadow: 0 2px 8px #0002 !important;
-  padding: 1em !important;
-  margin: 1em 0 !important;
-  background: #fff !important;
-  width: 420px !important;
+  background: linear-gradient(135deg, #e8f6ff 60%, #f2ecff 100%);
+  border-radius: 1.5em;
+  box-shadow: 0 4px 24px #4cbcff33, 0 2px 8px #9c8bff1a;
+  padding: 1.5em 1.2em 1.3em 1.2em;
+  margin: 0.8em 0;
+  max-width: 380px;
+  min-width: 260px;
+  flex: 1 1 320px;
   display: flex;
-  flex-direction: column; !important;
-  gap: 0.6em;
+  flex-direction: column;
+  gap: 0.9em;
+  color: #183353;
+  border: 1px solid #cae8fd;
+  transition: box-shadow 0.23s, transform 0.21s;
 }
 
+.card:hover {
+  box-shadow: 0 8px 32px #84d0ff55, 0 6px 22px #b8aaff22;
+  transform: translateY(-2px) scale(1.025);
+}
+
+/* 카드 헤더: 날짜+국가 */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.2em;
 }
 .card .date {
-  font-size: 1.1em;
-  font-weight: 600;
-  color: #1a73e8;
-}
-.card .country {
-  font-size: 1.2em;
-  margin-left: 0.5em;
-}
-.meta {
-  font-size: 0.98em;
-  color: #666;
-  margin-bottom: 0.5em;
-}
-.countdown {
-  margin-top: 0.5em;
   font-size: 1.08em;
   font-weight: 700;
-  color: #8500ff;
+  color: #1886e1;
+}
+.card .country {
+  font-size: 1.1em;
+  margin-left: 0.5em;
 }
 
-/* 버튼 */
+/* 제목, 메타 정보 */
+.card h2 {
+  font-size: 1.23em;
+  font-weight: 800;
+  margin: 0.15em 0 0.15em 0;
+  color: #2b4897;
+}
+.meta {
+  font-size: 1em;
+  color: #4e6b92;
+  margin-bottom: 0.4em;
+}
+
+/* 날짜 카운트다운 */
+.countdown {
+  margin-top: 0.5em;
+  font-size: 1.12em;
+  font-weight: 700;
+  color: #50b0ff;
+}
+
+/* 버튼 그룹 */
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
   justify-content: flex-start;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
 }
+
 .button-row .reveal-btn,
 .button-row .details-btn {
-  font-size: 1rem;
-  padding: 0.55rem 1.3rem;
-  border-radius: 1.1rem;
-  white-space: nowrap;
-}
-.reveal-btn {
+  font-size: 0.98em;
+  padding: 0.5em 1.3em;
+  border-radius: 1.1em;
   font-weight: 700;
   border: none;
-  background: linear-gradient(90deg, #00c8ff93 0%, #0073ff8c 100%);
-  color: #fff;
-  box-shadow: 0 1px 5px rgba(0, 123, 255, 0.13);
-  cursor: pointer;
-  transition: background 0.18s, color 0.13s, box-shadow 0.18s;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.12s, box-shadow 0.18s;
+  box-shadow: 0 1px 3px #8ccaff22;
+}
+
+/* 버튼 기본/상호작용 */
+.reveal-btn {
+  background: linear-gradient(90deg, #a3ecff 0%, #8bdaff 100%);
+  color: #1956a8;
+  border: 1.5px solid #4bcaff;
+}
+.reveal-btn:hover {
+  background: #cae8fd;
+  color: #064d98;
 }
 .details-btn {
-  background: transparent;
-  color: #1877f2;
-  border: 2px solid #90caff;
-  font-weight: 500;
-  font-size: 0.98rem;
-  cursor: pointer;
-  box-shadow: none;
-  transition: background 0.15s, color 0.15s, box-shadow 0.18s;
-  text-decoration: none;
-  display: inline-block;
+  background: #f5f8ff;
+  color: #366bb1;
+  border: 1.5px solid #b0ccf7;
 }
 .details-btn:hover,
 .details-btn:focus {
-  background: #e6f0ff;
-  color: #0056b3;
-  box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
+  background: #d4e7ff;
+  color: #006ed7;
+  box-shadow: 0 0 6px #99ccff55;
 }
 
-/* ========== RESPONSIVE ========== */
+/* 반응형 */
 @media (max-width: 700px) {
   .event-list {
     gap: 0.7rem;
     padding: 1.2rem 0.2rem 2rem 0.2rem;
   }
   .card {
-    max-width: 96vw;
+    max-width: 98vw;
     min-width: 0;
     padding: 1.2rem 0.8rem 1rem 0.8rem;
   }
