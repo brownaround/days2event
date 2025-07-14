@@ -41,3 +41,23 @@
 </div>
 {% endblock %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.region-tabs .tab');
+  const cards = document.querySelectorAll('.event-list .card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const region = this.textContent.trim();
+      cards.forEach(card => {
+        if (region === 'All' || card.getAttribute('data-region') === region) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>

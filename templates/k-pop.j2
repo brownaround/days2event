@@ -39,3 +39,27 @@
   {% endfor %}
 </div>
 {% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.artist-tabs .tab');
+  const cards = document.querySelectorAll('.event-list .card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      // 탭 활성화 표시
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      // 버튼의 아티스트 이름 추출 (All 포함)
+      const artist = this.textContent.trim();
+      cards.forEach(card => {
+        // All 클릭 시 모두 표시, 아니면 해당 아티스트만 표시
+        if (artist === 'All' || card.getAttribute('data-artist') === artist) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
