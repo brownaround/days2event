@@ -73,24 +73,48 @@
     btn.innerHTML = '⏳ ' + days + ' days left!';
   }
 
-  // Artist, Region Tab 필터 기능
+  // Artist 탭 필터
   document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.artist-tabs .tab');
     const cards = document.querySelectorAll('.event-list .card');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-        tabs.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        const artist = this.getAttribute('data-artist');
-        cards.forEach(card => {
-          if (artist === 'All' || card.getAttribute('data-artist') === artist) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
+    if (tabs.length > 0) {  // artist-tabs가 있는 경우에만 실행
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          const artist = this.getAttribute('data-artist');
+          cards.forEach(card => {
+            if (artist === 'All' || card.getAttribute('data-artist') === artist) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
         });
       });
-    });
+    }
+  });
+
+  // Region 탭 필터
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.region-tabs .tab');
+    const cards = document.querySelectorAll('.event-list .card');
+    if (tabs.length > 0) {  // region-tabs가 있는 경우에만 실행
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          const region = this.getAttribute('data-region');
+          cards.forEach(card => {
+            if (region === 'All' || card.getAttribute('data-region') === region) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
   });
 </script>
 </body>

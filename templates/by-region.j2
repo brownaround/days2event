@@ -13,9 +13,9 @@
 
 {% block content %}
 <div class="tabs region-tabs">
-  <button class="tab active" data-artist="All">All</button>
-  {% for artist in unique_regions %}
-    <button class="tab" data-artist="{{ region }}">{{ artist }}</button>
+  <button class="tab active" data-region="All">All</button>
+  {% for region in unique_regions %}
+    <button class="tab" data-region="{{ region }}">{{ region }}</button>
   {% endfor %}
 </div>
 <div class="event-list">
