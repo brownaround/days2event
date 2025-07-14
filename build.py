@@ -36,14 +36,15 @@ def format_date(row):
 
 def main():
     ensure_output_dir()
-    env = get_jinja_env()  # 반드시 먼저 정의!
+    env = get_jinja_env()
+
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
     df['Start Date'] = pd.to_datetime(df['Start Date'])
     df['End Date'] = pd.to_datetime(df['End Date'])
     df['date_display'] = df.apply(format_date, axis=1)
     df = df.sort_values('Start Date')
-
+    
     # 국가 이모지 매핑
     country_emoji_map = {
         "USA": "🇺🇸",
