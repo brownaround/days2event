@@ -15,7 +15,7 @@ body, html {
   top: 0;
   z-index: 999;
   height: auto;
-  min-height: 50px;
+  min-height: 35px;
   display: flex;
   align-items: center;
 }
