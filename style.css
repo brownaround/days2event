@@ -10,11 +10,13 @@ body, html {
 /* === 네비게이션 === */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
-  padding-left: 16px;
-  padding-right: 28px;
+  padding: 1.5rem 1.5rem; /* 위아래 패딩 좀 더 늘림 */
   position: sticky;
   top: 0;
   z-index: 999;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
 }
 .nav-container {
   max-width: 1200px;
@@ -22,14 +24,16 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1.5rem; /* 좌우 1.5rem 여백 추가 */
+  padding: 0 1rem; /* 좌우 공간 확보 */
+  width: 100%;
 }
 .logo {
   font-weight: 700;
   font-size: 1.6rem;
   color: white;
   text-decoration: none;
-  margin-left: 1rem; /* 왼쪽 여백 추가 */
+  margin-left: -1rem; /* 왼쪽 여백 제거 */
+  padding-left: 0; /* 혹은 필요시 */
 }
 .nav-links {
   list-style: none;
@@ -38,6 +42,10 @@ body, html {
   display: flex;
   gap: 1rem;
   flex-grow: 0; /* 너무 퍼지지 않도록 제한 */
+}
+
+.navbar, .nav-container, .logo, .nav-links {
+  line-height: 1.5;
 }
 
 /* 데스크탑 네비 */
