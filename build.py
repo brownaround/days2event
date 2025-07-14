@@ -36,6 +36,7 @@ def format_date(row):
 
 def main():
     ensure_output_dir()
+    env = get_jinja_env()  # 반드시 먼저 정의!
     df = pd.read_csv("events.csv")
     df.columns = df.columns.str.strip()
     df['Start Date'] = pd.to_datetime(df['Start Date'])
