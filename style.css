@@ -22,21 +22,22 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1.5rem; /* 좌우 1.5rem 여백 추가 */
 }
 .logo {
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: white;
   text-decoration: none;
-  margin-left: 20px;
-  margin-right: 40px;
+  margin-left: 1rem; /* 왼쪽 여백 추가 */
 }
 .nav-links {
-  display: flex;
-  gap: 0.65rem;
   list-style: none;
-  padding: 0;
+  padding-left: 0;
   margin: 0;
+  display: flex;
+  gap: 1rem;
+  flex-grow: 0; /* 너무 퍼지지 않도록 제한 */
 }
 
 /* 데스크탑 네비 */
