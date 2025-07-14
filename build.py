@@ -110,7 +110,7 @@ def main():
         os.path.join("site", "pop.html"),
         events=df[df["Category"] == "POP"].to_dict(orient="records"),
         category="POP",
-        unique_artists=unique_artists,
+        unique_artists = sorted(df[df["Category"] == "POP"]["Artist"].dropna().unique())
     )
 
     # K-POP 페이지 필터링
@@ -121,7 +121,7 @@ def main():
         os.path.join("site", "k-pop.html"),
         events=df[df["Category"] == "K-POP"].to_dict(orient="records"),
         category="K-POP",
-        unique_artists=unique_artists,
+        unique_artists = sorted(df[df["Category"] == "K-POP"]["Artist"].dropna().unique())
     )
     
     # by-region 페이지 필터링
@@ -132,7 +132,7 @@ def main():
         os.path.join("site", "by-region.html"),
         events=df.to_dict(orient="records"),
         category="Region",
-        unique_regions=unique_regions,
+        unique_regions = sorted(df["Region"].dropna().unique())
     )
 
 def render_template(env, template_name, output_path, **context):

@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="subfilter">
-  <button class="subfilter-btn active" data-filter="All">All</button>
+<div class="artist-tabs">
+  <button class="tab active">All</button>
   {% for artist in unique_artists %}
-    <button class="subfilter-btn" data-filter="{{ artist }}">{{ artist }}</button>
+    <button class="tab">{{ artist }}</button>
   {% endfor %}
 </div>
 <div class="event-list">
