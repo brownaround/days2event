@@ -12,9 +12,9 @@
 
 {% block content %}
 <div class="tabs artist-tabs">
-  <button class="tab active">All</button>
+  <button class="tab active" data-artist="All">All</button>
   {% for artist in unique_artists %}
-    <button class="tab">{{ artist }}</button>
+    <button class="tab" data-artist="{{ artist }}">{{ artist }}</button>
   {% endfor %}
 </div>
 <div class="event-list">
