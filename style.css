@@ -10,7 +10,8 @@ body, html {
 /* === 네비게이션 === */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
-  padding: 1rem;
+  padding-left: 16px;
+  padding-right: 28px;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -27,7 +28,8 @@ body, html {
   font-size: 1.8rem;
   color: white;
   text-decoration: none;
-  margin-right: 50px; 
+  margin-left: 20px;
+  margin-right: 40px;
 }
 .nav-links {
   display: flex;
@@ -56,40 +58,70 @@ body, html {
   }
 }
 
-/* 모바일 네비 */
-.hamburger { /* ...생략... */ }
+/* 모바일 네비게이션 햄버거 버튼 */
+.hamburger {
+  display: none;               /* 데스크탑에서는 숨김 */
+  background: none !important;
+  border: none !important;
+  color: white;                /* 흰색 */
+  cursor: pointer;
+  font-size: 2.8rem;           /* 크기 키움 (기존 2.2rem에서 크게) */
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+/* 850px 이하 화면에서 햄버거 보이기 */
 @media (max-width: 850px) {
-  .hamburger { display: block; /* ...생략... */ }
+  .hamburger {
+    display: block;
+  }
+
+  /* 모바일 메뉴 박스 스타일 */
   .nav-links {
     flex-direction: column;
     position: absolute;
     top: 70px;
     right: 10px;
     width: 220px;
-    background: #1e1e1e;
+    background-color: #1e1e1e;
     border-radius: 0.8rem;
     box-shadow: 0 6px 20px #0ff7;
     padding: 1.2rem 0;
-    display: none;
+    display: none;              /* 기본은 숨김, show 클래스 붙으면 보임 */
     z-index: 1200;
     gap: 1.2rem;
+    font-size: 1.2rem;
   }
-  .nav-links.show { display: flex; }
+
+  /* 모바일 메뉴가 열렸을 때 */
+  .nav-links.show {
+    display: flex;
+  }
+
+  /* 모바일 메뉴 내 링크 스타일 */
   .nav-links li a {
     color: white;
     padding: 0.9rem 1.6rem;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
     border-radius: 0.8rem;
     text-decoration: none;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
   }
-  .nav-links li a:hover { background: rgba(255,255,255,0.12); color: #0ff; }
+  .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #0ff;
+  }
 }
 
 /* === 히어로 영역 === */
 .hero {
   text-align: center;
-  padding: 5rem 1rem;
+  padding: 3.5rem 1rem;
   background: linear-gradient(135deg,#00f7ff,#8500ff);
   color: white;
 }
@@ -101,7 +133,7 @@ body, html {
 }
 .hero p {
   margin: 0 0 0.5rem 0;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 600;
 }
 .hero p:last-child { margin-bottom: 2rem; }
