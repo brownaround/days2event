@@ -90,7 +90,10 @@ def main():
 
     # 카테고리별 페이지
     for key, cat in categories.items():
-        filtered = df[df["Category"] == cat]
+        if key == "by-region":
+            filtered = df[df["Region"].notnull() & (df["Region"] != "")]
+        else:
+            filtered = df[df["Category"] == cat]
         render_template(
             env,
             f"{key}.j2",
