@@ -188,15 +188,15 @@ body, html {
   max-width: 320px;
 }
 
-/* 이벤트 카드: 고정 너비, 가운데 정렬 */
+/* Event Card 카드: 고정 너비, 가운데 정렬 */
 .event-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  max-width: 1020px;    /* 320px x 3 + gap */
+  max-width: 1100px; /* 320*3 + gap 고려 */
   margin: 0 auto;
-  gap: 2rem 2rem;  /* 세로/가로 모두 넉넉한 여백 */
+  gap: 2.5rem 2.5rem;  /* 세로/가로 모두 넉넉한 여백 */
   justify-content: start;
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   width: 100%;
   background: #f3f7fa;
 }
@@ -248,7 +248,7 @@ body, html {
 
 /* 제목 */
 .card h2 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 800;
   margin: 0 0 0.3em 0;
   color: #1662d7;
