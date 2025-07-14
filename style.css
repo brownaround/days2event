@@ -211,7 +211,7 @@ body, html {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.2em;
+  gap: 1em;
   color: #1b3557;
   border: 1.3px solid #e3ecf7;
   transition: box-shadow 0.18s, transform 0.19s;
@@ -257,9 +257,10 @@ body, html {
 
 /* 날짜, 도시, 국가 */
 .meta {
-  font-size: 1.2em;
+  font-family: inherit;
+  font-size: 1.15em;
   color: #0f2b44;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.3em;
 }
 
 /* How many days left 버튼 */
@@ -271,6 +272,7 @@ body, html {
   color: #0074bb;
   border: 1.5px solid #b0dfff;
   border-radius: 1em;
+  font-family: inherit;
   font-size: 0.9em;
   font-weight: 700;
   padding: 0.53em 1.15em;
@@ -292,6 +294,7 @@ body, html {
   border: 1.6px solid #cbe9ff;
   border-radius: 1em;
   padding: 0.52em 1.2em;
+  font-family: inherit;
   font-size: 0.9em;
   font-weight: 700;
   text-decoration: none;
