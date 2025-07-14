@@ -194,9 +194,9 @@ body, html {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   max-width: 1200px; /* 320*3 + gap 고려 */
   margin: 0 auto;
-  gap: 2rem 3rem;  /* 세로/가로 모두 넉넉한 여백 */
+  gap: 2rem 2.5rem;  /* 세로/가로 모두 넉넉한 여백 */
   justify-content: start;
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   width: 100%;
   background: #f3f7fa;
 }
