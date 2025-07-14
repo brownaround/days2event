@@ -72,6 +72,30 @@
     btn.style.opacity = '0.7';
     btn.innerHTML = '⏳ ' + days + ' days left!';
   }
+
+  // =============== [추가: Subfilter(서브카테고리) 필터 기능] ================
+  document.addEventListener("DOMContentLoaded", function() {
+    const filterBtns = document.querySelectorAll('.subfilter-btn');
+    const cards = document.querySelectorAll('.card');
+    // artist/region 자동 감지
+    let filterAttr = "data-artist";
+    if (cards.length && cards[0].hasAttribute("data-region")) filterAttr = "data-region";
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (filter === "All" || card.getAttribute(filterAttr) === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
 </script>
 </body>
 </html>

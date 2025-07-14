@@ -12,10 +12,16 @@
 
 
 {% block content %}
+<div class="subfilter">
+  <button class="subfilter-btn active" data-filter="All">All</button>
+  {% for artist in unique_artists %}
+    <button class="subfilter-btn" data-filter="{{ artist }}">{{ artist }}</button>
+  {% endfor %}
+</div>
 <div class="event-list">
   {% for event in events %}
     {% if event['Start Date'].date() >= now().date() %}
-      <div class="card">
+      <div class="card" data-region="{{ event['Region'] }}">
         <h2>{{ event['Event Name'] }}</h2>
         <div class="meta">
           {{ event['date_display'] }} ｜ {{ event['City'] }}, {{ event['country_emoji'] }}
@@ -34,5 +40,4 @@
   {% endfor %}
 </div>
 {% endblock %}
-
 

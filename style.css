@@ -246,6 +246,33 @@ body, html {
   }
 }
 
+/* 서브필터 */
+.subfilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.subfilter-btn {
+  background: #f7fbff;
+  border: 1.7px solid #c3dafe;
+  color: #2272d0;
+  font-size: 1.03rem;
+  font-weight: 600;
+  border-radius: 1.1em;
+  padding: 0.55em 1.5em;
+  cursor: pointer;
+  transition: background 0.16s, color 0.14s, border 0.18s;
+  outline: none;
+}
+.subfilter-btn.active,
+.subfilter-btn:focus {
+  background: #2272d0;
+  color: #fff;
+  border-color: #0057b7;
+}
+
 /* 제목 */
 .card h2 {
   font-size: 1.7rem;
