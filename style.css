@@ -260,9 +260,9 @@ body, html {
   background: none;
   border: none;
   outline: none;
-  padding: 14px 0;        /* 세로 여백도 살짝 늘림 */
-  font-size: 1.4rem;      /* 크기 업! (원래 1.08rem) */
-  font-weight: 700;       /* 굵게! */
+  padding: 14px 0;        
+  font-size: 1.2rem;      
+  font-weight: 600;
   font-family: var(--h1-font, 'Pretendard', 'Inter', 'Segoe UI', sans-serif);
   color: #333;
   cursor: pointer;
