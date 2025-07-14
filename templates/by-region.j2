@@ -10,28 +10,29 @@
 </header>
 {% endblock %}
 
+
 {% block content %}
 <div class="event-list">
   {% for event in events %}
-  <div class="card">
-    <div class="card-header">
-      <span class="date">{{ event['date_display'] }}</span>
-      <span class="country">{{ event['country_emoji'] }}</span>
-    </div>
-    <h2>{{ event['Event Name'] }}</h2>
-    <div class="meta">
-      <span>{{ event['City'] }}</span> |
-      <span>{{ event['Category'] }}</span>
-    </div>
-    {% if event['Official Site'] %}
-      <div><a href="{{ event['Official Site'] }}" target="_blank">공식 사이트 ↗</a></div>
+    {% if event['Start Date'].date() >= now().date() %}
+      <div class="card">
+        <h2>{{ event['Event Name'] }}</h2>
+        <div class="meta">
+          {{ event['date_display'] }} ｜ {{ event['City'] }}, {{ event['country_emoji'] }}
+        </div>
+        <div style="margin: 1em 0;"></div>
+        <div class="button-row">
+          <button class="days-left-btn" onclick="showDaysLeft(this, {{ (event['Start Date'].date() - now().date()).days }})">⏳ How many days left?</button>
+        </div>
+        <div class="button-row">
+          {% if event['Official Site'] %}
+            <a class="official-site-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
+          {% endif %}
+        </div>
+      </div>
     {% endif %}
-    <div class="countdown">
-      {% if event['Start Date'].date() >= now().date() %}
-        {{ (event['Start Date'].date() - now().date()).days }} days left!
-      {% endif %}
-    </div>
-  </div>
   {% endfor %}
 </div>
 {% endblock %}
+
+

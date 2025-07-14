@@ -197,6 +197,17 @@ body, html {
 }
 
 /* 카드: 고정 너비, 가운데 정렬 */
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  max-width: 1020px;
+  margin: 0 auto;
+  gap: 2rem 1.5rem;
+  justify-content: center;
+  padding: 2rem 0;
+  background: #f3f7fa;
+}
+
 .card {
   width: 320px;
   max-width: 100%;
@@ -220,10 +231,9 @@ body, html {
   z-index: 2;
 }
 
-/* 모바일: 한 줄에 1개, padding 조정 */
 @media (max-width: 1050px) {
   .event-list {
-    max-width: 680px; /* 320px x 2 + gap */
+    max-width: 680px;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
 }
@@ -241,6 +251,7 @@ body, html {
     padding: 1.2rem 0.8rem 1rem 0.8rem;
   }
 }
+
 
 /* 제목 */
 .card h2 {
