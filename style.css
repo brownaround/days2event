@@ -83,7 +83,7 @@ body, html {
     top: 70px;
     right: 10px;
     width: 220px;
-    background-color: rgba(30, 30, 30, 0.95);
+    background-color: rgba(30, 30, 30);
     border-radius: 0.8rem;
     box-shadow: 0 6px 20px #0ff7;
     padding: 1.2rem 0;
@@ -188,28 +188,15 @@ body, html {
   max-width: 320px;
 }
 
-/* Event Card */
+/* 이벤트 카드: 고정 너비, 가운데 정렬 */
 .event-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  /* 320px 고정폭, 화면에 따라 최대 3개 */
   max-width: 1020px;    /* 320px x 3 + gap */
   margin: 0 auto;
-  gap: 2rem 1.5rem;
-  justify-content: center;  /* 항상 가운데 정렬 */
-  padding: 2rem 0;
-  background: #f3f7fa;
-}
-
-/* 카드: 고정 너비, 가운데 정렬 */
-.event-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  max-width: 1100px; /* 320*3 + gap 고려 */
-  margin: 0 auto;
-  gap: 2.5rem 2.5rem;  /* 세로/가로 모두 넉넉한 여백 */
+  gap: 2rem 2rem;  /* 세로/가로 모두 넉넉한 여백 */
   justify-content: start;
-  padding: 2.5rem 0;
+  padding: 2rem 0;
   width: 100%;
   background: #f3f7fa;
 }
@@ -218,7 +205,7 @@ body, html {
   max-width: 100%;
   min-width: 0;
   background: #fff;
-  border-radius: 1.7em;
+  border-radius: 1.5em;
   box-shadow: 0 8px 32px 0 #b6e2ff30, 0 2px 8px #d2e8ff10;
   padding: 2.1em 1.5em 1.7em 1.5em;
   margin: 0;        /* 반드시 margin: 0! */
