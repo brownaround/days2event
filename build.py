@@ -12,7 +12,9 @@ def get_jinja_env():
         autoescape=jinja2.select_autoescape(["html", "xml", "j2"])
     )
     env.filters['strftime'] = format_date_filter
+    env.globals['now'] = datetime.now
     return env
+
 
 def format_date_filter(value, format='%Y-%m-%d'):
     if value is None:
@@ -72,29 +74,34 @@ def main():
         "pop": "POP",
         "k-pop": "K-POP",
         "pride": "PRIDE",
-        "by-region": "By Region",
+        "by-region": "By Region"
     }
 
-    env = get_jinja_env()
+    # Index (모든 이벤트)
+    render_template(
+        env,
+        "index.j2",
+        os.path.join("site", "index.html"),
+        events=df.to_dict(orient="records"),
+        category="All"
+    )
 
-    # build category pages
-    for fname, category in categories.items():
-        events = df[df['Category'] == category].to_dict(orient="records")
-        template = env.get_template(f"{fname}.j2")
-        with open(f"site/{fname}.html", "w", encoding="utf-8") as f:
-            f.write(template.render(events=events))
+    # 카테고리별 페이지
+    for key, cat in categories.items():
+        filtered = df[df["Category"] == cat]
+        render_template(
+            env,
+            f"{key}.j2",
+            os.path.join("site", f"{key}.html"),
+            events=filtered.to_dict(orient="records"),
+            category=cat,
+        )
 
-    # build main index page with all events
-    template = env.get_template("index.j2")
-    with open("site/index.html", "w", encoding="utf-8") as f:
-        f.write(template.render(events=df.to_dict(orient="records")))
-
-    # style.css 복사
-    if os.path.exists("style.css"):
-        with open("style.css", "rb") as fsrc, open("site/style.css", "wb") as fdst:
-            fdst.write(fsrc.read())
-
-    print("Build completed!")
+def render_template(env, template_name, output_path, **context):
+    template = env.get_template(template_name)
+    html = template.render(**context)
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(html)
 
 if __name__ == "__main__":
     main()
