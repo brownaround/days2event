@@ -132,7 +132,7 @@ body, html {
   font-weight: 600;
 }
 .hero p:last-child {
-  margin-bottom: 0;   /* 마지막 p는 아래쪽 간격 제거 */
+  margin-bottom: 2rem;  
 }
 
 .hero-browse-btn {
@@ -248,7 +248,7 @@ body, html {
 
 /* 제목 */
 .card h2 {
-  font-size: 1.65rem;
+  font-size: 1.7rem;
   font-weight: 800;
   margin: 0 0 0.3em 0;
   color: #1662d7;
@@ -258,8 +258,8 @@ body, html {
 /* 날짜, 도시, 국가 */
 .meta {
   font-family: inherit;
-  font-size: 1.15em;
-  color: #0f2b44;
+  font-size: 1.1em;
+  color: #0d3e86;
   margin-bottom: 0.3em;
 }
 
