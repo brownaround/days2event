@@ -122,15 +122,19 @@ body, html {
 .hero h1 {
   font-size: 3rem;
   font-weight: 900;
-  margin-bottom: 0.4rem;
+  margin-bottom: 2.2rem;  /* H1과 첫 번째 p 사이 간격 넓게 */
   letter-spacing: 0.04em;
 }
 .hero p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;  /* p~p(설명줄) 간격 좁게 */
   font-size: 1.3rem;
   font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 1.6rem;
 }
+.hero p:last-child {
+  margin-bottom: 0;   /* 마지막 p는 아래쪽 간격 제거 */
+}
+
 .hero-browse-btn {
   margin: 2rem auto 0 auto;
   display: flex;
@@ -200,55 +204,59 @@ body, html {
 .event-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  max-width: 1020px;
+  max-width: 1050px;
   margin: 0 auto;
-  gap: 2rem 1.5rem;
-  justify-content: center;
-  padding: 2rem 0;
+  gap: 2.2rem 2.2rem;
+  /* 카드가 1~2개일 때도 항상 왼쪽 정렬! */
+  justify-content: start;
+  padding: 2.5rem 0;
   background: #f3f7fa;
 }
 
 .card {
   width: 320px;
   max-width: 100%;
+  min-width: 0;
   background: #fff;
-  border-radius: 1.5em;
-  box-shadow: 0 4px 24px #e4edff, 0 2px 8px #b0d7ff1a;
-  padding: 1.6em 1.2em 1.3em 1.2em;
-  margin: 0 auto;
+  border-radius: 1.6em;
+  box-shadow: 0 8px 32px 0 #7ec7ff25, 0 1.5px 4px #bbdefb10;
+  padding: 1.5em 1.5em 1.5em 1.5em;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.9em;
+  gap: 1em;
   color: #1b3557;
-  border: 1.5px solid #e6eeff;
+  border: 1.2px solid #e3ecf7;
   transition: box-shadow 0.18s, transform 0.19s;
 }
 
 .card:hover,
 .card:focus-within {
-  box-shadow: 0 8px 36px #6ab9ff33, 0 2px 24px #e0eaff1a;
-  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px #81e3ff35, 0 2px 28px #b8daff15;
+  transform: translateY(-3px) scale(1.025);
   z-index: 2;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1100px) {
   .event-list {
-    max-width: 680px;
+    max-width: 700px;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.4rem 1rem;
   }
 }
+
 @media (max-width: 700px) {
   .event-list {
-    max-width: 96vw;
-    padding: 1.2rem 0.1rem 2rem 0.1rem;
+    max-width: 99vw;
     grid-template-columns: 1fr;
+    padding: 1.2rem 0.1rem 2rem 0.1rem;
     gap: 1rem 0.5rem;
   }
   .card {
     width: 98vw;
     max-width: 98vw;
     min-width: 0;
-    padding: 1.2rem 0.8rem 1rem 0.8rem;
+    padding: 1.1rem 0.7rem 1rem 0.7rem;
   }
 }
 
