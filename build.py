@@ -44,7 +44,7 @@ def main():
     df['End Date'] = pd.to_datetime(df['End Date'])
     df['date_display'] = df.apply(format_date, axis=1)
     df = df.sort_values('Start Date')
-    
+
     # 국가 이모지 매핑
     country_emoji_map = {
         "USA": "🇺🇸",
@@ -107,3 +107,5 @@ def render_template(env, template_name, output_path, **context):
 
 if __name__ == "__main__":
     main()
+    import shutil
+    shutil.copy("style.css", "site/style.css")
