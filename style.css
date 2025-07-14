@@ -6,7 +6,7 @@ body, html {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* 네비게이션 바 전체 스타일 */
+/* ========== NAVIGATION BAR ========== */
 .navbar {
   background: linear-gradient(135deg, #00f7ff, #8500ff);
   padding: 1rem 1rem;
@@ -15,7 +15,6 @@ body, html {
   z-index: 999;
 }
 
-/* 네비게이션 컨테이너 */
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -24,7 +23,6 @@ body, html {
   align-items: center;
 }
 
-/* 로고 스타일 */
 .logo {
   font-weight: 700;
   font-size: 1.6rem;
@@ -37,14 +35,14 @@ body, html {
   padding-left: 0;
   margin: 0;
   display: flex;
-  gap: 0.1rem; /* 메뉴 아이템 간격 일정하게 */
+  gap: 1rem;
 }
 
-/* 데스크톱(851px 이상) 스타일 */
+/* Desktop nav */
 @media (min-width: 851px) {
   .nav-links {
     flex-direction: row;
-    gap: 1rem; /* 동일한 간격 유지 */
+    gap: 1rem;
   }
   .nav-links li a {
     color: white;
@@ -53,7 +51,7 @@ body, html {
     font-size: 1.2rem;
     padding: 0.3rem 1rem;
     border-radius: 0.8rem;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s, color 0.15s;
   }
   .nav-links li a:hover,
   .nav-links li a.active {
@@ -63,51 +61,11 @@ body, html {
   }
 }
 
-/* 모바일(850px 이하) 스타일 */
-@media (max-width: 850px) {
-  .nav-links {
-    flex-direction: column;
-    gap: 1rem; /* 동일한 간격 유지 */
-    position: absolute;
-    top: 70px;
-    right: 10px;
-    width: 220px;
-    background-color: rgba(30, 30, 30, 1);
-    border-radius: 0.8rem;
-    box-shadow: 0 6px 20px #0ff7;
-    padding: 1.2rem 0;
-    display: none;
-    z-index: 1200;
-    font-size: 1.2rem;
-  }
-  .nav-links.show {
-    display: flex;
-  }
-  .nav-links li a {
-    color: white;
-    padding: 0.9rem 1.6rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    border-radius: 0.8rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  .nav-links li a:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    color: #0ff;
-  }
-}
-
-
-/* 햄버거 메뉴 아이콘 스타일 */
-
+/* Mobile nav */
 .hamburger {
-  display: none; /* 기본은 숨김 */
+  display: none;
   background: none !important;
   border: none !important;
-  box-shadow: none !important;
   color: white !important;
   cursor: pointer;
   font-size: 2.2rem;
@@ -115,24 +73,12 @@ body, html {
   padding: 0;
   margin: 0;
 }
-
-/*.hamburger:hover {
-  color: white !important;
-  background: none !important; 
-}*/
-
-@media (max-width: 850px) {
-  .hamburger {
-    display: block; /* 모바일에서만 보임 */
-  }
-}
-
-/* 모바일 전용 스타일 (850px 이하) */
 @media (max-width: 850px) {
   .hamburger {
     display: block;
   }
   .nav-links {
+    flex-direction: column;
     position: absolute;
     top: 70px;
     right: 10px;
@@ -144,7 +90,6 @@ body, html {
     display: none;
     z-index: 1200;
     font-size: 1.2rem;
-    flex-direction: column;
     gap: 1.2rem;
   }
   .nav-links.show {
@@ -159,7 +104,7 @@ body, html {
     gap: 0.8rem;
     border-radius: 0.8rem;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
   }
   .nav-links li a:hover {
     background-color: rgba(255, 255, 255, 0.12);
@@ -167,7 +112,7 @@ body, html {
   }
 }
 
-/* hero */
+/* ========== HERO SECTION ========== */
 .hero {
   text-align: center;
   padding: 5rem 1rem;
@@ -186,8 +131,6 @@ body, html {
   margin-top: 0;
   margin-bottom: 1.6rem;
 }
-
-/* Browse Events 버튼 */
 .hero-browse-btn {
   margin: 2rem auto 0 auto;
   display: flex;
@@ -203,7 +146,7 @@ body, html {
   cursor: pointer;
   box-shadow: 0 5px 10px #0ff7;
   border: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -214,96 +157,91 @@ body, html {
 .hero-browse-btn .arrow {
   font-size: 1.3em;
 }
-
-/* 검색창 */
 .hero-search {
   display: flex;
-  justify-content: center; /* 검색창 중앙 정렬 */
+  justify-content: center;
   max-width: 320px;
   min-width: 320px;
-  margin-left: 10px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
-  margin-top: 1.2rem; /* 위 여백 유지 */
-  margin-bottom: 1.2rem; /* 아래 여백 유지 */
+  margin-left: 10px;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
   padding: 0 1.2rem;
   box-sizing: border-box;
 }
-
 .hero-search input {
-  width: 300px; /* 기본보다 약간 작게 */
-  max-width: 90vw; /* 반응형 고려 */
+  width: 300px;
+  max-width: 90vw;
   padding: 0.5rem 1rem;
-  font-size: 0.95rem; /* 글자 크기도 약간 줄임 */
+  font-size: 0.95rem;
   border-radius: 1.2rem;
   border: 2px solid #1a73e8;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s;
 }
-
 .hero-search input:focus {
   border-color: #0b47c1;
   width: 90%;
   max-width: 320px;
 }
 
-/* 카드 전체 컨테이너 */
-
-main.events {
-  display: flex;
-  justify-content: center;  /* 카드 중앙 정렬 */
-  flex-wrap: wrap;          /* 여러 줄로 자동 줄바꿈 */
-  gap: 1.5rem;              /* 카드 간 간격 */
-  padding: 2rem 0;          /* 위아래 여백 */
-}
-
-.events {
+/* ========== EVENT CARD (카드/리스트/버튼) ========== */
+.event-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.5rem 2.2rem;  /* 카드 사이 여백 적당히 */
-  justify-content: flex-start; /* 왼쪽 정렬 */
-  align-items: stretch;
-  margin-top: 2rem;
-  max-width: 1100px;
-  /* 필요에 따라 width: 100% 또는 padding 추가 */
+  gap: 1.2em;
+  justify-content: center;
+  padding: 2rem 0;
 }
 
-.events {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center; /* 카드 중앙 정렬 */
-}
-
-.cards-container {
-  display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  flex-wrap: wrap;         /* 여러 줄로 넘어갈 때 줄 바꿈 */
-  gap: 1.5rem;             /* 카드 간 간격 */
-  padding: 2rem 0;         /* 상하 여백 */
-}
-.event-card {
+.card {
+  border-radius: 1em;
+  box-shadow: 0 2px 8px #0002;
+  padding: 1em;
+  margin: 1em 0;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  width: 320px;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-.event-card.selected {
-  background-color: #d0e8ff; /* 연한 파란색 */
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-  transition: background-color 0.3s ease;
+  max-width: 420px;
+  min-width: 280px;
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
 }
 
-/* 카드 버튼 */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4em;
+}
+.card .date {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #1a73e8;
+}
+.card .country {
+  font-size: 1.2em;
+  margin-left: 0.5em;
+}
+.meta {
+  font-size: 0.98em;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+.countdown {
+  margin-top: 0.5em;
+  font-size: 1.08em;
+  font-weight: 700;
+  color: #8500ff;
+}
 
+/* 버튼 */
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  justify-content: flex-start; /* 버튼은 왼쪽 정렬 */
+  justify-content: flex-start;
   margin-bottom: 0.4rem;
 }
-
 .button-row .reveal-btn,
 .button-row .details-btn {
   font-size: 1rem;
@@ -311,7 +249,6 @@ main.events {
   border-radius: 1.1rem;
   white-space: nowrap;
 }
-
 .reveal-btn {
   font-weight: 700;
   border: none;
@@ -321,7 +258,6 @@ main.events {
   cursor: pointer;
   transition: background 0.18s, color 0.13s, box-shadow 0.18s;
 }
-
 .details-btn {
   background: transparent;
   color: #1877f2;
@@ -334,7 +270,6 @@ main.events {
   text-decoration: none;
   display: inline-block;
 }
-
 .details-btn:hover,
 .details-btn:focus {
   background: #e6f0ff;
@@ -342,13 +277,15 @@ main.events {
   box-shadow: 0 0 3px rgba(0, 123, 255, 0.17);
 }
 
-/* 반응형: 모바일 */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 700px) {
-  main.events {
-    justify-content: center;
-    padding: 0.5rem 0.2rem 2rem 0.2rem;
+  .event-list {
+    gap: 0.7rem;
+    padding: 1.2rem 0.2rem 2rem 0.2rem;
   }
-  .event-card {
-    padding: 1.4rem 0.8rem 1rem 0.8rem;
+  .card {
+    max-width: 96vw;
+    min-width: 0;
+    padding: 1.2rem 0.8rem 1rem 0.8rem;
   }
 }
