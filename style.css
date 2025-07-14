@@ -184,129 +184,120 @@ body, html {
   max-width: 320px;
 }
 
-/* 카드 리스트 컨테이너 */
 .event-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* 320px 고정폭, 화면에 따라 최대 3개 */
+  max-width: 1020px;    /* 320px x 3 + gap */
+  margin: 0 auto;
+  gap: 2rem 1.5rem;
+  justify-content: center;  /* 항상 가운데 정렬 */
   padding: 2rem 0;
   background: #f3f7fa;
 }
 
-/* 개별 카드 */
+/* 카드: 고정 너비, 가운데 정렬 */
 .card {
-  background: linear-gradient(135deg, #e8f6ff 60%, #f2ecff 100%);
+  width: 320px;
+  max-width: 100%;
+  background: #fff;
   border-radius: 1.5em;
-  box-shadow: 0 4px 24px #4cbcff33, 0 2px 8px #9c8bff1a;
-  padding: 1.5em 1.2em 1.3em 1.2em;
-  margin: 0.8em 0;
-  max-width: 380px;
-  min-width: 260px;
-  flex: 1 1 320px;
+  box-shadow: 0 4px 24px #e4edff, 0 2px 8px #b0d7ff1a;
+  padding: 1.6em 1.2em 1.3em 1.2em;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 0.9em;
-  color: #183353;
-  border: 1px solid #cae8fd;
-  transition: box-shadow 0.23s, transform 0.21s;
+  color: #1b3557;
+  border: 1.5px solid #e6eeff;
+  transition: box-shadow 0.18s, transform 0.19s;
 }
 
-.card:hover {
-  box-shadow: 0 8px 32px #84d0ff55, 0 6px 22px #b8aaff22;
-  transform: translateY(-2px) scale(1.025);
+.card:hover,
+.card:focus-within {
+  box-shadow: 0 8px 36px #6ab9ff33, 0 2px 24px #e0eaff1a;
+  transform: translateY(-2px) scale(1.02);
+  z-index: 2;
 }
 
-/* 카드 헤더: 날짜+국가 */
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.2em;
+/* 모바일: 한 줄에 1개, padding 조정 */
+@media (max-width: 1050px) {
+  .event-list {
+    max-width: 680px; /* 320px x 2 + gap */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
 }
-.card .date {
-  font-size: 1.08em;
-  font-weight: 700;
-  color: #1886e1;
-}
-.card .country {
-  font-size: 1.1em;
-  margin-left: 0.5em;
-}
-
-/* 제목, 메타 정보 */
-.card h2 {
-  font-size: 1.23em;
-  font-weight: 800;
-  margin: 0.15em 0 0.15em 0;
-  color: #2b4897;
-}
-.meta {
-  font-size: 1em;
-  color: #4e6b92;
-  margin-bottom: 0.4em;
-}
-
-/* 날짜 카운트다운 */
-.countdown {
-  margin-top: 0.5em;
-  font-size: 1.12em;
-  font-weight: 700;
-  color: #50b0ff;
-}
-
-/* 버튼 그룹 */
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  justify-content: flex-start;
-  margin-bottom: 0.2rem;
-}
-
-.button-row .reveal-btn,
-.button-row .details-btn {
-  font-size: 0.98em;
-  padding: 0.5em 1.3em;
-  border-radius: 1.1em;
-  font-weight: 700;
-  border: none;
-  white-space: nowrap;
-  transition: background 0.15s, color 0.12s, box-shadow 0.18s;
-  box-shadow: 0 1px 3px #8ccaff22;
-}
-
-/* 버튼 기본/상호작용 */
-.reveal-btn {
-  background: linear-gradient(90deg, #a3ecff 0%, #8bdaff 100%);
-  color: #1956a8;
-  border: 1.5px solid #4bcaff;
-}
-.reveal-btn:hover {
-  background: #cae8fd;
-  color: #064d98;
-}
-.details-btn {
-  background: #f5f8ff;
-  color: #366bb1;
-  border: 1.5px solid #b0ccf7;
-}
-.details-btn:hover,
-.details-btn:focus {
-  background: #d4e7ff;
-  color: #006ed7;
-  box-shadow: 0 0 6px #99ccff55;
-}
-
-/* 반응형 */
 @media (max-width: 700px) {
   .event-list {
-    gap: 0.7rem;
-    padding: 1.2rem 0.2rem 2rem 0.2rem;
+    max-width: 96vw;
+    padding: 1.2rem 0.1rem 2rem 0.1rem;
+    grid-template-columns: 1fr;
+    gap: 1rem 0.5rem;
   }
   .card {
+    width: 98vw;
     max-width: 98vw;
     min-width: 0;
     padding: 1.2rem 0.8rem 1rem 0.8rem;
   }
+}
+
+/* 제목 */
+.card h2 {
+  font-size: 1.25em;
+  font-weight: 800;
+  margin: 0 0 0.5em 0;
+  color: #1662d7;
+  letter-spacing: 0.01em;
+}
+
+/* 날짜, 도시, 국가 */
+.meta {
+  font-size: 1.02em;
+  color: #5082af;
+  margin-bottom: 0.4em;
+}
+
+/* How many days left 버튼 */
+.days-left-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  background: #f5faff;
+  color: #0074bb;
+  border: 1.5px solid #b0dfff;
+  border-radius: 1.3em;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 0.53em 1.15em;
+  cursor: pointer;
+  transition: background 0.16s, color 0.14s, border 0.16s;
+  box-shadow: 0 1px 3px #a0caff11;
+  outline: none;
+}
+.days-left-btn:hover, .days-left-btn:focus {
+  background: #e3f2ff;
+  border-color: #79bbfa;
+  color: #094cb3;
+}
+
+/* Official Site 버튼 - 옅은 파란색 테두리 */
+.official-site-btn {
+  background: #fafdff;
+  color: #2787c7;
+  border: 1.6px solid #cbe9ff;
+  border-radius: 1.2em;
+  padding: 0.52em 1.2em;
+  font-size: 1em;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.16s, border 0.13s, color 0.14s;
+  box-shadow: 0 1px 3px #d2eeff17;
+  margin-top: 0.1em;
+  display: inline-block;
+}
+.official-site-btn:hover, .official-site-btn:focus {
+  background: #e7f3ff;
+  border-color: #92ceff;
+  color: #1662d7;
 }

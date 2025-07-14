@@ -36,17 +36,16 @@
   // 모바일 햄버거 메뉴 토글
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
-
   hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('show');
   });
-
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('show');
     });
   });
 
+  // 검색/스크롤 기능 (기존 코드 유지)
   function scrollToEvents() {
     const eventsSection = document.getElementById('events');
     if (eventsSection) {
@@ -54,62 +53,25 @@
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
-  
   function filterCards() {
     const input = document.getElementById('searchInput');
-    if (!input) return;  // input이 없으면 중단!
+    if (!input) return;
     const filter = input.value.toLowerCase();
-    const cards = document.querySelectorAll('.event-card');
+    const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
       const text = card.textContent.toLowerCase();
       card.style.display = text.includes(filter) ? '' : 'none';
     });
   }
-
-  // Browse Event 스크롤
   window.scrollToEvents = scrollToEvents;
   window.filterCards = filterCards;
 
-  // 버튼/카드 관련 코드
-document.addEventListener('DOMContentLoaded', () => {
-  // 카드 선택 시 파스텔 파란 배경 효과를 위한 selected 클래스 토글
-  document.querySelectorAll('.event-card').forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('selected');
-    });
-  });
-
-  // 기존 How many days left? 버튼 클릭 이벤트도 여기 포함 가능
-  document.querySelectorAll('.reveal-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.event-card');
-      if (!card) return;
-      const startDateStr = card.getAttribute('data-start-date');
-      const endDateStr = card.getAttribute('data-end-date');
-      if (!startDateStr || !endDateStr) return;
-
-      const startDate = new Date(startDateStr);
-      const endDate = new Date(endDateStr);
-      const today = new Date();
-
-      const diffDaysStart = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
-      const diffDaysEnd = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
-
-      let message;
-      if (diffDaysStart > 0) {
-        message = `${diffDaysStart} days left!`;
-      } else if (diffDaysStart <= 0 && diffDaysEnd >= 0) {
-        const dayNum = Math.abs(diffDaysStart) + 1;
-        message = `Ongoing! Day ${dayNum}`;
-      } else {
-        message = `Passed 😥`;
-      }
-      btn.textContent = message;
-    });
-  });
-});
-
-
+  // How many days left? 버튼 기능
+  function showDaysLeft(btn, days) {
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btn.innerHTML = '⏳ ' + days + ' days left!';
+  }
 </script>
 </body>
 </html>
