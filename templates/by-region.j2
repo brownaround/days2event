@@ -27,10 +27,8 @@
           {{ event['date_display'] }} ｜ {{ event['City'] }} {{ event['country_emoji'] }}
         </div>
         <div style="margin: 1em 0;"></div>
-        <div class="button-row">
+        <div class="button-container">
           <button class="days-left-btn" onclick="showDaysLeft(this, {{ (event['Start Date'].date() - now().date()).days }})">⏳ How many days left?</button>
-        </div>
-        <div class="button-row">
           {% if event['Official Site'] %}
             <a class="official-site-btn" href="{{ event['Official Site'] }}" target="_blank">Official Site</a>
           {% endif %}
