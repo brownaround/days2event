@@ -71,6 +71,10 @@
     btn.disabled = true;
     btn.style.opacity = '0.7';
     btn.innerHTML = '⏳ ' + days + ' days left!';
+
+    // 기존 버튼 클래스 제거 후 결과용 클래스 추가
+    btn.classList.remove('days-left-btn');
+    btn.classList.add('days-left-result');
   }
 
   // Artist 탭 필터
