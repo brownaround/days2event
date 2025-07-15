@@ -15,10 +15,22 @@ body, html {
   top: 0;
   z-index: 999;
   height: auto;
-  min-height: 30px;
+  min-height: 25px;
   display: flex;
   align-items: center;
 }
+
+/* 모바일 850px 이하에서 메뉴 높이 줄이기 */
+@media (max-width: 850px) {
+  .navbar {
+    min-height: 25px;  /* 모바일에 적당한 높이로 줄임 */
+    padding: 1rem 1rem; /* 패딩도 줄여서 더 슬림하게 */
+  }
+  .nav-container {
+    padding: 0 0.5rem;
+  }
+}
+
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -185,6 +197,15 @@ body, html {
   color: #1b3557; border: 1.3px solid #e3ecf7;
   transition: box-shadow 0.18s, transform 0.19s;
 }
+
+/* 모바일에서 카드 너비를 화면 너비에 맞게 조절 */
+@media (max-width: 700px) {
+  .card {
+    width: 90vw; /* 화면 너비의 90% */
+    min-width: auto; /* 고정 최소 너비 해제 */
+  }
+}
+
 .card:hover,
 .card:focus-within {
   box-shadow: 0 14px 44px #a8e3ff35, 0 4px 32px #b8daff19;
