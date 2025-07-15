@@ -282,9 +282,9 @@ body, html {
   background: #e3f2ff; border-color: #79bbfa; color: #094cb3;
 }
 .days-left-result {
-  color: #41149b;         /* 진한 보라 */
+  color: #39069e;         /* 진한 보라 */
   font-weight: 700;
-  background: #be99f7;    /* 연한 보라 */
+  background: #d9caf0;    /* 연한 보라 */
   border: 1.5px solid #9575cd;
   border-radius: 1em; box-shadow: 0 1px 3px #a0caff11;
   outline: none; text-decoration: none;
