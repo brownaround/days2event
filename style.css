@@ -278,6 +278,18 @@ body, html {
 }
 .days-left-btn:hover, .days-left-btn:focus {
   background: #e3f2ff; border-color: #79bbfa; color: #094cb3;
+
+.days-left-result {
+  color: #5e35b1;         /* 진한 보라 */
+  font-weight: 700;
+  background: #ede7f6;    /* 연한 보라 */
+  border: 1.5px solid #9575cd;
+  border-radius: 1em;
+  padding: 0.53em 1.15em; margin-top: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  }
 }
 .official-site-btn {
   background: #fafdff; color: #2787c7; border: 1.6px solid #cbe9ff; padding: 0.52em 1.2em;
