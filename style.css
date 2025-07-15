@@ -193,7 +193,9 @@ body, html {
   background: #fff; border-radius: 1.5em;
   box-shadow: 0 8px 32px #b6e2ff30, 0 2px 8px #d2e8ff10;
   padding: 2.1em 1.5em 1.7em;
-  display: flex; flex-direction: column; gap: 1em;
+  display: flex; flex-direction: column; gap: 0.6em;
+  justify-content: space-between;  /* 카드 내부 콘텐츠를 위아래로 분리 */
+  height: 100%;                    /* 카드 높이를 부모 컨테이너에 맞춤 */
   color: #1b3557; border: 1.3px solid #e3ecf7;
   transition: box-shadow 0.18s, transform 0.19s;
 }
