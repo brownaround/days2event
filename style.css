@@ -23,11 +23,11 @@ body, html {
 /* 모바일 850px 이하에서 메뉴 높이 줄이기 */
 @media (max-width: 850px) {
   .navbar {
-    min-height: 25px;  /* 모바일에 적당한 높이로 줄임 */
+    min-height: 20px;  /* 모바일에 적당한 높이로 줄임 */
     padding: 1rem 1rem; /* 패딩도 줄여서 더 슬림하게 */
   }
   .nav-container {
-    padding: 0 0.5rem;
+    padding: 0 1rem;
   }
 }
 
